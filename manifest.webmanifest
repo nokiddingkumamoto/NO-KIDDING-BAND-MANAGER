@@ -1,0 +1,16 @@
+{
+  "name": "NO KIDDING BAND MANAGER",
+  "short_name": "NK MANAGER",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#050505",
+  "theme_color": "#050505",
+  "icons": [
+    {
+      "src": "assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
