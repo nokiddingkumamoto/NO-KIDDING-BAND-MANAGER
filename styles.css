@@ -47,3 +47,78 @@ dialog{width:min(92vw,520px);max-height:90vh;overflow:auto;background:#111;color
 .dialog-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}
 @media(min-width:700px){.menu-grid{grid-template-columns:repeat(4,1fr)}}
 .poll-card .row-actions button:nth-child(3){border-color:var(--cyan);color:var(--cyan)}
+
+
+/* Ver.0.5: clearer home roles and more polished punk dashboard */
+.hero{
+  min-height:250px;
+  background:
+    radial-gradient(circle at 88% 18%,rgba(25,200,216,.12),transparent 30%),
+    radial-gradient(circle at 12% 88%,rgba(255,47,125,.13),transparent 35%),
+    #0b0b0b;
+}
+.hero h1{
+  font-size:clamp(30px,8vw,44px);
+  line-height:1.15;
+  letter-spacing:.02em;
+}
+.menu-grid button{
+  position:relative;
+  overflow:hidden;
+  min-height:142px;
+  background-color:#0b0b0b;
+  color:#fff;
+  border-color:currentColor;
+  box-shadow:5px 5px 0 rgba(255,255,255,.18);
+}
+.menu-grid button::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 18% 20%,currentColor 0 1px,transparent 2px),
+    radial-gradient(circle at 75% 65%,currentColor 0 1px,transparent 2px);
+  background-size:23px 27px,31px 35px;
+  opacity:.12;
+}
+.menu-grid button.cyan{color:var(--cyan);border:2px solid var(--cyan)}
+.menu-grid button.pink{color:var(--pink);border:2px solid var(--pink)}
+.menu-grid button.yellow{color:var(--yellow);border:2px solid var(--yellow)}
+.menu-grid button b,.menu-grid button span,.menu-grid button small{position:relative;z-index:1}
+.menu-grid button span{color:#fff}
+.menu-grid button small{
+  display:block;
+  max-width:92%;
+  color:#bbb;
+  font-size:11px;
+  line-height:1.35;
+  font-weight:600;
+}
+.role-guide{
+  display:grid;
+  gap:8px;
+  margin-top:18px;
+}
+.role-guide article{
+  display:grid;
+  gap:5px;
+  padding:13px 14px;
+  background:#0c0c0c;
+  border:1px solid #333;
+  border-left:5px solid var(--cyan);
+  border-radius:10px;
+}
+.role-guide article:nth-child(2){border-left-color:var(--pink)}
+.role-guide b{font-size:15px}
+.role-guide span{color:#aaa;font-size:12px;line-height:1.55}
+.confirmed-note{
+  margin:0 0 12px;
+  padding:10px 12px;
+  color:#bbb;
+  background:#0c0c0c;
+  border:1px dashed #555;
+  border-radius:9px;
+  font-size:12px;
+  line-height:1.55;
+}

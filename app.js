@@ -77,7 +77,7 @@ function renderHome(){
   }else{
     $("nextType").textContent="NEXT EVENT";
     $("nextTitle").textContent="予定を登録してください";
-    $("nextMeta").textContent="スケジュール画面から追加できます。";
+    $("nextMeta").textContent="確定スケジュールまたは日程調整から追加できます。";
     $("countdown").textContent="LET'S GO!";
   }
   $("scheduleCount").textContent=state.schedules.length;
@@ -117,7 +117,7 @@ function renderAll(){renderHome();renderSchedules();renderPolls()}
 renderAll();
 
 $("addSchedule").onclick=()=>{
-  $("scheduleForm").reset();$("scheduleId").value="";$("scheduleDialogTitle").textContent="予定を追加";$("scheduleDialog").showModal();
+  $("scheduleForm").reset();$("scheduleId").value="";$("scheduleDialogTitle").textContent="確定予定を追加";$("scheduleDialog").showModal();
 };
 $("scheduleForm").onsubmit=e=>{
   e.preventDefault();
