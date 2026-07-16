@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#050505">
-  <title>NO KIDDING BAND MANAGER Ver.0.7</title>
+  <title>NO KIDDING BAND MANAGER Ver.0.8</title>
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=080">
 </head>
 <body>
 
@@ -14,7 +14,7 @@
 <aside class="side-menu" id="sideMenu" aria-hidden="true">
   <div class="side-menu-head">
     <img src="assets/logo.png" alt="NO KIDDING">
-    <button id="closeMenuBtn" aria-label="メニューを閉じる">×</button>
+    <button type="button" id="closeMenuBtn" aria-label="メニューを閉じる">×</button>
   </div>
 
   <nav class="side-menu-nav">
@@ -23,64 +23,73 @@
     <button data-menu-page="studioPolls"><span>✓</span><b>スタジオ日程調整</b></button>
     <button data-menu-page="merch"><span>👕</span><b>物販・在庫</b></button>
     <button data-menu-page="finance"><span>¥</span><b>会計・売上</b></button>
+    <button data-menu-page="members"><span>👥</span><b>メンバー</b></button>
   </nav>
 
   <div class="side-menu-info">
     <strong>NO KIDDING BAND MANAGER</strong>
-    <span>Ver.0.7</span>
+    <span>Ver.0.8</span>
   </div>
 </aside>
 
 <header class="topbar">
-  <button class="icon-btn" id="menuBtn" aria-label="メニューを開く">☰</button>
+  <button type="button" class="icon-btn" id="menuBtn" aria-label="メニューを開く" aria-expanded="false">☰</button>
   <img src="assets/logo.png" alt="NO KIDDING" class="logo">
   <button class="icon-btn" id="installBtn">＋</button>
 </header>
 
 <main>
   <section class="page active" id="home">
-    <article class="next-event-card">
-      <div class="next-label" id="nextType">NEXT EVENT</div>
-      <div class="next-event-body">
-        <div class="next-event-copy">
-          <p class="next-date" id="nextDate">予定未登録</p>
-          <h1 id="nextTitle">次の予定を登録してください</h1>
-          <p class="next-meta" id="nextMeta">確定スケジュールまたは日程調整から追加できます。</p>
-          <div class="next-countdown" id="countdown">LET'S GO!</div>
+    <article class="poster-next-card">
+      <div class="poster-next-label" id="nextType">NEXT EVENT</div>
+
+      <div class="poster-event-grid">
+        <div class="poster-art-frame">
+          <img src="assets/character.png" alt="" class="poster-event-art">
         </div>
-        <img src="assets/character.png" alt="" class="next-character">
+
+        <div class="poster-event-info">
+          <p class="poster-event-date" id="nextDate">予定未登録</p>
+          <h1 id="nextTitle">次の予定を登録してください</h1>
+          <p id="nextMeta">確定スケジュールまたは日程調整から追加できます。</p>
+        </div>
       </div>
+
+      <div class="poster-countdown" id="countdown">LET'S GO!</div>
     </article>
 
-    <div class="home-section-title">
+    <div class="poster-section-heading">
       <h2>クイックメニュー</h2>
+      <button data-page="schedule">すべて見る ›</button>
     </div>
 
-    <div class="quick-grid">
-      <button data-page="schedule" class="quick-card cyan">
-        <b>📅</b>
-        <span>確定スケジュール</span>
+    <div class="poster-quick-grid">
+      <button data-page="schedule" class="poster-quick cyan">
+        <b>📅</b><span>確定スケジュール</span>
       </button>
-      <button data-page="studioPolls" class="quick-card pink">
-        <b>✓</b>
-        <span>スタジオ日程調整</span>
+      <button data-page="studioPolls" class="poster-quick pink">
+        <b>✓</b><span>スタジオ日程調整</span>
       </button>
-      <button data-page="merch" class="quick-card yellow">
-        <b>👕</b>
-        <span>物販・在庫</span>
+      <button data-page="merch" class="poster-quick yellow">
+        <b>👕</b><span>物販・在庫</span>
       </button>
-      <button data-page="finance" class="quick-card pink">
-        <b>¥</b>
-        <span>会計・売上</span>
+      <button id="liveShortcut" class="poster-quick yellow">
+        <b>🎤</b><span>ライブ</span>
+      </button>
+      <button data-page="finance" class="poster-quick pink">
+        <b>¥</b><span>会計・売上</span>
+      </button>
+      <button data-page="members" class="poster-quick cyan">
+        <b>👥</b><span>メンバー</span>
       </button>
     </div>
 
-    <div class="home-section-title upcoming-title">
+    <div class="poster-section-heading upcoming-heading">
       <h2>今後の予定</h2>
       <button data-page="schedule">すべて見る ›</button>
     </div>
 
-    <div id="homeUpcomingList" class="home-upcoming-list"></div>
+    <div id="homeUpcomingList" class="poster-upcoming-list"></div>
   </section>
 
   <section class="page" id="schedule">
@@ -150,6 +159,16 @@
     <div class="section-head"><button data-back data-fallback="home">‹</button><h2>会計・売上</h2><span></span></div>
     <article class="panel">会計機能は次の更新で追加します。</article>
   </section>
+
+  <section class="page" id="members">
+    <div class="section-head">
+      <button data-back data-fallback="home">‹</button>
+      <h2>メンバー</h2>
+      <span></span>
+    </div>
+    <div id="memberList" class="member-list"></div>
+  </section>
+
 </main>
 
 <nav class="bottom-nav">
@@ -167,6 +186,7 @@
     <label>分類
       <select id="scheduleType" required>
         <option value="live">ライブ</option>
+        <option value="studio">スタジオ</option>
         <option value="meeting">ミーティング</option>
         <option value="recording">レコーディング</option>
         <option value="other">その他</option>
@@ -211,6 +231,93 @@
   </form>
 </dialog>
 
-<script src="app.js"></script>
+
+<script>
+(function () {
+  "use strict";
+
+  var menuButton = document.getElementById("menuBtn");
+  var closeButton = document.getElementById("closeMenuBtn");
+  var overlay = document.getElementById("menuOverlay");
+  var drawer = document.getElementById("sideMenu");
+
+  if (!menuButton || !closeButton || !overlay || !drawer) return;
+
+  var opened = false;
+
+  function openDrawer() {
+    opened = true;
+    overlay.hidden = false;
+    drawer.classList.add("open");
+    drawer.setAttribute("aria-hidden", "false");
+    menuButton.setAttribute("aria-expanded", "true");
+    document.body.classList.add("menu-open");
+
+    if (!history.state || !history.state.sideMenu) {
+      history.pushState({ sideMenu: true }, "", location.href);
+    }
+  }
+
+  function closeDrawer(changeHistory) {
+    if (!opened) return;
+
+    opened = false;
+    overlay.hidden = true;
+    drawer.classList.remove("open");
+    drawer.setAttribute("aria-hidden", "true");
+    menuButton.setAttribute("aria-expanded", "false");
+    document.body.classList.remove("menu-open");
+
+    if (changeHistory && history.state && history.state.sideMenu) {
+      history.back();
+    }
+  }
+
+  menuButton.addEventListener("click", function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+    if (opened) closeDrawer(true);
+    else openDrawer();
+  });
+
+  closeButton.addEventListener("click", function () {
+    closeDrawer(true);
+  });
+
+  overlay.addEventListener("click", function () {
+    closeDrawer(true);
+  });
+
+  drawer.querySelectorAll("[data-menu-page]").forEach(function (button) {
+    button.addEventListener("click", function () {
+      var target = button.getAttribute("data-menu-page");
+      closeDrawer(false);
+
+      var page = document.getElementById(target);
+      if (page) {
+        document.querySelectorAll(".page").forEach(function (item) {
+          item.classList.toggle("active", item.id === target);
+        });
+        document.querySelectorAll(".bottom-nav button").forEach(function (item) {
+          item.classList.toggle("active", item.getAttribute("data-page") === target);
+        });
+        window.scrollTo(0, 0);
+      }
+    });
+  });
+
+  window.addEventListener("popstate", function () {
+    if (opened) closeDrawer(false);
+  });
+
+  window.NKSideMenu = {
+    open: openDrawer,
+    close: closeDrawer,
+    isOpen: function () { return opened; }
+  };
+})();
+</script>
+
+<script src="app.js?v=080"></script>
 </body>
 </html>

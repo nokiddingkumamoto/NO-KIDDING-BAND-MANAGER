@@ -1,1 +1,61 @@
-const C='nkbm-v2a-1';const A=['./','index.html','styles.css','app.js','manifest.webmanifest','assets/logo.png','assets/character.png','assets/icon.svg'];self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(C).then(c=>c.addAll(A)))});self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==C).map(x=>caches.delete(x)))).then(()=>self.clients.claim())));self.addEventListener('fetch',e=>e.respondWith(fetch(e.request).then(r=>{const c=r.clone();caches.open(C).then(x=>x.put(e.request,c));return r}).catch(()=>caches.match(e.request))));
+const CACHE_NAME="nkbm-v080";
+const CORE=[
+  "./",
+  "index.html",
+  "styles.css?v=080",
+  "app.js?v=080",
+  "manifest.webmanifest",
+  "assets/logo.png",
+  "assets/character.png",
+  "assets/icon.svg"
+];
+
+self.addEventListener("install",event=>{
+  self.skipWaiting();
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(cache=>cache.addAll(CORE).catch(()=>{}))
+  );
+});
+
+self.addEventListener("activate",event=>{
+  event.waitUntil(
+    caches.keys()
+      .then(keys=>Promise.all(keys.filter(key=>key!==CACHE_NAME).map(key=>caches.delete(key))))
+      .then(()=>self.clients.claim())
+  );
+});
+
+self.addEventListener("fetch",event=>{
+  const request=event.request;
+  if(request.method!=="GET") return;
+
+  const url=new URL(request.url);
+  const isFreshFile =
+    request.mode==="navigate" ||
+    url.pathname.endsWith(".js") ||
+    url.pathname.endsWith(".css") ||
+    url.pathname.endsWith(".html");
+
+  if(isFreshFile){
+    event.respondWith(
+      fetch(request)
+        .then(response=>{
+          const copy=response.clone();
+          caches.open(CACHE_NAME).then(cache=>cache.put(request,copy));
+          return response;
+        })
+        .catch(()=>caches.match(request).then(hit=>hit||caches.match("./")))
+    );
+    return;
+  }
+
+  event.respondWith(
+    caches.match(request).then(hit=>
+      hit || fetch(request).then(response=>{
+        const copy=response.clone();
+        caches.open(CACHE_NAME).then(cache=>cache.put(request,copy));
+        return response;
+      })
+    )
+  );
+});

@@ -8,26 +8,6 @@ let activeFilter="all";
 let currentPollId=null;
 let workingAnswers={};
 
-let menuOpen=false;
-
-function openMenu(){
-  menuOpen=true;
-  $("menuOverlay").hidden=false;
-  $("sideMenu").classList.add("open");
-  $("sideMenu").setAttribute("aria-hidden","false");
-  document.body.classList.add("menu-open");
-  history.pushState({menu:true},"");
-}
-
-function closeMenu(useHistory=false){
-  if(!menuOpen) return;
-  menuOpen=false;
-  $("menuOverlay").hidden=true;
-  $("sideMenu").classList.remove("open");
-  $("sideMenu").setAttribute("aria-hidden","true");
-  document.body.classList.remove("menu-open");
-  if(useHistory && history.state?.menu) history.back();
-}
 
 
 
@@ -46,17 +26,6 @@ function loadState(){
 function persist(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state));renderAll()}
 const $=id=>document.getElementById(id);
 
-$("menuBtn").onclick=openMenu;
-$("closeMenuBtn").onclick=()=>closeMenu(true);
-$("menuOverlay").onclick=()=>closeMenu(true);
-document.querySelectorAll("[data-menu-page]").forEach(button=>{
-  button.onclick=()=>{
-    const target=button.dataset.menuPage;
-    closeMenu(false);
-    showPage(target);
-    history.replaceState({page:target},"");
-  };
-});
 
 const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
 const eventDate=x=>new Date(`${x.date}T${x.time||"00:00"}:00`);
@@ -123,17 +92,20 @@ function renderHome(){
     $("countdown").textContent="LET'S GO!";
   }
 
-  const upcoming=future.slice(0,3);
+  const upcoming=future.slice(0,4);
   $("homeUpcomingList").innerHTML=upcoming.length?upcoming.map(x=>{
     const d=new Date(`${x.date}T00:00:00`);
     const weeks=["日","月","火","水","木","金","土"];
-    return `<button class="home-upcoming-item ${x.type}" data-home-schedule>
-      <div class="home-upcoming-date"><strong>${String(d.getMonth()+1)}/${String(d.getDate())}</strong><small>(${weeks[d.getDay()]})</small></div>
-      <div class="home-upcoming-copy">
-        <h3><span class="home-badge">${esc(typeNames[x.type]||"予定")}</span>${esc(x.title)}</h3>
+    return `<button class="poster-upcoming-item ${x.type}" data-home-schedule>
+      <div class="poster-upcoming-date">
+        <strong>${String(d.getMonth()+1)}/${String(d.getDate())}</strong>
+        <small>(${weeks[d.getDay()]})</small>
+      </div>
+      <div class="poster-upcoming-copy">
+        <h3><span class="poster-badge">${esc(typeNames[x.type]||"予定")}</span>${esc(x.title)}</h3>
         <p>${esc(x.time||"時間未定")}　📍 ${esc(x.place||"場所未定")}</p>
       </div>
-      <span class="home-upcoming-arrow">›</span>
+      <span class="poster-upcoming-arrow">›</span>
     </button>`;
   }).join(""):`<div class="home-empty">今後の確定予定はありません。</div>`;
 
@@ -170,7 +142,7 @@ function renderPolls(){
   }).join(""):`<article class="panel">右上の「＋」から月単位の日程調整を作成してください。</article>`;
 }
 
-function renderAll(){renderHome();renderSchedules();renderPolls()}
+function renderAll(){renderHome();renderSchedules();renderPolls();renderMembers()}
 renderAll();
 
 $("addSchedule").onclick=()=>{
@@ -342,15 +314,37 @@ let deferredPrompt=null;
 window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPrompt=e});
 $("installBtn").onclick=async()=>{if(deferredPrompt){deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null}else alert("ブラウザのメニューから「ホーム画面に追加」を選択してください。")};
 
-window.addEventListener("popstate",()=>{
-  if(menuOpen){
-    closeMenu(false);
-    return;
-  }
-  const current=document.querySelector(".page.active")?.id;
-  if(current && current!=="home"){
-    showPage("home");
-    history.replaceState({page:"home"},"");
-  }
-});
 
+
+
+function renderMembers(){
+  const data=[
+    ["YAMA","Vo","Vocal"],
+    ["殿","Gt","Guitar"],
+    ["うっちー","Ba","Bass"],
+    ["RYUTO","Dr","Drums"],
+    ["JUN","Tp","Trumpet"],
+    ["MASTER","Tb","Trombone"]
+  ];
+  const list=$("memberList");
+  if(!list)return;
+  list.innerHTML=data.map(([name,shortRole,role])=>`
+    <article class="member-card">
+      <div class="member-avatar">${esc(shortRole)}</div>
+      <div><h3>${esc(name)} (${esc(shortRole)})</h3><p>NO KIDDING MEMBER</p></div>
+      <span class="member-role">${esc(role)}</span>
+    </article>
+  `).join("");
+}
+
+const liveShortcut=$("liveShortcut");
+if(liveShortcut){
+  liveShortcut.onclick=()=>{
+    activeFilter="live";
+    document.querySelectorAll("[data-filter]").forEach(button=>{
+      button.classList.toggle("active",button.dataset.filter==="live");
+    });
+    renderSchedules();
+    showPage("schedule");
+  };
+}
