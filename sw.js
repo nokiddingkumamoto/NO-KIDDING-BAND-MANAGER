@@ -1,61 +1,14 @@
-const CACHE_NAME="nkbm-v183";
-const CORE=[
-  "./",
-  "index.html",
-  "styles.css?v=183",
-  "app.js?v=183",
-  "manifest.webmanifest",
-  "assets/logo.png",
-  "assets/character.png",
-  "assets/icon.svg"
-];
-
-self.addEventListener("install",event=>{
-  self.skipWaiting();
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache=>cache.addAll(CORE).catch(()=>{}))
-  );
-});
-
-self.addEventListener("activate",event=>{
-  event.waitUntil(
-    caches.keys()
-      .then(keys=>Promise.all(keys.filter(key=>key!==CACHE_NAME).map(key=>caches.delete(key))))
-      .then(()=>self.clients.claim())
-  );
-});
-
+const CACHE="nkbm-v200";
+const ASSETS=["./","index.html","styles.css?v=200","app.js?v=200","manifest.webmanifest","assets/logo.png","assets/character.png","assets/icon.svg"];
+self.addEventListener("install",event=>{self.skipWaiting();event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS).catch(()=>{})))});
+self.addEventListener("activate",event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
 self.addEventListener("fetch",event=>{
-  const request=event.request;
-  if(request.method!=="GET") return;
-
-  const url=new URL(request.url);
-  const isFreshFile =
-    request.mode==="navigate" ||
-    url.pathname.endsWith(".js") ||
-    url.pathname.endsWith(".css") ||
-    url.pathname.endsWith(".html");
-
-  if(isFreshFile){
-    event.respondWith(
-      fetch(request,{cache:"no-store"})
-        .then(response=>{
-          const copy=response.clone();
-          caches.open(CACHE_NAME).then(cache=>cache.put(request,copy));
-          return response;
-        })
-        .catch(()=>caches.match(request).then(hit=>hit||caches.match("./")))
-    );
-    return;
+  if(event.request.method!=="GET")return;
+  const url=new URL(event.request.url);
+  const fresh=event.request.mode==="navigate"||/\.(js|css|html)$/.test(url.pathname);
+  if(fresh){
+    event.respondWith(fetch(event.request).then(response=>{const copy=response.clone();caches.open(CACHE).then(c=>c.put(event.request,copy));return response}).catch(()=>caches.match(event.request)));
+  }else{
+    event.respondWith(caches.match(event.request).then(hit=>hit||fetch(event.request).then(response=>{const copy=response.clone();caches.open(CACHE).then(c=>c.put(event.request,copy));return response})));
   }
-
-  event.respondWith(
-    caches.match(request).then(hit=>
-      hit || fetch(request).then(response=>{
-        const copy=response.clone();
-        caches.open(CACHE_NAME).then(cache=>cache.put(request,copy));
-        return response;
-      })
-    )
-  );
 });

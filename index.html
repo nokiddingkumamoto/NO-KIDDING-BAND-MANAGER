@@ -4,303 +4,235 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#050505">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
-  <title>NO KIDDING BAND MANAGER Ver.1.8.3</title>
+  <meta http-equiv="Cache-Control" content="no-cache,no-store,must-revalidate">
+  <title>NO KIDDING BAND MANAGER V2.0</title>
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="stylesheet" href="styles.css?v=183">
+  <link rel="stylesheet" href="styles.css?v=200">
 </head>
 <body>
+  <div class="menu-overlay" id="menuOverlay" hidden></div>
 
-<div class="menu-overlay" id="menuOverlay" hidden></div>
-<aside class="side-menu" id="sideMenu" aria-hidden="true">
-  <div class="side-menu-head">
-    <img src="assets/logo.png" alt="NO KIDDING">
-    <button type="button" id="closeMenuBtn" aria-label="メニューを閉じる">×</button>
-  </div>
-
-  <nav class="side-menu-nav">
-    <button data-menu-page="home"><span>⌂</span><b>ホーム</b></button>
-    <button data-menu-page="schedule"><span>📅</span><b>確定スケジュール</b></button>
-    <button data-menu-page="studioPolls"><span>✓</span><b>スタジオ日程調整</b></button>
-    <button data-menu-page="merch"><span>👕</span><b>物販・在庫</b></button>
-  </nav>
-
-  <div class="side-menu-info">
-    <strong>NO KIDDING BAND MANAGER</strong>
-    <span>Ver.1.8.3</span>
-  </div>
-</aside>
-
-<header class="topbar">
-  <button type="button" class="icon-btn" id="menuBtn" aria-label="メニューを開く" aria-expanded="false">☰</button>
-  <div class="brand-stack"><img src="assets/logo.png" alt="NO KIDDING" class="logo"><div class="brand-subtitle">バンドマネージャー</div></div>
-  <button type="button" class="icon-btn" id="quickAddBtn" aria-label="スケジュールを追加">＋</button>
-</header>
-
-<main>
-  <section class="page active" id="home">
-    <div class="home-title-row first-home-heading">
-      <h2>スケジュール</h2>
-      <button data-page="schedule">すべて見る ›</button>
+  <aside class="side-menu" id="sideMenu" aria-hidden="true">
+    <div class="side-menu-head">
+      <img src="assets/logo.png" alt="NO KIDDING">
+      <button type="button" id="closeMenuBtn" aria-label="閉じる">×</button>
     </div>
+    <nav>
+      <button data-menu-page="home"><span>⌂</span>ホーム</button>
+      <button data-menu-page="schedule"><span>17</span>確定スケジュール</button>
+      <button data-menu-page="studioPolls"><span>✓</span>スタジオ日程調整</button>
+      <button data-menu-page="merch"><span>＋</span>物販・在庫</button>
+    </nav>
+    <footer>NO KIDDING BAND MANAGER <b>V2.0</b></footer>
+  </aside>
 
-    <div id="homeUpcomingList" class="home-schedule-list"></div>
-
-    <button type="button" id="homeAddSchedule" class="home-add-schedule">📅 スケジュールを追加する</button>
-
-    <div class="home-title-row quick-heading">
-      <h2>クイックメニュー</h2>
+  <header class="topbar">
+    <button type="button" class="top-icon" id="menuBtn" aria-label="メニュー">☰</button>
+    <div class="brand">
+      <img src="assets/logo.png" alt="NO KIDDING">
+      <div>バンドマネージャー</div>
     </div>
+    <button type="button" class="top-icon" id="quickAddBtn" aria-label="追加">＋</button>
+  </header>
 
-    <div class="home-quick-grid">
-      <button data-page="schedule" class="home-quick-card cyan">
-        
-        <svg class="quick-svg calendar-icon" viewBox="0 0 96 96" aria-hidden="true">
-          <rect x="18" y="24" width="60" height="56" rx="7" fill="none" stroke="currentColor" stroke-width="7"/>
-          <path d="M18 40h60M32 15v18M64 15v18" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"/>
-          <text x="48" y="68" text-anchor="middle" fill="currentColor" font-size="29" font-weight="900" font-family="Arial Black, sans-serif">17</text>
-        </svg><span>確定スケジュール</span>
-      </button>
-      <button data-page="studioPolls" class="home-quick-card pink">
-        
-        <svg class="quick-svg quick-check" viewBox="0 0 96 96" aria-hidden="true">
-          <path d="M19 50l19 20 40-49" fill="none" stroke="currentColor" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg><span>スタジオ日程調整</span>
-      </button>
-      <button data-page="merch" class="home-quick-card yellow">
-        
-        <svg class="quick-svg quick-shirt" viewBox="0 0 96 96" aria-hidden="true">
-          <path d="M34 18c4 7 24 7 28 0l20 11-10 20-10-5v38H34V44l-10 5-10-20 20-11z" fill="currentColor"/>
-          <path d="M44 50h8M48 46v8" stroke="#080808" stroke-width="5" stroke-linecap="round"/>
-        </svg><span>物販・在庫</span>
-      </button>
-    </div>
-  </section>
-
-  <section class="page" id="schedule">
-    <div class="section-head">
-      <button data-back data-fallback="home">‹</button>
-      <h2>確定スケジュール</h2>
-      <button id="addSchedule">＋</button>
-    </div>
-    <div class="filters">
-      <button class="active" data-filter="all">すべて</button>
-      <button data-filter="live">ライブ</button>
-      <button data-filter="studio">スタジオ</button>
-      <button data-filter="meeting">ミーティング</button>
-      <button data-filter="recording">レコーディング</button>
-      <button data-filter="other">その他</button>
-    </div>
-    <p class="confirmed-note">ここには、すでに決まった予定だけが表示されます。スタジオ候補日は「スタジオ日程調整」で回答・確定してください。</p>
-    <div id="scheduleList" class="list"></div>
-  </section>
-
-  <section class="page" id="studioPolls">
-    <div class="section-head">
-      <button data-back data-fallback="home">‹</button>
-      <h2>スタジオ日程調整</h2>
-      <button id="addPoll">＋</button>
-    </div>
-    <div id="pollList" class="list"></div>
-  </section>
-
-  <section class="page" id="pollDetail">
-    <div class="section-head">
-      <button data-back data-fallback="studioPolls">‹</button>
-      <h2 id="pollDetailTitle">日程調整</h2>
-      <span></span>
-    </div>
-
-    <article class="panel poll-summary">
-      <p id="pollDetailMonth"></p>
-      <label>回答するメンバー
-        <select id="answerMember"></select>
-      </label>
-    </article>
-
-    <div id="pollAnswerRows" class="answer-list"></div>
-
-    <div class="sticky-actions">
-      <button id="saveAnswers" class="punk-btn">この回答を保存</button>
-      <button id="openResults" class="ghost-btn">集計結果を見る</button>
-    </div>
-  </section>
-
-  <section class="page" id="pollResults">
-    <div class="section-head">
-      <button data-back data-fallback="pollDetail">‹</button>
-      <h2>集計結果</h2>
-      <span></span>
-    </div>
-    <article class="panel multi-date-panel">
-      <h3>確定する日を複数選択</h3>
-      <p>候補日の「選択」を押し、最後にまとめて確定してください。</p>
-      <div class="multi-date-actions">
-        <button type="button" id="clearSelectedDates" class="ghost-btn">選択解除</button>
-        <button type="button" id="finalizeSelectedDates" class="punk-btn">選択した日を確定</button>
+  <main>
+    <section class="page active" id="home">
+      <div class="section-title">
+        <h2>スケジュール</h2>
+        <button data-page="schedule">すべて見る ›</button>
       </div>
-    </article>
-    <div id="resultRows" class="result-list"></div>
-  </section>
 
-  <section class="page" id="merch">
-    <div class="section-head"><button data-back data-fallback="home">‹</button><h2>物販・在庫</h2><span></span></div>
-    <article class="panel">物販機能は次の更新で追加します。</article>
-  </section>
+      <div id="homeScheduleList" class="home-schedule-list"></div>
 
+      <button type="button" id="homeAddSchedule" class="add-schedule-button">
+        <span class="mini-calendar">17</span>
+        スケジュールを追加する
+      </button>
 
-</main>
+      <div class="section-title quick-title">
+        <h2>クイックメニュー</h2>
+      </div>
 
+      <div class="quick-grid">
+        <button data-page="schedule" class="quick-card quick-cyan">
+          <svg viewBox="0 0 100 100" aria-hidden="true">
+            <rect x="16" y="23" width="68" height="61" rx="10"/>
+            <path d="M17 42h66M34 14v20M66 14v20"/>
+            <text x="50" y="72">17</text>
+          </svg>
+          <span>確定スケジュール</span>
+        </button>
 
-<dialog id="scheduleDialog">
-  <form id="scheduleForm">
-    <h3 id="scheduleDialogTitle">確定予定を追加</h3>
-    <input type="hidden" id="scheduleId">
-    <label>分類
-      <select id="scheduleType" required>
-        <option value="live">ライブ</option>
-        <option value="studio">スタジオ</option>
-        <option value="meeting">ミーティング</option>
-        <option value="recording">レコーディング</option>
-        <option value="other">その他</option>
-      </select>
-    </label>
-    <label>タイトル<input id="scheduleTitle" required></label>
-    <label>日付<input id="scheduleDate" type="date" required></label>
-    <label>時間<input id="scheduleTime" type="time"></label>
-    <label>会場・場所<input id="schedulePlace"></label>
-    <label>ノルマ<input id="scheduleQuota" type="number" min="0"></label>
-    <label>メモ<textarea id="scheduleMemo" rows="4"></textarea></label>
-    <label>イベント画像
-      <input id="scheduleImageInput" type="file" accept="image/*">
-    </label>
-    <div class="event-image-preview-wrap">
-      <img id="scheduleImagePreview" alt="イベント画像プレビュー">
-      <button type="button" id="removeScheduleImage" class="ghost-btn">画像を削除</button>
-    </div>
-    
-    <div class="dialog-actions">
-      <button type="button" class="ghost-btn" data-close="scheduleDialog">キャンセル</button>
-      <button type="submit" class="punk-btn">保存</button>
-    </div>
-  </form>
-</dialog>
+        <button data-page="studioPolls" class="quick-card quick-pink">
+          <svg viewBox="0 0 100 100" aria-hidden="true">
+            <path d="M18 51l22 22 43-53"/>
+          </svg>
+          <span>スタジオ日程調整</span>
+        </button>
 
-<dialog id="pollDialog">
-  <form id="pollForm">
-    <h3 id="pollDialogTitle">スタジオ日程調整を作成</h3>
-    <input type="hidden" id="pollEditId">
-    <label>対象月<input id="pollMonth" type="month" required></label>
-    <label>タイトル<input id="pollTitle" required placeholder="例：8月スタジオ日程調整"></label>
-    <label>開始時間<input id="pollStartTime" type="time" value="20:00"></label>
-    <label>終了時間<input id="pollEndTime" type="time" value="23:00"></label>
-    <label>場所<input id="pollPlace" placeholder="例：熊本市内スタジオ"></label>
-    <label>候補に含める曜日</label>
-    <div class="weekday-grid" id="weekdayOptions">
-      <label><input type="checkbox" value="0" checked>日</label>
-      <label><input type="checkbox" value="1" checked>月</label>
-      <label><input type="checkbox" value="2" checked>火</label>
-      <label><input type="checkbox" value="3" checked>水</label>
-      <label><input type="checkbox" value="4" checked>木</label>
-      <label><input type="checkbox" value="5" checked>金</label>
-      <label><input type="checkbox" value="6" checked>土</label>
-    </div>
-    <div class="dialog-actions">
-      <button type="button" class="ghost-btn" data-close="pollDialog">キャンセル</button>
-      <button type="submit" class="punk-btn">作成</button>
-    </div>
-  </form>
-</dialog>
+        <button data-page="merch" class="quick-card quick-yellow">
+          <svg viewBox="0 0 100 100" aria-hidden="true">
+            <path d="M34 17c5 9 27 9 32 0l21 13-11 22-11-6v39H35V46l-11 6-11-22z"/>
+            <path class="shirt-plus" d="M44 57h12M50 51v12"/>
+          </svg>
+          <span>物販・在庫</span>
+        </button>
+      </div>
+    </section>
 
+    <section class="page" id="schedule">
+      <div class="page-head">
+        <button data-back data-fallback="home">‹</button>
+        <h2>確定スケジュール</h2>
+        <button id="addSchedule">＋</button>
+      </div>
+      <div class="filters">
+        <button class="active" data-filter="all">すべて</button>
+        <button data-filter="live">ライブ</button>
+        <button data-filter="studio">スタジオ</button>
+        <button data-filter="meeting">ミーティング</button>
+        <button data-filter="recording">レコーディング</button>
+        <button data-filter="other">その他</button>
+      </div>
+      <div id="scheduleList" class="card-list"></div>
+    </section>
 
-<script>
-(function () {
-  "use strict";
+    <section class="page" id="studioPolls">
+      <div class="page-head">
+        <button data-back data-fallback="home">‹</button>
+        <h2>スタジオ日程調整</h2>
+        <button id="addPoll">＋</button>
+      </div>
+      <div id="pollList" class="card-list"></div>
+    </section>
 
-  var menuButton = document.getElementById("menuBtn");
-  var closeButton = document.getElementById("closeMenuBtn");
-  var overlay = document.getElementById("menuOverlay");
-  var drawer = document.getElementById("sideMenu");
+    <section class="page" id="pollDetail">
+      <div class="page-head">
+        <button data-back data-fallback="studioPolls">‹</button>
+        <h2 id="pollDetailTitle">日程調整</h2>
+        <span></span>
+      </div>
+      <article class="panel">
+        <p id="pollDetailMeta"></p>
+        <label>回答するメンバー
+          <select id="answerMember"></select>
+        </label>
+      </article>
+      <div id="pollAnswerRows" class="answer-list"></div>
+      <div class="sticky-actions">
+        <button id="saveAnswers" class="primary">回答を保存</button>
+        <button id="openResults" class="secondary">集計結果を見る</button>
+      </div>
+    </section>
 
-  if (!menuButton || !closeButton || !overlay || !drawer) return;
+    <section class="page" id="pollResults">
+      <div class="page-head">
+        <button data-back data-fallback="pollDetail">‹</button>
+        <h2>集計結果</h2>
+        <span></span>
+      </div>
+      <article class="panel">
+        <h3>確定する日を複数選択</h3>
+        <p>候補日を選び、最後にまとめて確定してください。</p>
+        <div class="two-actions">
+          <button id="clearSelectedDates" class="secondary">選択解除</button>
+          <button id="finalizeSelectedDates" class="primary">選択した日を確定</button>
+        </div>
+      </article>
+      <div id="resultRows" class="result-list"></div>
+    </section>
 
-  var opened = false;
+    <section class="page" id="merch">
+      <div class="page-head">
+        <button data-back data-fallback="home">‹</button>
+        <h2>物販・在庫</h2>
+        <button id="addMerch">＋</button>
+      </div>
+      <div class="merch-summary">
+        <div><span>商品数</span><strong id="merchItemCount">0</strong></div>
+        <div><span>総在庫</span><strong id="merchStockTotal">0</strong></div>
+        <div><span>在庫金額</span><strong id="merchValueTotal">¥0</strong></div>
+      </div>
+      <div id="merchList" class="card-list"></div>
+    </section>
+  </main>
 
-  function openDrawer() {
-    opened = true;
-    overlay.hidden = false;
-    drawer.classList.add("open");
-    drawer.setAttribute("aria-hidden", "false");
-    menuButton.setAttribute("aria-expanded", "true");
-    document.body.classList.add("menu-open");
+  <dialog id="scheduleDialog">
+    <form id="scheduleForm">
+      <h3 id="scheduleDialogTitle">確定予定を追加</h3>
+      <input type="hidden" id="scheduleId">
+      <label>分類
+        <select id="scheduleType" required>
+          <option value="live">ライブ</option>
+          <option value="studio">スタジオ</option>
+          <option value="meeting">ミーティング</option>
+          <option value="recording">レコーディング</option>
+          <option value="other">その他</option>
+        </select>
+      </label>
+      <label>タイトル<input id="scheduleTitle" required></label>
+      <label>日付<input id="scheduleDate" type="date" required></label>
+      <label>時間<input id="scheduleTime" type="time"></label>
+      <label>会場・場所<input id="schedulePlace"></label>
+      <label>ノルマ<input id="scheduleQuota" type="number" min="0"></label>
+      <label>メモ<textarea id="scheduleMemo" rows="3"></textarea></label>
+      <div class="dialog-actions">
+        <button type="button" data-close="scheduleDialog" class="secondary">キャンセル</button>
+        <button type="submit" class="primary">保存</button>
+      </div>
+    </form>
+  </dialog>
 
-    if (!history.state || !history.state.sideMenu) {
-      history.pushState({ sideMenu: true }, "", location.href);
-    }
-  }
+  <dialog id="pollDialog">
+    <form id="pollForm">
+      <h3 id="pollDialogTitle">スタジオ日程調整を作成</h3>
+      <input type="hidden" id="pollEditId">
+      <label>対象月<input id="pollMonth" type="month" required></label>
+      <label>タイトル<input id="pollTitle" required></label>
+      <label>開始時間<input id="pollStartTime" type="time" value="20:00"></label>
+      <label>終了時間<input id="pollEndTime" type="time" value="23:00"></label>
+      <label>場所<input id="pollPlace"></label>
+      <label>候補に含める曜日</label>
+      <div class="weekday-grid" id="weekdayOptions">
+        <label><input type="checkbox" value="0" checked>日</label>
+        <label><input type="checkbox" value="1" checked>月</label>
+        <label><input type="checkbox" value="2" checked>火</label>
+        <label><input type="checkbox" value="3" checked>水</label>
+        <label><input type="checkbox" value="4" checked>木</label>
+        <label><input type="checkbox" value="5" checked>金</label>
+        <label><input type="checkbox" value="6" checked>土</label>
+      </div>
+      <div class="dialog-actions">
+        <button type="button" data-close="pollDialog" class="secondary">キャンセル</button>
+        <button type="submit" class="primary">保存</button>
+      </div>
+    </form>
+  </dialog>
 
-  function closeDrawer(changeHistory) {
-    if (!opened) return;
+  <dialog id="merchDialog">
+    <form id="merchForm">
+      <h3 id="merchDialogTitle">商品を追加</h3>
+      <input type="hidden" id="merchId">
+      <label>商品名<input id="merchName" required></label>
+      <label>種類
+        <select id="merchCategory">
+          <option value="Tシャツ">Tシャツ</option>
+          <option value="ステッカー">ステッカー</option>
+          <option value="CD">CD</option>
+          <option value="その他">その他</option>
+        </select>
+      </label>
+      <label>サイズ・種類<input id="merchVariant" placeholder="例：L / ブラック"></label>
+      <label>在庫数<input id="merchStock" type="number" min="0" required></label>
+      <label>販売価格<input id="merchPrice" type="number" min="0" required></label>
+      <label>仕入価格<input id="merchCost" type="number" min="0"></label>
+      <div class="dialog-actions">
+        <button type="button" data-close="merchDialog" class="secondary">キャンセル</button>
+        <button type="submit" class="primary">保存</button>
+      </div>
+    </form>
+  </dialog>
 
-    opened = false;
-    overlay.hidden = true;
-    drawer.classList.remove("open");
-    drawer.setAttribute("aria-hidden", "true");
-    menuButton.setAttribute("aria-expanded", "false");
-    document.body.classList.remove("menu-open");
-
-    if (changeHistory && history.state && history.state.sideMenu) {
-      history.back();
-    }
-  }
-
-  menuButton.addEventListener("click", function (event) {
-    event.preventDefault();
-    event.stopPropagation();
-    if (opened) closeDrawer(true);
-    else openDrawer();
-  });
-
-  closeButton.addEventListener("click", function () {
-    closeDrawer(true);
-  });
-
-  overlay.addEventListener("click", function () {
-    closeDrawer(true);
-  });
-
-  drawer.querySelectorAll("[data-menu-page]").forEach(function (button) {
-    button.addEventListener("click", function () {
-      var target = button.getAttribute("data-menu-page");
-      closeDrawer(false);
-
-      var page = document.getElementById(target);
-      if (page) {
-        document.querySelectorAll(".page").forEach(function (item) {
-          item.classList.toggle("active", item.id === target);
-        });
-        document.querySelectorAll(".bottom-nav button").forEach(function (item) {
-          item.classList.toggle("active", item.getAttribute("data-page") === target);
-        });
-        window.scrollTo(0, 0);
-      }
-    });
-  });
-
-  window.addEventListener("popstate", function () {
-    if (opened) closeDrawer(false);
-  });
-
-  window.NKSideMenu = {
-    open: openDrawer,
-    close: closeDrawer,
-    isOpen: function () { return opened; }
-  };
-})();
-</script>
-
-<script src="app.js?v=183"></script>
+  <script src="app.js?v=200"></script>
 </body>
 </html>
