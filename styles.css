@@ -268,3 +268,18 @@ body.menu-open{overflow:hidden}
   .quick-icon-final{width:72px!important;height:72px!important}
   .quick-label-final{font-size:13px!important}
 }
+
+.cache-reset-version{
+  position:fixed;
+  right:6px;
+  bottom:6px;
+  z-index:9999;
+  padding:3px 7px;
+  border:1px solid #ff1970;
+  border-radius:5px;
+  background:rgba(0,0,0,.88);
+  color:#ff1970;
+  font-size:10px;
+  font-weight:900;
+  pointer-events:none;
+}
