@@ -1,3 +1,3 @@
 NO KIDDING BAND MANAGER
-Version 3.0.1
-GitHub Pages ready
+Version 3.0.2
+Quick menu: 3 items only

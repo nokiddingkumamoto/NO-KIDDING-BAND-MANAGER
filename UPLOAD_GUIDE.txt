@@ -1,20 +1,16 @@
-NO KIDDING BAND MANAGER V3.0.1
+NO KIDDING BAND MANAGER V3.0.2
 
-GitHub repository rootに、このZIPを解凍した中身をアップロードしてください。
+変更内容:
+- 「会計・売り上げ」を完全に削除
+- クイックメニューを3項目だけに変更
+  1. 確定スケジュール
+  2. スタジオ日程調整
+  3. 物販・在庫
+- 物販・在庫を横幅いっぱいに表示
+
+GitHub repository root に、このZIPを解凍した中身をアップロードしてください。
 ZIPそのものはアップロードしません。
 
-上書きする主なファイル:
-- index.html
-- styles.css
-- app.js
-- manifest.webmanifest
-- sw.js
-- assets/logo.png
-- assets/character.png
-- assets/icon.svg
-
-GitHub Pages:
-Settings > Pages > Deploy from a branch > main / (root) > Save
-
-更新が見えない場合:
-ブラウザを再読み込みするか、ホーム画面のアプリを一度閉じて開き直してください。
+同名ファイルは上書きしてください。
+更新後、GitHub Pagesの反映に1〜2分かかる場合があります。
+古い表示が残る場合は、ブラウザを再読み込みしてください。
