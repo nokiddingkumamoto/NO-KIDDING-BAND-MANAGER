@@ -4,9 +4,72 @@ const typeNames={live:"ライブ",studio:"スタジオ",meeting:"ミーティン
 const typeStickers={live:"NEXT LIVE",studio:"NEXT STUDIO",meeting:"NEXT MEETING",recording:"NEXT RECORDING",other:"NEXT EVENT"};
 
 let state=loadState();
+
+function normalizePollData(){
+  state.polls.forEach(p=>{
+    if(!Array.isArray(p.finalizedDates)){
+      p.finalizedDates=p.finalizedDate?[p.finalizedDate]:[];
+    }
+  });
+}
+normalizePollData();
+
 let activeFilter="all";
 let currentPollId=null;
 let workingAnswers={};
+
+let pendingScheduleImage="";
+let selectedResultDates=new Set();
+
+function resizeImageFile(file,maxWidth=900,maxHeight=900,quality=.82){
+  return new Promise((resolve,reject)=>{
+    if(!file || !file.type.startsWith("image/")){
+      reject(new Error("画像ファイルを選択してください。"));
+      return;
+    }
+
+    const reader=new FileReader();
+    reader.onerror=()=>reject(new Error("画像を読み込めませんでした。"));
+    reader.onload=()=>{
+      const image=new Image();
+      image.onerror=()=>reject(new Error("画像を開けませんでした。"));
+      image.onload=()=>{
+        let width=image.width;
+        let height=image.height;
+        const ratio=Math.min(1,maxWidth/width,maxHeight/height);
+        width=Math.max(1,Math.round(width*ratio));
+        height=Math.max(1,Math.round(height*ratio));
+
+        const canvas=document.createElement("canvas");
+        canvas.width=width;
+        canvas.height=height;
+        const context=canvas.getContext("2d");
+        context.drawImage(image,0,0,width,height);
+        resolve(canvas.toDataURL("image/jpeg",quality));
+      };
+      image.src=reader.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function updateScheduleImagePreview(value){
+  pendingScheduleImage=value||"";
+  const preview=$("scheduleImagePreview");
+  const removeButton=$("removeScheduleImage");
+  if(!preview || !removeButton)return;
+
+  if(pendingScheduleImage){
+    preview.src=pendingScheduleImage;
+    preview.classList.add("show");
+    removeButton.classList.add("show");
+  }else{
+    preview.removeAttribute("src");
+    preview.classList.remove("show");
+    removeButton.classList.remove("show");
+  }
+}
+
 
 
 
@@ -71,28 +134,8 @@ document.querySelectorAll("[data-filter]").forEach(button=>{
 
 function renderHome(){
   const future=sortedSchedules().filter(x=>eventDate(x)>=new Date());
-  const next=future[0];
+  const upcoming=future.slice(0,3);
 
-  if(next){
-    $("nextType").textContent=typeStickers[next.type]||"NEXT EVENT";
-    $("nextDate").textContent=`${next.date} ${next.time||""}`;
-    $("nextTitle").textContent=next.title;
-    $("nextMeta").textContent=next.place||"場所未定";
-
-    const today=new Date();
-    today.setHours(0,0,0,0);
-    const target=new Date(`${next.date}T00:00:00`);
-    const diff=Math.ceil((target-today)/86400000);
-    $("countdown").textContent=diff>0?`あと ${diff} 日！`:diff===0?"今日！":"開催済み";
-  }else{
-    $("nextType").textContent="NEXT EVENT";
-    $("nextDate").textContent="予定未登録";
-    $("nextTitle").textContent="次の予定を登録してください";
-    $("nextMeta").textContent="確定スケジュールまたは日程調整から追加できます。";
-    $("countdown").textContent="LET'S GO!";
-  }
-
-  const upcoming=future.slice(0,4);
   $("homeUpcomingList").innerHTML=upcoming.length?upcoming.map(x=>{
     const d=new Date(`${x.date}T00:00:00`);
     const weeks=["日","月","火","水","木","金","土"];
@@ -128,36 +171,46 @@ function renderSchedules(){
 function renderPolls(){
   $("pollList").innerHTML=state.polls.length?state.polls.map(p=>{
     const answered=members.filter(m=>p.answers&&p.answers[m]).length;
+    const finalizedDates=Array.isArray(p.finalizedDates)?p.finalizedDates:(p.finalizedDate?[p.finalizedDate]:[]);
+    const finalizedText=finalizedDates.length
+      ? finalizedDates.map(date=>`${date} ${p.startTime}-${p.endTime}`).join("<br>")
+      : "";
+
     return `<article class="poll-card">
-      <div class="poll-meta"><div><h3>${esc(p.title)}</h3><p>${esc(p.month)} / ${p.dates.length}日候補</p></div><span class="poll-status">${p.finalizedDate?"確定済み":"調整中"}</span></div>
+      <div class="poll-meta">
+        <div>
+          <h3>${esc(p.title)}</h3>
+          <p>${esc(p.month)} / ${p.dates.length}日候補</p>
+        </div>
+        <span class="poll-status">${finalizedDates.length?`${finalizedDates.length}日確定`:"調整中"}</span>
+      </div>
       <p>回答 ${answered}/${members.length}人</p>
-      ${p.finalizedDate?`<p>✅ 確定：${esc(p.finalizedDate)} ${esc(p.startTime)}-${esc(p.endTime)}</p>`:""}
+      ${finalizedDates.length?`<p>✅ 確定日<br>${finalizedText}</p>`:""}
       <div class="row-actions">
-        <button onclick="openPoll('${p.id}')">${p.finalizedDate?"結果を見る":"回答する"}</button>
+        <button onclick="openPoll('${p.id}')">${finalizedDates.length?"回答・結果":"回答する"}</button>
         <button onclick="openPollResults('${p.id}')">集計</button>
-        <button onclick="editPoll('${p.id}')">編集</button>
         <button class="danger" onclick="deletePoll('${p.id}')">削除</button>
       </div>
     </article>`;
   }).join(""):`<article class="panel">右上の「＋」から月単位の日程調整を作成してください。</article>`;
 }
 
-function renderAll(){renderHome();renderSchedules();renderPolls();renderMembers()}
+function renderAll(){renderHome();renderSchedules();renderPolls()}
 renderAll();
 
 $("addSchedule").onclick=()=>{
-  $("scheduleForm").reset();$("scheduleId").value="";$("scheduleDialogTitle").textContent="確定予定を追加";$("scheduleDialog").showModal();
+  $("scheduleForm").reset();$("scheduleId").value="";pendingScheduleImage="";updateScheduleImagePreview("");$("scheduleDialogTitle").textContent="確定予定を追加";$("scheduleDialog").showModal();
 };
 $("scheduleForm").onsubmit=e=>{
   e.preventDefault();
   const id=$("scheduleId").value;
-  const obj={type:$("scheduleType").value,title:$("scheduleTitle").value.trim(),date:$("scheduleDate").value,time:$("scheduleTime").value,place:$("schedulePlace").value.trim(),quota:Number($("scheduleQuota").value||0),memo:$("scheduleMemo").value.trim()};
+  const obj={type:$("scheduleType").value,title:$("scheduleTitle").value.trim(),date:$("scheduleDate").value,time:$("scheduleTime").value,place:$("schedulePlace").value.trim(),quota:Number($("scheduleQuota").value||0),memo:$("scheduleMemo").value.trim(),image:pendingScheduleImage||""};
   if(id) Object.assign(state.schedules.find(x=>x.id===id),obj); else state.schedules.push({id:crypto.randomUUID(),...obj});
   $("scheduleDialog").close();persist();
 };
 window.editSchedule=id=>{
   const x=state.schedules.find(v=>v.id===id);if(!x)return;
-  $("scheduleDialogTitle").textContent="予定を編集";$("scheduleId").value=x.id;$("scheduleType").value=x.type;$("scheduleTitle").value=x.title;$("scheduleDate").value=x.date;$("scheduleTime").value=x.time||"";$("schedulePlace").value=x.place||"";$("scheduleQuota").value=x.quota||"";$("scheduleMemo").value=x.memo||"";$("scheduleDialog").showModal();
+  $("scheduleDialogTitle").textContent="予定を編集";$("scheduleId").value=x.id;$("scheduleType").value=x.type;$("scheduleTitle").value=x.title;$("scheduleDate").value=x.date;$("scheduleTime").value=x.time||"";$("schedulePlace").value=x.place||"";$("scheduleQuota").value=x.quota||"";$("scheduleMemo").value=x.memo||"";updateScheduleImagePreview(x.image||"");$("scheduleImageInput").value="";$("scheduleDialog").showModal();
 };
 window.deleteSchedule=id=>{const x=state.schedules.find(v=>v.id===id);if(x&&confirm(`「${x.title}」を削除しますか？`)){state.schedules=state.schedules.filter(v=>v.id!==id);persist()}};
 
@@ -215,15 +268,16 @@ $("pollForm").onsubmit=e=>{
       const old=p.answers?.[member]||{};
       p.answers[member]=Object.fromEntries(Object.entries(old).filter(([date])=>dates.includes(date)));
     });
-    if(p.finalizedDate&&!dates.includes(p.finalizedDate)){
+    if((p.finalizedDates?.length || p.finalizedDate)&&!dates.includes(p.finalizedDate)){
       p.finalizedDate=null;
       state.schedules=state.schedules.filter(x=>x.sourcePollId!==p.id);
-    }else if(p.finalizedDate){
+    }else if((p.finalizedDates?.length || p.finalizedDate)){
       const schedule=state.schedules.find(x=>x.sourcePollId===p.id);
       if(schedule)Object.assign(schedule,{date:p.finalizedDate,time:p.startTime,place:p.place||"熊本市内スタジオ",memo:`${p.title}から決定 / ${p.startTime}-${p.endTime}`});
     }
   }else{
-    state.polls.push({id:crypto.randomUUID(),...values,answers:{},finalizedDate:null});
+    state.polls.push({id:crypto.randomUUID(),...values,answers:{},finalizedDate:null,
+    finalizedDates:[]});
   }
   $("pollDialog").close();persist();showPage("studioPolls");
 };
@@ -263,43 +317,120 @@ $("saveAnswers").onclick=()=>{
 $("openResults").onclick=()=>openPollResults(currentPollId);
 window.openPollResults=id=>{
   currentPollId=id;
+  const p=state.polls.find(x=>x.id===id);
+  selectedResultDates=new Set(p?.finalizedDates || (p?.finalizedDate?[p.finalizedDate]:[]));
   renderResults();
   showPage("pollResults");
 };
 
 function renderResults(){
-  const p=state.polls.find(x=>x.id===currentPollId);if(!p)return;
+  const p=state.polls.find(x=>x.id===currentPollId);
+  if(!p)return;
+
   const rows=p.dates.map(date=>{
     let ok=0,maybe=0,no=0;
     members.forEach(m=>{
       const a=p.answers?.[m]?.[date];
-      if(a==="ok")ok++;else if(a==="maybe")maybe++;else if(a==="no")no++;
+      if(a==="ok")ok++;
+      else if(a==="maybe")maybe++;
+      else if(a==="no")no++;
     });
     return {date,ok,maybe,no,score:ok*2+maybe};
   }).sort((a,b)=>b.score-a.score||a.date.localeCompare(b.date));
+
   const best=rows[0]?.score??0;
+
   $("resultRows").innerHTML=rows.map(r=>{
     const dt=new Date(`${r.date}T00:00:00`);
     const week=["日","月","火","水","木","金","土"][dt.getDay()];
-    return `<div class="result-row ${r.score===best&&best>0?"best-date":""}">
+    const selected=selectedResultDates.has(r.date);
+
+    return `<div class="result-row ${r.score===best&&best>0?"best-date":""} ${selected?"selected-date":""}">
       <div>${r.date.slice(5).replace("-",".")}(${week})</div>
-      <div class="result-counts"><span class="${r.score===best&&best>0?"best":""}">○${r.ok}</span><span>△${r.maybe}</span><span>×${r.no}</span></div>
-      <div class="result-actions"><button class="punk-btn" onclick="finalizeStudio('${r.date}')">この日に決定</button></div>
+      <div class="result-counts">
+        <span class="${r.score===best&&best>0?"best":""}">○${r.ok}</span>
+        <span>△${r.maybe}</span>
+        <span>×${r.no}</span>
+      </div>
+      <div class="result-actions">
+        <button class="ghost-btn result-select-button ${selected?"selected":""}" onclick="toggleResultDate('${r.date}')">
+          ${selected?"選択済み":"選択"}
+        </button>
+      </div>
     </div>`;
   }).join("");
+
+  const finalizeButton=$("finalizeSelectedDates");
+  if(finalizeButton){
+    finalizeButton.textContent=`選択した日を確定（${selectedResultDates.size}日）`;
+  }
 }
 
-window.finalizeStudio=date=>{
-  const p=state.polls.find(x=>x.id===currentPollId);if(!p)return;
-  if(!confirm(`${date}を正式なスタジオ予定にしますか？`))return;
-  p.finalizedDate=date;
-  const existing=state.schedules.find(s=>s.sourcePollId===p.id);
-  const obj={type:"studio",title:"スタジオ練習",date,time:p.startTime,place:p.place||"熊本市内スタジオ",quota:0,memo:`${p.title}から決定 / ${p.startTime}-${p.endTime}`,sourcePollId:p.id};
-  if(existing)Object.assign(existing,obj);else state.schedules.push({id:crypto.randomUUID(),...obj});
-  persist();
-  alert("スタジオ予定に追加しました。");
-  showPage("schedule");
+window.toggleResultDate=date=>{
+  if(selectedResultDates.has(date))selectedResultDates.delete(date);
+  else selectedResultDates.add(date);
+  renderResults();
 };
+
+function syncFinalizedStudioSchedules(p){
+  const selected=[...selectedResultDates].sort();
+
+  state.schedules=state.schedules.filter(s=>
+    !(s.sourcePollId===p.id && !selected.includes(s.date))
+  );
+
+  selected.forEach(date=>{
+    const existing=state.schedules.find(s=>s.sourcePollId===p.id && s.date===date);
+    const obj={
+      type:"studio",
+      title:"スタジオ練習",
+      date,
+      time:p.startTime,
+      place:p.place||"熊本市内スタジオ",
+      quota:0,
+      memo:`${p.title}から決定 / ${p.startTime}-${p.endTime}`,
+      sourcePollId:p.id,
+      image:existing?.image||""
+    };
+
+    if(existing)Object.assign(existing,obj);
+    else state.schedules.push({id:crypto.randomUUID(),...obj});
+  });
+
+  p.finalizedDates=selected;
+  p.finalizedDate=selected[0]||null;
+}
+
+const finalizeSelectedDates=$("finalizeSelectedDates");
+if(finalizeSelectedDates){
+  finalizeSelectedDates.onclick=()=>{
+    const p=state.polls.find(x=>x.id===currentPollId);
+    if(!p)return;
+
+    if(selectedResultDates.size===0){
+      alert("確定する日を1日以上選択してください。");
+      return;
+    }
+
+    const dates=[...selectedResultDates].sort().join("\n");
+    if(!confirm(`次の日程をスタジオ予定として確定しますか？
+
+${dates}`))return;
+
+    syncFinalizedStudioSchedules(p);
+    persist();
+    alert(`${selectedResultDates.size}日分を確定スケジュールへ追加しました。`);
+    showPage("schedule");
+  };
+}
+
+const clearSelectedDates=$("clearSelectedDates");
+if(clearSelectedDates){
+  clearSelectedDates.onclick=()=>{
+    selectedResultDates.clear();
+    renderResults();
+  };
+}
 
 window.deletePoll=id=>{
   const p=state.polls.find(x=>x.id===id);
@@ -310,41 +441,78 @@ window.deletePoll=id=>{
   }
 };
 
-let deferredPrompt=null;
-window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPrompt=e});
-$("installBtn").onclick=async()=>{if(deferredPrompt){deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null}else alert("ブラウザのメニューから「ホーム画面に追加」を選択してください。")};
 
 
 
 
-function renderMembers(){
-  const data=[
-    ["YAMA","Vo","Vocal"],
-    ["殿","Gt","Guitar"],
-    ["うっちー","Ba","Bass"],
-    ["RYUTO","Dr","Drums"],
-    ["JUN","Tp","Trumpet"],
-    ["MASTER","Tb","Trombone"]
-  ];
-  const list=$("memberList");
-  if(!list)return;
-  list.innerHTML=data.map(([name,shortRole,role])=>`
-    <article class="member-card">
-      <div class="member-avatar">${esc(shortRole)}</div>
-      <div><h3>${esc(name)} (${esc(shortRole)})</h3><p>NO KIDDING MEMBER</p></div>
-      <span class="member-role">${esc(role)}</span>
-    </article>
-  `).join("");
+
+
+
+
+const scheduleImageInput=$("scheduleImageInput");
+if(scheduleImageInput){
+  scheduleImageInput.addEventListener("change",async()=>{
+    const file=scheduleImageInput.files?.[0];
+    if(!file)return;
+    try{
+      const dataUrl=await resizeImageFile(file);
+      updateScheduleImagePreview(dataUrl);
+    }catch(error){
+      alert(error.message||"画像を読み込めませんでした。");
+    }
+  });
 }
 
-const liveShortcut=$("liveShortcut");
-if(liveShortcut){
-  liveShortcut.onclick=()=>{
-    activeFilter="live";
-    document.querySelectorAll("[data-filter]").forEach(button=>{
-      button.classList.toggle("active",button.dataset.filter==="live");
-    });
-    renderSchedules();
-    showPage("schedule");
+const removeScheduleImage=$("removeScheduleImage");
+if(removeScheduleImage){
+  removeScheduleImage.onclick=()=>{
+    updateScheduleImagePreview("");
+    if(scheduleImageInput)scheduleImageInput.value="";
   };
 }
+
+const changeEventImageBtn=$("changeEventImageBtn");
+const eventImageInput=$("eventImageInput");
+
+if(changeEventImageBtn && eventImageInput){
+  changeEventImageBtn.onclick=()=>{
+    const next=sortedSchedules().find(x=>eventDate(x)>=new Date());
+    if(!next){
+      alert("先に確定予定を登録してください。");
+      return;
+    }
+    eventImageInput.value="";
+    eventImageInput.click();
+  };
+
+  eventImageInput.addEventListener("change",async()=>{
+    const file=eventImageInput.files?.[0];
+    if(!file)return;
+
+    const next=sortedSchedules().find(x=>eventDate(x)>=new Date());
+    if(!next)return;
+
+    try{
+      next.image=await resizeImageFile(file);
+      persist();
+      alert("NEXT LIVEの画像を変更しました。");
+    }catch(error){
+      alert(error.message||"画像を変更できませんでした。");
+    }
+  });
+}
+
+
+function openAddScheduleDialog(){
+  $("scheduleForm").reset();
+  $("scheduleId").value="";
+  pendingScheduleImage="";
+  updateScheduleImagePreview("");
+  $("scheduleDialogTitle").textContent="確定予定を追加";
+  $("scheduleDialog").showModal();
+}
+
+const quickAddBtn=$("quickAddBtn");
+if(quickAddBtn)quickAddBtn.onclick=openAddScheduleDialog;
+const homeAddSchedule=$("homeAddSchedule");
+if(homeAddSchedule)homeAddSchedule.onclick=openAddScheduleDialog;

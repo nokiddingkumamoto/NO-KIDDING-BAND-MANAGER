@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#050505">
-  <title>NO KIDDING BAND MANAGER Ver.0.8</title>
+  <title>NO KIDDING BAND MANAGER Ver.1.8</title>
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="stylesheet" href="styles.css?v=080">
+  <link rel="stylesheet" href="styles.css?v=180">
 </head>
 <body>
 
@@ -23,73 +23,49 @@
     <button data-menu-page="studioPolls"><span>✓</span><b>スタジオ日程調整</b></button>
     <button data-menu-page="merch"><span>👕</span><b>物販・在庫</b></button>
     <button data-menu-page="finance"><span>¥</span><b>会計・売上</b></button>
-    <button data-menu-page="members"><span>👥</span><b>メンバー</b></button>
   </nav>
 
   <div class="side-menu-info">
     <strong>NO KIDDING BAND MANAGER</strong>
-    <span>Ver.0.8</span>
+    <span>Ver.1.8</span>
   </div>
 </aside>
 
 <header class="topbar">
   <button type="button" class="icon-btn" id="menuBtn" aria-label="メニューを開く" aria-expanded="false">☰</button>
-  <img src="assets/logo.png" alt="NO KIDDING" class="logo">
-  <button class="icon-btn" id="installBtn">＋</button>
+  <div class="brand-stack"><img src="assets/logo.png" alt="NO KIDDING" class="logo"><div class="brand-subtitle">バンドマネージャー</div></div>
+  <button type="button" class="icon-btn" id="quickAddBtn" aria-label="スケジュールを追加">＋</button>
 </header>
 
 <main>
   <section class="page active" id="home">
-    <article class="poster-next-card">
-      <div class="poster-next-label" id="nextType">NEXT EVENT</div>
-
-      <div class="poster-event-grid">
-        <div class="poster-art-frame">
-          <img src="assets/character.png" alt="" class="poster-event-art">
-        </div>
-
-        <div class="poster-event-info">
-          <p class="poster-event-date" id="nextDate">予定未登録</p>
-          <h1 id="nextTitle">次の予定を登録してください</h1>
-          <p id="nextMeta">確定スケジュールまたは日程調整から追加できます。</p>
-        </div>
-      </div>
-
-      <div class="poster-countdown" id="countdown">LET'S GO!</div>
-    </article>
-
-    <div class="poster-section-heading">
-      <h2>クイックメニュー</h2>
+    <div class="home-title-row first-home-heading">
+      <h2>スケジュール</h2>
       <button data-page="schedule">すべて見る ›</button>
     </div>
 
-    <div class="poster-quick-grid">
-      <button data-page="schedule" class="poster-quick cyan">
+    <div id="homeUpcomingList" class="home-schedule-list"></div>
+
+    <button type="button" id="homeAddSchedule" class="home-add-schedule">📅 スケジュールを追加する</button>
+
+    <div class="home-title-row quick-heading">
+      <h2>クイックメニュー</h2>
+    </div>
+
+    <div class="home-quick-grid">
+      <button data-page="schedule" class="home-quick-card cyan">
         <b>📅</b><span>確定スケジュール</span>
       </button>
-      <button data-page="studioPolls" class="poster-quick pink">
+      <button data-page="studioPolls" class="home-quick-card pink">
         <b>✓</b><span>スタジオ日程調整</span>
       </button>
-      <button data-page="merch" class="poster-quick yellow">
+      <button data-page="merch" class="home-quick-card yellow">
         <b>👕</b><span>物販・在庫</span>
       </button>
-      <button id="liveShortcut" class="poster-quick yellow">
-        <b>🎤</b><span>ライブ</span>
-      </button>
-      <button data-page="finance" class="poster-quick pink">
+      <button data-page="finance" class="home-quick-card lime">
         <b>¥</b><span>会計・売上</span>
       </button>
-      <button data-page="members" class="poster-quick cyan">
-        <b>👥</b><span>メンバー</span>
-      </button>
     </div>
-
-    <div class="poster-section-heading upcoming-heading">
-      <h2>今後の予定</h2>
-      <button data-page="schedule">すべて見る ›</button>
-    </div>
-
-    <div id="homeUpcomingList" class="poster-upcoming-list"></div>
   </section>
 
   <section class="page" id="schedule">
@@ -147,6 +123,14 @@
       <h2>集計結果</h2>
       <span></span>
     </div>
+    <article class="panel multi-date-panel">
+      <h3>確定する日を複数選択</h3>
+      <p>候補日の「選択」を押し、最後にまとめて確定してください。</p>
+      <div class="multi-date-actions">
+        <button type="button" id="clearSelectedDates" class="ghost-btn">選択解除</button>
+        <button type="button" id="finalizeSelectedDates" class="punk-btn">選択した日を確定</button>
+      </div>
+    </article>
     <div id="resultRows" class="result-list"></div>
   </section>
 
@@ -160,24 +144,9 @@
     <article class="panel">会計機能は次の更新で追加します。</article>
   </section>
 
-  <section class="page" id="members">
-    <div class="section-head">
-      <button data-back data-fallback="home">‹</button>
-      <h2>メンバー</h2>
-      <span></span>
-    </div>
-    <div id="memberList" class="member-list"></div>
-  </section>
 
 </main>
 
-<nav class="bottom-nav">
-  <button data-page="home" class="active">⌂<span>ホーム</span></button>
-  <button data-page="schedule">📅<span>確定予定</span></button>
-  <button data-page="studioPolls">✓<span>スタジオ調整</span></button>
-  <button data-page="merch">👕<span>物販</span></button>
-  <button data-page="finance">¥<span>会計</span></button>
-</nav>
 
 <dialog id="scheduleDialog">
   <form id="scheduleForm">
@@ -198,6 +167,14 @@
     <label>会場・場所<input id="schedulePlace"></label>
     <label>ノルマ<input id="scheduleQuota" type="number" min="0"></label>
     <label>メモ<textarea id="scheduleMemo" rows="4"></textarea></label>
+    <label>イベント画像
+      <input id="scheduleImageInput" type="file" accept="image/*">
+    </label>
+    <div class="event-image-preview-wrap">
+      <img id="scheduleImagePreview" alt="イベント画像プレビュー">
+      <button type="button" id="removeScheduleImage" class="ghost-btn">画像を削除</button>
+    </div>
+    
     <div class="dialog-actions">
       <button type="button" class="ghost-btn" data-close="scheduleDialog">キャンセル</button>
       <button type="submit" class="punk-btn">保存</button>
@@ -318,6 +295,6 @@
 })();
 </script>
 
-<script src="app.js?v=080"></script>
+<script src="app.js?v=180"></script>
 </body>
 </html>
