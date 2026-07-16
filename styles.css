@@ -160,3 +160,25 @@ body.menu-open{overflow:hidden}
 @media(max-width:430px){
   .quick-card{min-height:166px}.quick-card svg{width:72px;height:72px}.quick-card span{font-size:12px}
 }
+
+/* V2.1 FINAL QUICK MENU */
+.quick-grid-final{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:16px!important}
+.quick-card-final{position:relative;isolation:isolate;overflow:hidden;min-width:0;min-height:260px;padding:22px 12px 20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;border-radius:14px;background:linear-gradient(160deg,rgba(255,255,255,.025),transparent 40%),#020202;color:#fff;box-shadow:0 12px 22px rgba(0,0,0,.58),inset 0 0 34px rgba(255,255,255,.025)}
+.quick-card-final:before{content:"";position:absolute;inset:0;z-index:-3;opacity:.28;background:repeating-linear-gradient(156deg,transparent 0 26px,currentColor 27px 29px,transparent 30px 58px);transform:scale(1.1) rotate(-2deg)}
+.quick-card-final:after{content:"";position:absolute;inset:-18%;z-index:-2;opacity:.36;background:radial-gradient(circle at 3% 12%,currentColor 0 8px,transparent 9px),radial-gradient(circle at 11% 23%,currentColor 0 3px,transparent 4px),radial-gradient(circle at 17% 79%,currentColor 0 5px,transparent 6px),radial-gradient(circle at 90% 13%,currentColor 0 7px,transparent 8px),radial-gradient(circle at 95% 84%,currentColor 0 10px,transparent 11px),radial-gradient(circle at 76% 94%,currentColor 0 4px,transparent 5px),radial-gradient(ellipse at 12% 60%,currentColor 0 9%,transparent 10%),radial-gradient(ellipse at 89% 42%,currentColor 0 8%,transparent 9%)}
+.paint-layer{position:absolute;z-index:-1;pointer-events:none;background:currentColor;opacity:.2;filter:blur(1px)}
+.paint-a{width:150px;height:34px;left:-25px;top:30px;clip-path:polygon(0 25%,82% 0,100% 32%,86% 46%,100% 64%,69% 77%,28% 100%,0 72%);transform:rotate(-9deg)}
+.paint-b{width:130px;height:42px;right:-30px;bottom:24px;clip-path:polygon(0 20%,70% 0,100% 25%,88% 43%,100% 72%,61% 100%,14% 79%);transform:rotate(12deg)}
+.quick-cyan{color:var(--cyan)!important;border:4px solid var(--cyan)!important;box-shadow:0 0 0 1px rgba(0,200,232,.22),0 0 19px rgba(0,200,232,.38),inset 0 0 28px rgba(0,200,232,.14)!important}
+.quick-pink{color:var(--pink)!important;border:4px solid var(--pink)!important;box-shadow:0 0 0 1px rgba(255,25,112,.24),0 0 19px rgba(255,25,112,.4),inset 0 0 28px rgba(255,25,112,.15)!important}
+.quick-yellow{color:var(--yellow)!important;border:4px solid var(--yellow)!important;box-shadow:0 0 0 1px rgba(255,210,10,.23),0 0 19px rgba(255,210,10,.38),inset 0 0 28px rgba(255,210,10,.13)!important}
+.quick-icon-final{position:relative;z-index:2;width:128px;height:128px;overflow:visible;filter:drop-shadow(0 0 4px currentColor) drop-shadow(0 0 11px currentColor) drop-shadow(0 0 20px currentColor)}
+.quick-icon-final rect,.quick-icon-final path{fill:none;stroke:currentColor;stroke-width:8;stroke-linecap:round;stroke-linejoin:round}
+.quick-icon-final text{fill:currentColor;font-family:"Arial Black",Impact,sans-serif;font-size:38px;font-weight:1000;text-anchor:middle}
+.quick-check-final path{stroke-width:15}
+.quick-shirt-final .shirt-body{fill:currentColor;stroke:none}
+.quick-shirt-final .shirt-plus{fill:none;stroke:#050505;stroke-width:9}
+.quick-label-final{position:relative;z-index:3;display:block;color:#fff;font-size:20px;line-height:1.2;font-weight:1000;text-align:center;letter-spacing:.01em;text-shadow:0 2px 0 #000,0 0 8px #000}
+.quick-card-final:active{transform:scale(.975);filter:brightness(1.16)}
+@media(max-width:700px){.quick-grid-final{gap:8px!important}.quick-card-final{min-height:205px;padding:16px 7px 15px;gap:17px;border-width:3px!important}.quick-icon-final{width:92px;height:92px}.quick-label-final{font-size:14px}}
+@media(max-width:430px){.quick-card-final{min-height:190px}.quick-icon-final{width:84px;height:84px}.quick-label-final{font-size:13px}}
