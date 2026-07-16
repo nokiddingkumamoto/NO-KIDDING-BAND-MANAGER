@@ -27,13 +27,34 @@ const eventDate=x=>new Date(`${x.date}T${x.time||"00:00"}:00`);
 const sortedSchedules=()=>[...state.schedules].sort((a,b)=>eventDate(a)-eventDate(b));
 const yen=v=>new Intl.NumberFormat("ja-JP",{style:"currency",currency:"JPY",maximumFractionDigits:0}).format(Number(v||0));
 
-function showPage(id){
+let currentPage="home";
+function renderPage(id){
+  currentPage=id;
   document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===id));
   document.querySelectorAll(".bottom-nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===id));
   scrollTo(0,0);
 }
+function showPage(id,{replace=false}={}){
+  if(id===currentPage)return;
+  const state={page:id};
+  if(replace)history.replaceState(state,"",`#${id}`);
+  else history.pushState(state,"",`#${id}`);
+  renderPage(id);
+}
+function goBack(fallback="home"){
+  if(history.state&&history.length>1)history.back();
+  else showPage(fallback,{replace:true});
+}
 document.querySelectorAll("[data-page]").forEach(b=>b.onclick=()=>showPage(b.dataset.page));
+document.querySelectorAll("[data-back]").forEach(b=>b.onclick=()=>goBack(b.dataset.fallback||"home"));
 document.querySelectorAll("[data-close]").forEach(b=>b.onclick=()=>$(b.dataset.close).close());
+window.addEventListener("popstate",e=>{
+  const page=e.state?.page||location.hash.replace("#","")||"home";
+  renderPage(document.getElementById(page)?page:"home");
+});
+const initialPage=location.hash.replace("#","");
+history.replaceState({page:document.getElementById(initialPage)?initialPage:"home"},"",location.href);
+renderPage(history.state.page);
 
 document.querySelectorAll("[data-filter]").forEach(button=>{
   button.onclick=()=>{
@@ -85,6 +106,7 @@ function renderPolls(){
       <div class="row-actions">
         <button onclick="openPoll('${p.id}')">${p.finalizedDate?"結果を見る":"回答する"}</button>
         <button onclick="openPollResults('${p.id}')">集計</button>
+        <button onclick="editPoll('${p.id}')">編集</button>
         <button class="danger" onclick="deletePoll('${p.id}')">削除</button>
       </div>
     </article>`;
@@ -112,6 +134,8 @@ window.deleteSchedule=id=>{const x=state.schedules.find(v=>v.id===id);if(x&&conf
 
 $("addPoll").onclick=()=>{
   $("pollForm").reset();
+  $("pollEditId").value="";
+  $("pollDialogTitle").textContent="スタジオ日程調整を作成";
   const now=new Date();$("pollMonth").value=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}`;
   $("pollTitle").value=`${now.getMonth()+1}月スタジオ日程調整`;
   $("pollStartTime").value="20:00";$("pollEndTime").value="23:00";
@@ -119,28 +143,59 @@ $("addPoll").onclick=()=>{
   $("pollDialog").showModal();
 };
 
-$("pollForm").onsubmit=e=>{
-  e.preventDefault();
-  const month=$("pollMonth").value;
-  const weekdays=[...document.querySelectorAll("#weekdayOptions input:checked")].map(x=>Number(x.value));
+function datesForMonth(month,weekdays){
   const [y,m]=month.split("-").map(Number);
   const days=new Date(y,m,0).getDate();
   const dates=[];
   for(let d=1;d<=days;d++){
     const dt=new Date(y,m-1,d);
-    if(weekdays.includes(dt.getDay())) dates.push(`${month}-${String(d).padStart(2,"0")}`);
+    if(weekdays.includes(dt.getDay()))dates.push(`${month}-${String(d).padStart(2,"0")}`);
   }
-  state.polls.push({
-    id:crypto.randomUUID(),
-    title:$("pollTitle").value.trim(),
-    month,
-    startTime:$("pollStartTime").value,
-    endTime:$("pollEndTime").value,
-    place:$("pollPlace").value.trim(),
-    dates,
-    answers:{},
-    finalizedDate:null
-  });
+  return dates;
+}
+
+window.editPoll=id=>{
+  const p=state.polls.find(x=>x.id===id);if(!p)return;
+  $("pollEditId").value=p.id;
+  $("pollDialogTitle").textContent="日程調整を編集";
+  $("pollMonth").value=p.month;
+  $("pollTitle").value=p.title;
+  $("pollStartTime").value=p.startTime||"20:00";
+  $("pollEndTime").value=p.endTime||"23:00";
+  $("pollPlace").value=p.place||"";
+  const used=new Set(p.dates.map(d=>new Date(`${d}T00:00:00`).getDay()));
+  document.querySelectorAll("#weekdayOptions input").forEach(x=>x.checked=used.has(Number(x.value)));
+  $("pollDialog").showModal();
+};
+
+$("pollForm").onsubmit=e=>{
+  e.preventDefault();
+  const editId=$("pollEditId").value;
+  const month=$("pollMonth").value;
+  const weekdays=[...document.querySelectorAll("#weekdayOptions input:checked")].map(x=>Number(x.value));
+  if(!weekdays.length){alert("候補に含める曜日を1つ以上選んでください。");return;}
+  const dates=datesForMonth(month,weekdays);
+  const values={
+    title:$("pollTitle").value.trim(),month,startTime:$("pollStartTime").value,endTime:$("pollEndTime").value,place:$("pollPlace").value.trim(),dates
+  };
+  if(editId){
+    const p=state.polls.find(x=>x.id===editId);
+    if(!p)return;
+    Object.assign(p,values);
+    members.forEach(member=>{
+      const old=p.answers?.[member]||{};
+      p.answers[member]=Object.fromEntries(Object.entries(old).filter(([date])=>dates.includes(date)));
+    });
+    if(p.finalizedDate&&!dates.includes(p.finalizedDate)){
+      p.finalizedDate=null;
+      state.schedules=state.schedules.filter(x=>x.sourcePollId!==p.id);
+    }else if(p.finalizedDate){
+      const schedule=state.schedules.find(x=>x.sourcePollId===p.id);
+      if(schedule)Object.assign(schedule,{date:p.finalizedDate,time:p.startTime,place:p.place||"熊本市内スタジオ",memo:`${p.title}から決定 / ${p.startTime}-${p.endTime}`});
+    }
+  }else{
+    state.polls.push({id:crypto.randomUUID(),...values,answers:{},finalizedDate:null});
+  }
   $("pollDialog").close();persist();showPage("studioPolls");
 };
 

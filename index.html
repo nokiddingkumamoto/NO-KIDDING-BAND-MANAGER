@@ -46,7 +46,7 @@
 
   <section class="page" id="schedule">
     <div class="section-head">
-      <button data-page="home">‹</button>
+      <button data-back data-fallback="home">‹</button>
       <h2>スケジュール</h2>
       <button id="addSchedule">＋</button>
     </div>
@@ -63,7 +63,7 @@
 
   <section class="page" id="studioPolls">
     <div class="section-head">
-      <button data-page="home">‹</button>
+      <button data-back data-fallback="home">‹</button>
       <h2>スタジオ日程調整</h2>
       <button id="addPoll">＋</button>
     </div>
@@ -72,7 +72,7 @@
 
   <section class="page" id="pollDetail">
     <div class="section-head">
-      <button data-page="studioPolls">‹</button>
+      <button data-back data-fallback="studioPolls">‹</button>
       <h2 id="pollDetailTitle">日程調整</h2>
       <span></span>
     </div>
@@ -94,7 +94,7 @@
 
   <section class="page" id="pollResults">
     <div class="section-head">
-      <button data-page="pollDetail">‹</button>
+      <button data-back data-fallback="pollDetail">‹</button>
       <h2>集計結果</h2>
       <span></span>
     </div>
@@ -102,12 +102,12 @@
   </section>
 
   <section class="page" id="merch">
-    <div class="section-head"><button data-page="home">‹</button><h2>物販・在庫</h2><span></span></div>
+    <div class="section-head"><button data-back data-fallback="home">‹</button><h2>物販・在庫</h2><span></span></div>
     <article class="panel">物販機能は次の更新で追加します。</article>
   </section>
 
   <section class="page" id="finance">
-    <div class="section-head"><button data-page="home">‹</button><h2>会計・売上</h2><span></span></div>
+    <div class="section-head"><button data-back data-fallback="home">‹</button><h2>会計・売上</h2><span></span></div>
     <article class="panel">会計機能は次の更新で追加します。</article>
   </section>
 </main>
@@ -147,7 +147,8 @@
 
 <dialog id="pollDialog">
   <form id="pollForm">
-    <h3>スタジオ日程調整を作成</h3>
+    <h3 id="pollDialogTitle">スタジオ日程調整を作成</h3>
+    <input type="hidden" id="pollEditId">
     <label>対象月<input id="pollMonth" type="month" required></label>
     <label>タイトル<input id="pollTitle" required placeholder="例：8月スタジオ日程調整"></label>
     <label>開始時間<input id="pollStartTime" type="time" value="20:00"></label>

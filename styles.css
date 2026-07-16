@@ -46,3 +46,4 @@ input,select,textarea{width:100%;background:#080808;color:#fff;border:1px solid 
 dialog{width:min(92vw,520px);max-height:90vh;overflow:auto;background:#111;color:#fff;border:2px solid var(--cyan);border-radius:14px}dialog::backdrop{background:rgba(0,0,0,.82)}
 .dialog-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}
 @media(min-width:700px){.menu-grid{grid-template-columns:repeat(4,1fr)}}
+.poll-card .row-actions button:nth-child(3){border-color:var(--cyan);color:var(--cyan)}
