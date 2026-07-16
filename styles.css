@@ -946,3 +946,104 @@ main{padding:14px 14px 24px}
   width:68px;
   height:68px;
 }
+
+
+/* =====================================
+   Ver.1.8.3 QUICK MENU VISUAL REBUILD
+   ===================================== */
+.home-quick-grid{
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  gap:10px!important;
+}
+.home-quick-card{
+  --card-accent:currentColor;
+  position:relative!important;
+  min-height:150px!important;
+  overflow:hidden!important;
+  isolation:isolate;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:9px!important;
+  padding:14px 8px!important;
+  background:#050505!important;
+  border:2px solid var(--card-accent)!important;
+  border-radius:4px!important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.025),
+    0 0 16px color-mix(in srgb,var(--card-accent) 16%,transparent)!important;
+  color:var(--card-accent)!important;
+}
+.home-quick-card::before{
+  content:"";
+  position:absolute;
+  inset:-16%;
+  z-index:-2;
+  opacity:.34;
+  background:
+    radial-gradient(ellipse at 4% 15%,currentColor 0 1.4%,transparent 1.8%),
+    radial-gradient(ellipse at 14% 28%,currentColor 0 2.2%,transparent 2.7%),
+    radial-gradient(ellipse at 86% 11%,currentColor 0 1.8%,transparent 2.2%),
+    radial-gradient(ellipse at 78% 78%,currentColor 0 2.8%,transparent 3.3%),
+    radial-gradient(ellipse at 25% 91%,currentColor 0 2.1%,transparent 2.6%),
+    radial-gradient(circle at 52% 4%,currentColor 0 1%,transparent 1.5%),
+    radial-gradient(circle at 93% 52%,currentColor 0 1.2%,transparent 1.7%),
+    linear-gradient(118deg,transparent 18%,currentColor 19% 21%,transparent 22% 71%,currentColor 72% 74%,transparent 75%);
+  filter:blur(.2px);
+  transform:rotate(-2deg) scale(1.07);
+}
+.home-quick-card::after{
+  content:""!important;
+  position:absolute!important;
+  inset:0!important;
+  z-index:-1!important;
+  opacity:.18!important;
+  pointer-events:none!important;
+  background:
+    repeating-linear-gradient(164deg,transparent 0 15px,currentColor 16px 17px,transparent 18px 31px),
+    radial-gradient(circle at 22% 18%,currentColor 0 2px,transparent 3px),
+    radial-gradient(circle at 73% 71%,currentColor 0 2px,transparent 3px)!important;
+  background-size:auto,24px 29px,33px 37px!important;
+  mask-image:linear-gradient(135deg,#000,transparent 85%);
+}
+.home-quick-card.cyan{--card-accent:#05bad6!important}
+.home-quick-card.pink{--card-accent:#ff2676!important}
+.home-quick-card.yellow{--card-accent:#ffc400!important}
+.home-quick-card .quick-svg{
+  position:relative!important;
+  z-index:2!important;
+  width:78px!important;
+  height:78px!important;
+  color:var(--card-accent)!important;
+  filter:
+    drop-shadow(0 0 3px color-mix(in srgb,var(--card-accent) 75%,transparent))
+    drop-shadow(0 0 11px color-mix(in srgb,var(--card-accent) 28%,transparent))!important;
+}
+.home-quick-card .quick-check{width:82px!important;height:82px!important}
+.home-quick-card .quick-shirt{width:78px!important;height:78px!important}
+.home-quick-card span{
+  position:relative!important;
+  z-index:2!important;
+  color:#fff!important;
+  font-size:17px!important;
+  line-height:1.2!important;
+  font-weight:1000!important;
+  text-align:center!important;
+  text-shadow:0 2px 0 #000!important;
+}
+/* Three required menu cards: third card is wide, with the same frame/icon language */
+.home-quick-card:nth-child(3){
+  grid-column:1 / -1!important;
+  min-height:122px!important;
+  flex-direction:row!important;
+  gap:18px!important;
+}
+.home-quick-card:nth-child(3) .quick-svg{width:72px!important;height:72px!important}
+.home-quick-card:nth-child(3) span{font-size:19px!important}
+.side-menu-nav button:nth-child(5){border-left-color:var(--yellow)!important}
+@media(max-width:380px){
+  .home-quick-card{min-height:136px!important}
+  .home-quick-card span{font-size:15px!important}
+}

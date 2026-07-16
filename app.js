@@ -523,12 +523,12 @@ const homeAddSchedule=$("homeAddSchedule");
 if(homeAddSchedule)homeAddSchedule.onclick=openAddScheduleDialog;
 
 
-// Ver.1.8.2 cache refresh
+// Ver.1.8.3 cache refresh
 (async function refreshOldCache(){
   try{
     if("caches" in window){
       const keys=await caches.keys();
-      await Promise.all(keys.filter(key=>key!=="nkbm-v182").map(key=>caches.delete(key)));
+      await Promise.all(keys.filter(key=>key!=="nkbm-v183").map(key=>caches.delete(key)));
     }
     if("serviceWorker" in navigator){
       const registrations=await navigator.serviceWorker.getRegistrations();

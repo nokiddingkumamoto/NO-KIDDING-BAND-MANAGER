@@ -1,9 +1,9 @@
-const CACHE_NAME="nkbm-v182";
+const CACHE_NAME="nkbm-v183";
 const CORE=[
   "./",
   "index.html",
-  "styles.css?v=182",
-  "app.js?v=182",
+  "styles.css?v=183",
+  "app.js?v=183",
   "manifest.webmanifest",
   "assets/logo.png",
   "assets/character.png",
