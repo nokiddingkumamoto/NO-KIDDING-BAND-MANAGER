@@ -453,3 +453,135 @@ body.menu-open{overflow:hidden}
     font-size:11px!important;
   }
 }
+
+
+/* =========================================================
+   V2.5.0 QUICK MENU FINAL
+   ========================================================= */
+.quick-menu-v250{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:12px!important;
+  width:100%!important;
+}
+.quick-card-v250{
+  position:relative!important;
+  isolation:isolate!important;
+  overflow:hidden!important;
+  width:100%!important;
+  min-width:0!important;
+  aspect-ratio:1.46/1!important;
+  padding:14px 10px 12px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:8px!important;
+  border-radius:3px!important;
+  background:#020202!important;
+  color:#fff!important;
+}
+.quick-card-v250::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-4;
+  background:
+    repeating-linear-gradient(155deg,transparent 0 31px,currentColor 32px 34px,transparent 35px 63px);
+  opacity:.11;
+}
+.quick-card-v250::after{
+  content:"";
+  position:absolute;
+  inset:-8%;
+  z-index:-3;
+  opacity:.55;
+  background:
+    radial-gradient(circle at 1% 2%,currentColor 0 8px,transparent 9px),
+    radial-gradient(circle at 8% 6%,currentColor 0 3px,transparent 4px),
+    radial-gradient(circle at 16% 1%,currentColor 0 5px,transparent 6px),
+    radial-gradient(circle at 99% 3%,currentColor 0 9px,transparent 10px),
+    radial-gradient(circle at 91% 8%,currentColor 0 3px,transparent 4px),
+    radial-gradient(circle at 1% 98%,currentColor 0 10px,transparent 11px),
+    radial-gradient(circle at 10% 91%,currentColor 0 4px,transparent 5px),
+    radial-gradient(circle at 99% 97%,currentColor 0 10px,transparent 11px),
+    radial-gradient(circle at 90% 91%,currentColor 0 4px,transparent 5px),
+    radial-gradient(ellipse at 0% 51%,currentColor 0 12%,transparent 13%),
+    radial-gradient(ellipse at 100% 48%,currentColor 0 12%,transparent 13%);
+}
+.corner-paint-v250{
+  position:absolute;
+  inset:0;
+  z-index:-2;
+  opacity:.14;
+  background:
+    linear-gradient(165deg,transparent 0 19%,currentColor 20% 25%,transparent 26% 100%),
+    linear-gradient(20deg,transparent 0 67%,currentColor 68% 73%,transparent 74% 100%);
+}
+.quick-cyan-v250{
+  color:#00cbe9!important;
+  border:2px solid #00cbe9!important;
+  box-shadow:inset 0 0 12px rgba(0,203,233,.08)!important;
+}
+.quick-pink-v250{
+  color:#ff1970!important;
+  border:2px solid #ff1970!important;
+  box-shadow:inset 0 0 12px rgba(255,25,112,.08)!important;
+}
+.quick-yellow-v250{
+  color:#ffd20a!important;
+  border:2px solid #ffd20a!important;
+  box-shadow:inset 0 0 12px rgba(255,210,10,.08)!important;
+}
+.quick-card-v250:nth-child(3){
+  grid-column:1/2!important;
+}
+.quick-icon-v250{
+  width:74px!important;
+  height:74px!important;
+  overflow:visible!important;
+  filter:drop-shadow(0 0 2px currentColor) drop-shadow(0 0 5px currentColor)!important;
+}
+.quick-icon-v250 rect,
+.quick-icon-v250 path{
+  fill:none;
+  stroke:currentColor;
+  stroke-width:9;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.quick-icon-v250 text{
+  fill:currentColor;
+  font-family:"Arial Black",Impact,sans-serif;
+  font-size:39px;
+  font-weight:1000;
+  text-anchor:middle;
+}
+.quick-check-v250 path{stroke-width:16}
+.quick-shirt-v250 .shirt-body-v250{fill:currentColor;stroke:none}
+.quick-shirt-v250 .shirt-plus-v250{fill:none;stroke:#050505;stroke-width:9}
+.quick-card-v250 strong{
+  color:#fff!important;
+  font-size:14px!important;
+  line-height:1.15!important;
+  font-weight:1000!important;
+  text-align:center!important;
+  white-space:nowrap!important;
+  text-shadow:0 2px 0 #000!important;
+}
+.quick-card-v250:active{
+  transform:scale(.98)!important;
+  filter:brightness(1.1)!important;
+}
+@media(max-width:430px){
+  .quick-menu-v250{gap:9px!important}
+  .quick-card-v250{
+    aspect-ratio:1.40/1!important;
+    padding:11px 6px 10px!important;
+  }
+  .quick-icon-v250{width:66px!important;height:66px!important}
+  .quick-card-v250 strong{
+    font-size:12px!important;
+    white-space:normal!important;
+  }
+}
