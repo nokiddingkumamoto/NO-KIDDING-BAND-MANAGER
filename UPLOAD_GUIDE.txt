@@ -1,17 +1,20 @@
-NO KIDDING BAND MANAGER V1.1 - GitHub / Cloudflare Pages用
+NO KIDDING BAND MANAGER V3.0.1
 
-1. このZIPをスマホで解凍する
-2. GitHubの「NO-KIDDING-BAND-MANAGER」を開く
-3. Upload filesから、解凍した中身をアップロードする
-4. Cloudflareへ無料登録・ログインする
-5. Workers & Pages → Create → Pages → Connect to Git
-6. GitHubの「NO-KIDDING-BAND-MANAGER」を選択する
-7. Framework preset: None
-8. Build command: 空欄
-9. Build output directory: /
-10. Save and Deploy
+GitHub repository rootに、このZIPを解凍した中身をアップロードしてください。
+ZIPそのものはアップロードしません。
 
-注意
-・Replitへの課金は不要です。
-・この版のデータは各スマホ内に保存されます。
-・メンバー全員で同じデータを共有する機能は、次の版でSupabaseを接続して追加します。
+上書きする主なファイル:
+- index.html
+- styles.css
+- app.js
+- manifest.webmanifest
+- sw.js
+- assets/logo.png
+- assets/character.png
+- assets/icon.svg
+
+GitHub Pages:
+Settings > Pages > Deploy from a branch > main / (root) > Save
+
+更新が見えない場合:
+ブラウザを再読み込みするか、ホーム画面のアプリを一度閉じて開き直してください。
