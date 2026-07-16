@@ -1,3 +1,8 @@
+
+window.addEventListener("error",event=>{
+  console.error("App error:",event.error||event.message);
+});
+
 const STORAGE_KEY="no-kidding-band-manager-v03";
 const members=["YAMA (Vo)","殿 (Gt)","うっちー (Ba)","RYUTO (Dr)","JUN (Tp)","MASTER (Tb)"];
 const typeNames={live:"ライブ",studio:"スタジオ",meeting:"ミーティング",recording:"レコーディング",other:"その他"};
@@ -516,12 +521,14 @@ const quickAddBtn=$("quickAddBtn");
 if(quickAddBtn)quickAddBtn.onclick=openAddScheduleDialog;
 const homeAddSchedule=$("homeAddSchedule");
 if(homeAddSchedule)homeAddSchedule.onclick=openAddScheduleDialog;
-\n\n// Ver.1.8.1 cache refresh
+
+
+// Ver.1.8.2 cache refresh
 (async function refreshOldCache(){
   try{
     if("caches" in window){
       const keys=await caches.keys();
-      await Promise.all(keys.filter(key=>key!=="nkbm-v181").map(key=>caches.delete(key)));
+      await Promise.all(keys.filter(key=>key!=="nkbm-v182").map(key=>caches.delete(key)));
     }
     if("serviceWorker" in navigator){
       const registrations=await navigator.serviceWorker.getRegistrations();
