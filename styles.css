@@ -374,3 +374,99 @@ dialog{width:min(92vw,520px);max-height:90vh;overflow:auto;background:#111;color
   .next-character{width:42%;right:-24px}
   .quick-card span{font-size:14px}
 }
+
+
+/* =========================
+   Ver.0.7 SIDE MENU
+   ========================= */
+.menu-overlay{
+  position:fixed;
+  inset:0;
+  z-index:49;
+  background:rgba(0,0,0,.72);
+  backdrop-filter:blur(2px);
+}
+.side-menu{
+  position:fixed;
+  top:0;
+  left:0;
+  bottom:0;
+  z-index:50;
+  width:min(84vw,340px);
+  padding:18px 14px 20px;
+  background:
+    radial-gradient(circle at 20% 10%,rgba(255,47,125,.12),transparent 30%),
+    radial-gradient(circle at 90% 65%,rgba(25,200,216,.10),transparent 34%),
+    #080808;
+  border-right:2px solid var(--pink);
+  box-shadow:18px 0 36px rgba(0,0,0,.65);
+  transform:translateX(-105%);
+  transition:transform .22s ease;
+}
+.side-menu.open{transform:translateX(0)}
+.side-menu-head{
+  display:grid;
+  grid-template-columns:1fr 42px;
+  align-items:center;
+  gap:10px;
+  min-height:68px;
+  padding-bottom:14px;
+  border-bottom:1px solid #333;
+}
+.side-menu-head img{
+  max-width:210px;
+  max-height:58px;
+  object-fit:contain;
+}
+.side-menu-head button{
+  width:42px;
+  height:42px;
+  border:1px solid #555;
+  border-radius:8px;
+  background:#111;
+  color:#fff;
+  font-size:27px;
+}
+.side-menu-nav{
+  display:grid;
+  gap:8px;
+  margin-top:18px;
+}
+.side-menu-nav button{
+  display:grid;
+  grid-template-columns:42px 1fr;
+  align-items:center;
+  gap:10px;
+  min-height:54px;
+  padding:8px 12px;
+  background:#0d0d0d;
+  color:#fff;
+  border:1px solid #333;
+  border-left:4px solid var(--cyan);
+  border-radius:4px;
+  text-align:left;
+}
+.side-menu-nav button:nth-child(3){border-left-color:var(--pink)}
+.side-menu-nav button:nth-child(4){border-left-color:var(--yellow)}
+.side-menu-nav button:nth-child(5){border-left-color:var(--pink)}
+.side-menu-nav span{
+  font-size:24px;
+  text-align:center;
+}
+.side-menu-nav b{
+  font-size:15px;
+}
+.side-menu-info{
+  position:absolute;
+  left:14px;
+  right:14px;
+  bottom:18px;
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  padding-top:13px;
+  border-top:1px solid #333;
+  color:#777;
+  font-size:11px;
+}
+body.menu-open{overflow:hidden}

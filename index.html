@@ -4,13 +4,35 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#050505">
-  <title>NO KIDDING BAND MANAGER Ver.0.6</title>
+  <title>NO KIDDING BAND MANAGER Ver.0.7</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+<div class="menu-overlay" id="menuOverlay" hidden></div>
+<aside class="side-menu" id="sideMenu" aria-hidden="true">
+  <div class="side-menu-head">
+    <img src="assets/logo.png" alt="NO KIDDING">
+    <button id="closeMenuBtn" aria-label="メニューを閉じる">×</button>
+  </div>
+
+  <nav class="side-menu-nav">
+    <button data-menu-page="home"><span>⌂</span><b>ホーム</b></button>
+    <button data-menu-page="schedule"><span>📅</span><b>確定スケジュール</b></button>
+    <button data-menu-page="studioPolls"><span>✓</span><b>スタジオ日程調整</b></button>
+    <button data-menu-page="merch"><span>👕</span><b>物販・在庫</b></button>
+    <button data-menu-page="finance"><span>¥</span><b>会計・売上</b></button>
+  </nav>
+
+  <div class="side-menu-info">
+    <strong>NO KIDDING BAND MANAGER</strong>
+    <span>Ver.0.7</span>
+  </div>
+</aside>
+
 <header class="topbar">
-  <button class="icon-btn" data-page="home">☰</button>
+  <button class="icon-btn" id="menuBtn" aria-label="メニューを開く">☰</button>
   <img src="assets/logo.png" alt="NO KIDDING" class="logo">
   <button class="icon-btn" id="installBtn">＋</button>
 </header>

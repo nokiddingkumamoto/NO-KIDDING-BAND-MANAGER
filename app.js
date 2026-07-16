@@ -8,6 +8,29 @@ let activeFilter="all";
 let currentPollId=null;
 let workingAnswers={};
 
+let menuOpen=false;
+
+function openMenu(){
+  menuOpen=true;
+  $("menuOverlay").hidden=false;
+  $("sideMenu").classList.add("open");
+  $("sideMenu").setAttribute("aria-hidden","false");
+  document.body.classList.add("menu-open");
+  history.pushState({menu:true},"");
+}
+
+function closeMenu(useHistory=false){
+  if(!menuOpen) return;
+  menuOpen=false;
+  $("menuOverlay").hidden=true;
+  $("sideMenu").classList.remove("open");
+  $("sideMenu").setAttribute("aria-hidden","true");
+  document.body.classList.remove("menu-open");
+  if(useHistory && history.state?.menu) history.back();
+}
+
+
+
 function loadState(){
   try{
     const saved=JSON.parse(localStorage.getItem(STORAGE_KEY));
@@ -22,6 +45,19 @@ function loadState(){
 }
 function persist(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state));renderAll()}
 const $=id=>document.getElementById(id);
+
+$("menuBtn").onclick=openMenu;
+$("closeMenuBtn").onclick=()=>closeMenu(true);
+$("menuOverlay").onclick=()=>closeMenu(true);
+document.querySelectorAll("[data-menu-page]").forEach(button=>{
+  button.onclick=()=>{
+    const target=button.dataset.menuPage;
+    closeMenu(false);
+    showPage(target);
+    history.replaceState({page:target},"");
+  };
+});
+
 const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
 const eventDate=x=>new Date(`${x.date}T${x.time||"00:00"}:00`);
 const sortedSchedules=()=>[...state.schedules].sort((a,b)=>eventDate(a)-eventDate(b));
@@ -305,3 +341,16 @@ window.deletePoll=id=>{
 let deferredPrompt=null;
 window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPrompt=e});
 $("installBtn").onclick=async()=>{if(deferredPrompt){deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null}else alert("ブラウザのメニューから「ホーム画面に追加」を選択してください。")};
+
+window.addEventListener("popstate",()=>{
+  if(menuOpen){
+    closeMenu(false);
+    return;
+  }
+  const current=document.querySelector(".page.active")?.id;
+  if(current && current!=="home"){
+    showPage("home");
+    history.replaceState({page:"home"},"");
+  }
+});
+
