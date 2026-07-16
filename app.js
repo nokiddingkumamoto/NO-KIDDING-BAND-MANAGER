@@ -350,5 +350,11 @@ function renderAll(){renderHome();renderSchedules();renderPolls();renderMerch()}
 renderAll();
 
 if("serviceWorker" in navigator){
-  window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js?v=250").catch(console.error));
+  window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js?v=270").catch(console.error));
 }
+
+
+// V2.7.0 accounting quick-card action
+document.getElementById("accountingQuickButton")?.addEventListener("click", () => {
+  document.getElementById("accountingDialog")?.showModal();
+});
