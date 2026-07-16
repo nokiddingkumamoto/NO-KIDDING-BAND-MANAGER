@@ -908,3 +908,11 @@ main{padding:14px 14px 24px}
   .topbar{height:108px}.brand-stack .logo{max-height:58px}.brand-subtitle{font-size:18px}
   .home-quick-card{min-height:126px}.home-quick-card span{font-size:15px}
 }
+\n\n/* Ver.1.8.1: 3-item quick menu */
+.home-quick-grid{
+  grid-template-columns:1fr 1fr!important;
+}
+.home-quick-card:nth-child(3){
+  grid-column:1 / -1;
+  min-height:108px;
+}

@@ -1,9 +1,9 @@
-const CACHE_NAME="nkbm-v180";
+const CACHE_NAME="nkbm-v181";
 const CORE=[
   "./",
   "index.html",
-  "styles.css?v=180",
-  "app.js?v=180",
+  "styles.css?v=181",
+  "app.js?v=181",
   "manifest.webmanifest",
   "assets/logo.png",
   "assets/character.png",
@@ -38,7 +38,7 @@ self.addEventListener("fetch",event=>{
 
   if(isFreshFile){
     event.respondWith(
-      fetch(request)
+      fetch(request,{cache:"no-store"})
         .then(response=>{
           const copy=response.clone();
           caches.open(CACHE_NAME).then(cache=>cache.put(request,copy));

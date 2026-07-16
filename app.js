@@ -516,3 +516,20 @@ const quickAddBtn=$("quickAddBtn");
 if(quickAddBtn)quickAddBtn.onclick=openAddScheduleDialog;
 const homeAddSchedule=$("homeAddSchedule");
 if(homeAddSchedule)homeAddSchedule.onclick=openAddScheduleDialog;
+\n\n// Ver.1.8.1 cache refresh
+(async function refreshOldCache(){
+  try{
+    if("caches" in window){
+      const keys=await caches.keys();
+      await Promise.all(keys.filter(key=>key!=="nkbm-v181").map(key=>caches.delete(key)));
+    }
+    if("serviceWorker" in navigator){
+      const registrations=await navigator.serviceWorker.getRegistrations();
+      for(const registration of registrations){
+        await registration.update().catch(()=>{});
+      }
+    }
+  }catch(error){
+    console.warn("Cache refresh skipped",error);
+  }
+})();
