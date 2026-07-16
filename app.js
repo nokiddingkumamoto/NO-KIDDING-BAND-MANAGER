@@ -65,24 +65,45 @@ document.querySelectorAll("[data-filter]").forEach(button=>{
 });
 
 function renderHome(){
-  const next=sortedSchedules().find(x=>eventDate(x)>=new Date());
+  const future=sortedSchedules().filter(x=>eventDate(x)>=new Date());
+  const next=future[0];
+
   if(next){
     $("nextType").textContent=typeStickers[next.type]||"NEXT EVENT";
+    $("nextDate").textContent=`${next.date} ${next.time||""}`;
     $("nextTitle").textContent=next.title;
-    $("nextMeta").textContent=`${next.date} ${next.time||""} / ${next.place||"場所未定"}`;
-    const today=new Date();today.setHours(0,0,0,0);
+    $("nextMeta").textContent=next.place||"場所未定";
+
+    const today=new Date();
+    today.setHours(0,0,0,0);
     const target=new Date(`${next.date}T00:00:00`);
     const diff=Math.ceil((target-today)/86400000);
     $("countdown").textContent=diff>0?`あと ${diff} 日！`:diff===0?"今日！":"開催済み";
   }else{
     $("nextType").textContent="NEXT EVENT";
-    $("nextTitle").textContent="予定を登録してください";
+    $("nextDate").textContent="予定未登録";
+    $("nextTitle").textContent="次の予定を登録してください";
     $("nextMeta").textContent="確定スケジュールまたは日程調整から追加できます。";
     $("countdown").textContent="LET'S GO!";
   }
-  $("scheduleCount").textContent=state.schedules.length;
-  $("pollCount").textContent=state.polls.filter(p=>!p.finalizedDate).length;
-  $("studioCount").textContent=state.schedules.filter(s=>s.type==="studio").length;
+
+  const upcoming=future.slice(0,3);
+  $("homeUpcomingList").innerHTML=upcoming.length?upcoming.map(x=>{
+    const d=new Date(`${x.date}T00:00:00`);
+    const weeks=["日","月","火","水","木","金","土"];
+    return `<button class="home-upcoming-item ${x.type}" data-home-schedule>
+      <div class="home-upcoming-date"><strong>${String(d.getMonth()+1)}/${String(d.getDate())}</strong><small>(${weeks[d.getDay()]})</small></div>
+      <div class="home-upcoming-copy">
+        <h3><span class="home-badge">${esc(typeNames[x.type]||"予定")}</span>${esc(x.title)}</h3>
+        <p>${esc(x.time||"時間未定")}　📍 ${esc(x.place||"場所未定")}</p>
+      </div>
+      <span class="home-upcoming-arrow">›</span>
+    </button>`;
+  }).join(""):`<div class="home-empty">今後の確定予定はありません。</div>`;
+
+  document.querySelectorAll("[data-home-schedule]").forEach(button=>{
+    button.onclick=()=>showPage("schedule");
+  });
 }
 
 function renderSchedules(){

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#050505">
-  <title>NO KIDDING BAND MANAGER Ver.0.5</title>
+  <title>NO KIDDING BAND MANAGER Ver.0.6</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -17,42 +17,48 @@
 
 <main>
   <section class="page active" id="home">
-    <article class="hero">
-      <div class="hero-copy">
-        <span class="sticker" id="nextType">NEXT EVENT</span>
-        <h1 id="nextTitle">予定を登録してください</h1>
-        <p id="nextMeta">スケジュール画面から追加できます。</p>
-        <strong id="countdown">LET'S GO!</strong>
+    <article class="next-event-card">
+      <div class="next-label" id="nextType">NEXT EVENT</div>
+      <div class="next-event-body">
+        <div class="next-event-copy">
+          <p class="next-date" id="nextDate">予定未登録</p>
+          <h1 id="nextTitle">次の予定を登録してください</h1>
+          <p class="next-meta" id="nextMeta">確定スケジュールまたは日程調整から追加できます。</p>
+          <div class="next-countdown" id="countdown">LET'S GO!</div>
+        </div>
+        <img src="assets/character.png" alt="" class="next-character">
       </div>
-      <img src="assets/character.png" alt="" class="character">
     </article>
 
-    <div class="menu-grid">
-      <button data-page="schedule" class="cyan"><b>📅</b><span>確定スケジュール</span><small>決まった予定を見る</small></button>
-      <button data-page="studioPolls" class="pink"><b>✓</b><span>スタジオ日程調整</span><small>○・△・×で候補日を回答</small></button>
-      <button data-page="merch" class="yellow"><b>👕</b><span>物販・在庫</span></button>
-      <button data-page="finance" class="cyan"><b>¥</b><span>会計・売上</span></button>
+    <div class="home-section-title">
+      <h2>クイックメニュー</h2>
     </div>
 
-    <section class="role-guide">
-      <article>
-        <b>📅 確定スケジュール</b>
-        <span>ライブ・確定したスタジオ・ミーティング・レコーディングを表示</span>
-      </article>
-      <article>
-        <b>✓ スタジオ日程調整</b>
-        <span>候補日に全員が○・△・×で回答し、決定後に自動で確定予定へ登録</span>
-      </article>
-    </section>
+    <div class="quick-grid">
+      <button data-page="schedule" class="quick-card cyan">
+        <b>📅</b>
+        <span>確定スケジュール</span>
+      </button>
+      <button data-page="studioPolls" class="quick-card pink">
+        <b>✓</b>
+        <span>スタジオ日程調整</span>
+      </button>
+      <button data-page="merch" class="quick-card yellow">
+        <b>👕</b>
+        <span>物販・在庫</span>
+      </button>
+      <button data-page="finance" class="quick-card pink">
+        <b>¥</b>
+        <span>会計・売上</span>
+      </button>
+    </div>
 
-    <section class="status-card">
-      <h2>QUICK STATUS</h2>
-      <div class="stats">
-        <div><strong id="scheduleCount">0</strong><span>予定</span></div>
-        <div><strong id="pollCount">0</strong><span>調整中</span></div>
-        <div><strong id="studioCount">0</strong><span>確定スタジオ</span></div>
-      </div>
-    </section>
+    <div class="home-section-title upcoming-title">
+      <h2>今後の予定</h2>
+      <button data-page="schedule">すべて見る ›</button>
+    </div>
+
+    <div id="homeUpcomingList" class="home-upcoming-list"></div>
   </section>
 
   <section class="page" id="schedule">
