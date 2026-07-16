@@ -1,309 +1,41 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#050505">
-  <meta http-equiv="Cache-Control" content="no-cache,no-store,must-revalidate">
-  <title>NO KIDDING BAND MANAGER V2.8.0</title>
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="stylesheet" href="styles.css?v=280">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#050505"><title>NO KIDDING BAND MANAGER</title>
+<link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="styles.css?v=300">
 </head>
 <body>
-  <div class="menu-overlay" id="menuOverlay" hidden></div>
-
-  <aside class="side-menu" id="sideMenu" aria-hidden="true">
-    <div class="side-menu-head">
-      <img src="assets/logo.png" alt="NO KIDDING">
-      <button type="button" id="closeMenuBtn" aria-label="閉じる">×</button>
-    </div>
-    <nav>
-      <button data-menu-page="home"><span>⌂</span>ホーム</button>
-      <button data-menu-page="schedule"><span>17</span>確定スケジュール</button>
-      <button data-menu-page="studioPolls"><span>✓</span>スタジオ日程調整</button>
-      <button data-menu-page="merch"><span>＋</span>物販・在庫</button>
-    </nav>
-    <footer>NO KIDDING BAND MANAGER <b>V2.8.0</b></footer>
-  </aside>
-
-  <header class="topbar">
-    <button type="button" class="top-icon" id="menuBtn" aria-label="メニュー">☰</button>
-    <div class="brand">
-      <img src="assets/logo.png" alt="NO KIDDING">
-      <div>バンドマネージャー</div>
-    </div>
-    <button type="button" class="top-icon" id="quickAddBtn" aria-label="追加">＋</button>
-  </header>
-
-  <main>
-    <section class="page active" id="home">
-      <div class="section-title">
-        <h2>スケジュール</h2>
-        <button data-page="schedule">すべて見る ›</button>
-      </div>
-
-      <div id="homeScheduleList" class="home-schedule-list"></div>
-
-      <button type="button" id="homeAddSchedule" class="add-schedule-button">
-        <span class="mini-calendar">17</span>
-        スケジュールを追加する
-      </button>
-
-      <div class="section-title quick-title">
-        <h2>クイックメニュー</h2>
-      </div>
-
-      
-      
-      
-      
-      
-      <div class="paint-quick-grid" aria-label="クイックメニュー">
-        
-        <button type="button" data-page="schedule" class="paint-card paint-cyan">
-          <svg class="paint-card-art" viewBox="0 0 320 180" preserveAspectRatio="none" aria-hidden="true">
-            <rect x="2" y="2" width="316" height="176" rx="3" fill="#030303" stroke="#00c8e8" stroke-width="4"/>
-            <circle cx="8" cy="8" r="6" fill="#00c8e8" opacity=".88"/><circle cx="19" cy="4" r="3" fill="#00c8e8" opacity=".88"/><circle cx="31" cy="9" r="2" fill="#00c8e8" opacity=".88"/><circle cx="310" cy="7" r="7" fill="#00c8e8" opacity=".88"/><circle cx="298" cy="14" r="3" fill="#00c8e8" opacity=".88"/><circle cx="286" cy="5" r="2" fill="#00c8e8" opacity=".88"/><circle cx="7" cy="174" r="8" fill="#00c8e8" opacity=".88"/><circle cx="20" cy="164" r="3" fill="#00c8e8" opacity=".88"/><circle cx="31" cy="178" r="2" fill="#00c8e8" opacity=".88"/><circle cx="312" cy="174" r="8" fill="#00c8e8" opacity=".88"/><circle cx="297" cy="165" r="3" fill="#00c8e8" opacity=".88"/><circle cx="285" cy="178" r="2" fill="#00c8e8" opacity=".88"/><circle cx="3" cy="64" r="5" fill="#00c8e8" opacity=".88"/><circle cx="5" cy="118" r="7" fill="#00c8e8" opacity=".88"/><circle cx="315" cy="60" r="6" fill="#00c8e8" opacity=".88"/><circle cx="316" cy="123" r="7" fill="#00c8e8" opacity=".88"/><circle cx="50" cy="2" r="2" fill="#00c8e8" opacity=".88"/><circle cx="265" cy="178" r="3" fill="#00c8e8" opacity=".88"/><ellipse cx="18" cy="34" rx="28" ry="10" fill="#00c8e8" opacity=".72" transform="rotate(-18 18 34)"/><ellipse cx="301" cy="38" rx="27" ry="9" fill="#00c8e8" opacity=".72" transform="rotate(16 301 38)"/><ellipse cx="21" cy="144" rx="30" ry="11" fill="#00c8e8" opacity=".72" transform="rotate(12 21 144)"/><ellipse cx="299" cy="143" rx="29" ry="10" fill="#00c8e8" opacity=".72" transform="rotate(-14 299 143)"/><ellipse cx="66" cy="18" rx="24" ry="6" fill="#00c8e8" opacity=".72" transform="rotate(-8 66 18)"/><ellipse cx="257" cy="162" rx="27" ry="7" fill="#00c8e8" opacity=".72" transform="rotate(10 257 162)"/>
-      <path d="M0 28 L41 17 L67 23 L44 32 L69 42 L31 45 L0 54Z" fill="#00c8e8" opacity=".35"/>
-      <path d="M320 126 L280 116 L253 124 L278 135 L250 144 L290 148 L320 156Z" fill="#00c8e8" opacity=".30"/>
-      <path d="M12 92 L73 74 L98 82 L64 94 L101 105 L48 111 L8 104Z" fill="#00c8e8" opacity=".18"/>
-      <path d="M312 76 L259 61 L235 70 L267 79 L231 91 L277 97 L316 88Z" fill="#00c8e8" opacity=".16"/>
-    
-            <g class="paint-icon" stroke="#00c8e8" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              
-<rect x="115" y="43" width="90" height="85" rx="9" stroke-width="9"/>
-<path d="M115 68H205 M137 31V59 M183 31V59" stroke-width="9"/>
-<text x="160" y="112" fill="#00c8e8" stroke="none" text-anchor="middle" font-family="Arial Black,Impact,sans-serif" font-size="43" font-weight="900">17</text>
-
-            </g>
-          </svg>
-          <strong>確定スケジュール</strong>
-        </button>
-        
-        <button type="button" data-page="studioPolls" class="paint-card paint-pink">
-          <svg class="paint-card-art" viewBox="0 0 320 180" preserveAspectRatio="none" aria-hidden="true">
-            <rect x="2" y="2" width="316" height="176" rx="3" fill="#030303" stroke="#f01868" stroke-width="4"/>
-            <circle cx="8" cy="8" r="6" fill="#f01868" opacity=".88"/><circle cx="19" cy="4" r="3" fill="#f01868" opacity=".88"/><circle cx="31" cy="9" r="2" fill="#f01868" opacity=".88"/><circle cx="310" cy="7" r="7" fill="#f01868" opacity=".88"/><circle cx="298" cy="14" r="3" fill="#f01868" opacity=".88"/><circle cx="286" cy="5" r="2" fill="#f01868" opacity=".88"/><circle cx="7" cy="174" r="8" fill="#f01868" opacity=".88"/><circle cx="20" cy="164" r="3" fill="#f01868" opacity=".88"/><circle cx="31" cy="178" r="2" fill="#f01868" opacity=".88"/><circle cx="312" cy="174" r="8" fill="#f01868" opacity=".88"/><circle cx="297" cy="165" r="3" fill="#f01868" opacity=".88"/><circle cx="285" cy="178" r="2" fill="#f01868" opacity=".88"/><circle cx="3" cy="64" r="5" fill="#f01868" opacity=".88"/><circle cx="5" cy="118" r="7" fill="#f01868" opacity=".88"/><circle cx="315" cy="60" r="6" fill="#f01868" opacity=".88"/><circle cx="316" cy="123" r="7" fill="#f01868" opacity=".88"/><circle cx="50" cy="2" r="2" fill="#f01868" opacity=".88"/><circle cx="265" cy="178" r="3" fill="#f01868" opacity=".88"/><ellipse cx="18" cy="34" rx="28" ry="10" fill="#f01868" opacity=".72" transform="rotate(-18 18 34)"/><ellipse cx="301" cy="38" rx="27" ry="9" fill="#f01868" opacity=".72" transform="rotate(16 301 38)"/><ellipse cx="21" cy="144" rx="30" ry="11" fill="#f01868" opacity=".72" transform="rotate(12 21 144)"/><ellipse cx="299" cy="143" rx="29" ry="10" fill="#f01868" opacity=".72" transform="rotate(-14 299 143)"/><ellipse cx="66" cy="18" rx="24" ry="6" fill="#f01868" opacity=".72" transform="rotate(-8 66 18)"/><ellipse cx="257" cy="162" rx="27" ry="7" fill="#f01868" opacity=".72" transform="rotate(10 257 162)"/>
-      <path d="M0 28 L41 17 L67 23 L44 32 L69 42 L31 45 L0 54Z" fill="#f01868" opacity=".35"/>
-      <path d="M320 126 L280 116 L253 124 L278 135 L250 144 L290 148 L320 156Z" fill="#f01868" opacity=".30"/>
-      <path d="M12 92 L73 74 L98 82 L64 94 L101 105 L48 111 L8 104Z" fill="#f01868" opacity=".18"/>
-      <path d="M312 76 L259 61 L235 70 L267 79 L231 91 L277 97 L316 88Z" fill="#f01868" opacity=".16"/>
-    
-            <g class="paint-icon" stroke="#f01868" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M102 92 L139 127 L219 42" stroke-width="18"/>
-            </g>
-          </svg>
-          <strong>スタジオ日程調整</strong>
-        </button>
-        
-        <button type="button" data-page="merch" class="paint-card paint-yellow">
-          <svg class="paint-card-art" viewBox="0 0 320 180" preserveAspectRatio="none" aria-hidden="true">
-            <rect x="2" y="2" width="316" height="176" rx="3" fill="#030303" stroke="#ffd20a" stroke-width="4"/>
-            <circle cx="8" cy="8" r="6" fill="#ffd20a" opacity=".88"/><circle cx="19" cy="4" r="3" fill="#ffd20a" opacity=".88"/><circle cx="31" cy="9" r="2" fill="#ffd20a" opacity=".88"/><circle cx="310" cy="7" r="7" fill="#ffd20a" opacity=".88"/><circle cx="298" cy="14" r="3" fill="#ffd20a" opacity=".88"/><circle cx="286" cy="5" r="2" fill="#ffd20a" opacity=".88"/><circle cx="7" cy="174" r="8" fill="#ffd20a" opacity=".88"/><circle cx="20" cy="164" r="3" fill="#ffd20a" opacity=".88"/><circle cx="31" cy="178" r="2" fill="#ffd20a" opacity=".88"/><circle cx="312" cy="174" r="8" fill="#ffd20a" opacity=".88"/><circle cx="297" cy="165" r="3" fill="#ffd20a" opacity=".88"/><circle cx="285" cy="178" r="2" fill="#ffd20a" opacity=".88"/><circle cx="3" cy="64" r="5" fill="#ffd20a" opacity=".88"/><circle cx="5" cy="118" r="7" fill="#ffd20a" opacity=".88"/><circle cx="315" cy="60" r="6" fill="#ffd20a" opacity=".88"/><circle cx="316" cy="123" r="7" fill="#ffd20a" opacity=".88"/><circle cx="50" cy="2" r="2" fill="#ffd20a" opacity=".88"/><circle cx="265" cy="178" r="3" fill="#ffd20a" opacity=".88"/><ellipse cx="18" cy="34" rx="28" ry="10" fill="#ffd20a" opacity=".72" transform="rotate(-18 18 34)"/><ellipse cx="301" cy="38" rx="27" ry="9" fill="#ffd20a" opacity=".72" transform="rotate(16 301 38)"/><ellipse cx="21" cy="144" rx="30" ry="11" fill="#ffd20a" opacity=".72" transform="rotate(12 21 144)"/><ellipse cx="299" cy="143" rx="29" ry="10" fill="#ffd20a" opacity=".72" transform="rotate(-14 299 143)"/><ellipse cx="66" cy="18" rx="24" ry="6" fill="#ffd20a" opacity=".72" transform="rotate(-8 66 18)"/><ellipse cx="257" cy="162" rx="27" ry="7" fill="#ffd20a" opacity=".72" transform="rotate(10 257 162)"/>
-      <path d="M0 28 L41 17 L67 23 L44 32 L69 42 L31 45 L0 54Z" fill="#ffd20a" opacity=".35"/>
-      <path d="M320 126 L280 116 L253 124 L278 135 L250 144 L290 148 L320 156Z" fill="#ffd20a" opacity=".30"/>
-      <path d="M12 92 L73 74 L98 82 L64 94 L101 105 L48 111 L8 104Z" fill="#ffd20a" opacity=".18"/>
-      <path d="M312 76 L259 61 L235 70 L267 79 L231 91 L277 97 L316 88Z" fill="#ffd20a" opacity=".16"/>
-    
-            <g class="paint-icon" stroke="#ffd20a" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              
-<path d="M125 37 C135 51 185 51 195 37 L234 60 L218 91 L195 79 V139 H125 V79 L102 91 L86 60 Z" fill="#ffd20a" stroke="none"/>
-<path d="M148 102 H172 M160 90 V114" stroke="#050505" stroke-width="10"/>
-
-            </g>
-          </svg>
-          <strong>物販・在庫</strong>
-        </button>
-        
-        <button type="button" id="accountingQuickButton" class="paint-card paint-lime">
-          <svg class="paint-card-art" viewBox="0 0 320 180" preserveAspectRatio="none" aria-hidden="true">
-            <rect x="2" y="2" width="316" height="176" rx="3" fill="#030303" stroke="#9ed600" stroke-width="4"/>
-            <circle cx="8" cy="8" r="6" fill="#9ed600" opacity=".88"/><circle cx="19" cy="4" r="3" fill="#9ed600" opacity=".88"/><circle cx="31" cy="9" r="2" fill="#9ed600" opacity=".88"/><circle cx="310" cy="7" r="7" fill="#9ed600" opacity=".88"/><circle cx="298" cy="14" r="3" fill="#9ed600" opacity=".88"/><circle cx="286" cy="5" r="2" fill="#9ed600" opacity=".88"/><circle cx="7" cy="174" r="8" fill="#9ed600" opacity=".88"/><circle cx="20" cy="164" r="3" fill="#9ed600" opacity=".88"/><circle cx="31" cy="178" r="2" fill="#9ed600" opacity=".88"/><circle cx="312" cy="174" r="8" fill="#9ed600" opacity=".88"/><circle cx="297" cy="165" r="3" fill="#9ed600" opacity=".88"/><circle cx="285" cy="178" r="2" fill="#9ed600" opacity=".88"/><circle cx="3" cy="64" r="5" fill="#9ed600" opacity=".88"/><circle cx="5" cy="118" r="7" fill="#9ed600" opacity=".88"/><circle cx="315" cy="60" r="6" fill="#9ed600" opacity=".88"/><circle cx="316" cy="123" r="7" fill="#9ed600" opacity=".88"/><circle cx="50" cy="2" r="2" fill="#9ed600" opacity=".88"/><circle cx="265" cy="178" r="3" fill="#9ed600" opacity=".88"/><ellipse cx="18" cy="34" rx="28" ry="10" fill="#9ed600" opacity=".72" transform="rotate(-18 18 34)"/><ellipse cx="301" cy="38" rx="27" ry="9" fill="#9ed600" opacity=".72" transform="rotate(16 301 38)"/><ellipse cx="21" cy="144" rx="30" ry="11" fill="#9ed600" opacity=".72" transform="rotate(12 21 144)"/><ellipse cx="299" cy="143" rx="29" ry="10" fill="#9ed600" opacity=".72" transform="rotate(-14 299 143)"/><ellipse cx="66" cy="18" rx="24" ry="6" fill="#9ed600" opacity=".72" transform="rotate(-8 66 18)"/><ellipse cx="257" cy="162" rx="27" ry="7" fill="#9ed600" opacity=".72" transform="rotate(10 257 162)"/>
-      <path d="M0 28 L41 17 L67 23 L44 32 L69 42 L31 45 L0 54Z" fill="#9ed600" opacity=".35"/>
-      <path d="M320 126 L280 116 L253 124 L278 135 L250 144 L290 148 L320 156Z" fill="#9ed600" opacity=".30"/>
-      <path d="M12 92 L73 74 L98 82 L64 94 L101 105 L48 111 L8 104Z" fill="#9ed600" opacity=".18"/>
-      <path d="M312 76 L259 61 L235 70 L267 79 L231 91 L277 97 L316 88Z" fill="#9ed600" opacity=".16"/>
-    
-            <g class="paint-icon" stroke="#9ed600" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              
-<circle cx="160" cy="88" r="53" stroke-width="9"/>
-<path d="M132 53 L160 88 L188 53 M160 88 V132 M137 93 H183 M137 108 H183" stroke-width="10"/>
-
-            </g>
-          </svg>
-          <strong>会計・売り上げ</strong>
-        </button>
-      </div>
-
-    </section>
-
-    <section class="page" id="schedule">
-      <div class="page-head">
-        <button data-back data-fallback="home">‹</button>
-        <h2>確定スケジュール</h2>
-        <button id="addSchedule">＋</button>
-      </div>
-      <div class="filters">
-        <button class="active" data-filter="all">すべて</button>
-        <button data-filter="live">ライブ</button>
-        <button data-filter="studio">スタジオ</button>
-        <button data-filter="meeting">ミーティング</button>
-        <button data-filter="recording">レコーディング</button>
-        <button data-filter="other">その他</button>
-      </div>
-      <div id="scheduleList" class="card-list"></div>
-    </section>
-
-    <section class="page" id="studioPolls">
-      <div class="page-head">
-        <button data-back data-fallback="home">‹</button>
-        <h2>スタジオ日程調整</h2>
-        <button id="addPoll">＋</button>
-      </div>
-      <div id="pollList" class="card-list"></div>
-    </section>
-
-    <section class="page" id="pollDetail">
-      <div class="page-head">
-        <button data-back data-fallback="studioPolls">‹</button>
-        <h2 id="pollDetailTitle">日程調整</h2>
-        <span></span>
-      </div>
-      <article class="panel">
-        <p id="pollDetailMeta"></p>
-        <label>回答するメンバー
-          <select id="answerMember"></select>
-        </label>
-      </article>
-      <div id="pollAnswerRows" class="answer-list"></div>
-      <div class="sticky-actions">
-        <button id="saveAnswers" class="primary">回答を保存</button>
-        <button id="openResults" class="secondary">集計結果を見る</button>
-      </div>
-    </section>
-
-    <section class="page" id="pollResults">
-      <div class="page-head">
-        <button data-back data-fallback="pollDetail">‹</button>
-        <h2>集計結果</h2>
-        <span></span>
-      </div>
-      <article class="panel">
-        <h3>確定する日を複数選択</h3>
-        <p>候補日を選び、最後にまとめて確定してください。</p>
-        <div class="two-actions">
-          <button id="clearSelectedDates" class="secondary">選択解除</button>
-          <button id="finalizeSelectedDates" class="primary">選択した日を確定</button>
-        </div>
-      </article>
-      <div id="resultRows" class="result-list"></div>
-    </section>
-
-    <section class="page" id="merch">
-      <div class="page-head">
-        <button data-back data-fallback="home">‹</button>
-        <h2>物販・在庫</h2>
-        <button id="addMerch">＋</button>
-      </div>
-      <div class="merch-summary">
-        <div><span>商品数</span><strong id="merchItemCount">0</strong></div>
-        <div><span>総在庫</span><strong id="merchStockTotal">0</strong></div>
-        <div><span>在庫金額</span><strong id="merchValueTotal">¥0</strong></div>
-      </div>
-      <div id="merchList" class="card-list"></div>
-    </section>
-  </main>
-
-  <dialog id="scheduleDialog">
-    <form id="scheduleForm">
-      <h3 id="scheduleDialogTitle">確定予定を追加</h3>
-      <input type="hidden" id="scheduleId">
-      <label>分類
-        <select id="scheduleType" required>
-          <option value="live">ライブ</option>
-          <option value="studio">スタジオ</option>
-          <option value="meeting">ミーティング</option>
-          <option value="recording">レコーディング</option>
-          <option value="other">その他</option>
-        </select>
-      </label>
-      <label>タイトル<input id="scheduleTitle" required></label>
-      <label>日付<input id="scheduleDate" type="date" required></label>
-      <label>時間<input id="scheduleTime" type="time"></label>
-      <label>会場・場所<input id="schedulePlace"></label>
-      <label>ノルマ<input id="scheduleQuota" type="number" min="0"></label>
-      <label>メモ<textarea id="scheduleMemo" rows="3"></textarea></label>
-      <div class="dialog-actions">
-        <button type="button" data-close="scheduleDialog" class="secondary">キャンセル</button>
-        <button type="submit" class="primary">保存</button>
-      </div>
-    </form>
-  </dialog>
-
-  <dialog id="pollDialog">
-    <form id="pollForm">
-      <h3 id="pollDialogTitle">スタジオ日程調整を作成</h3>
-      <input type="hidden" id="pollEditId">
-      <label>対象月<input id="pollMonth" type="month" required></label>
-      <label>タイトル<input id="pollTitle" required></label>
-      <label>開始時間<input id="pollStartTime" type="time" value="20:00"></label>
-      <label>終了時間<input id="pollEndTime" type="time" value="23:00"></label>
-      <label>場所<input id="pollPlace"></label>
-      <label>候補に含める曜日</label>
-      <div class="weekday-grid" id="weekdayOptions">
-        <label><input type="checkbox" value="0" checked>日</label>
-        <label><input type="checkbox" value="1" checked>月</label>
-        <label><input type="checkbox" value="2" checked>火</label>
-        <label><input type="checkbox" value="3" checked>水</label>
-        <label><input type="checkbox" value="4" checked>木</label>
-        <label><input type="checkbox" value="5" checked>金</label>
-        <label><input type="checkbox" value="6" checked>土</label>
-      </div>
-      <div class="dialog-actions">
-        <button type="button" data-close="pollDialog" class="secondary">キャンセル</button>
-        <button type="submit" class="primary">保存</button>
-      </div>
-    </form>
-  </dialog>
-
-  <dialog id="merchDialog">
-    <form id="merchForm">
-      <h3 id="merchDialogTitle">商品を追加</h3>
-      <input type="hidden" id="merchId">
-      <label>商品名<input id="merchName" required></label>
-      <label>種類
-        <select id="merchCategory">
-          <option value="Tシャツ">Tシャツ</option>
-          <option value="ステッカー">ステッカー</option>
-          <option value="CD">CD</option>
-          <option value="その他">その他</option>
-        </select>
-      </label>
-      <label>サイズ・種類<input id="merchVariant" placeholder="例：L / ブラック"></label>
-      <label>在庫数<input id="merchStock" type="number" min="0" required></label>
-      <label>販売価格<input id="merchPrice" type="number" min="0" required></label>
-      <label>仕入価格<input id="merchCost" type="number" min="0"></label>
-      <div class="dialog-actions">
-        <button type="button" data-close="merchDialog" class="secondary">キャンセル</button>
-        <button type="submit" class="primary">保存</button>
-      </div>
-    </form>
-  </dialog>
-
-  <script src="app.js?v=280"></script>
-
-  <dialog id="accountingDialog" class="app-dialog accounting-dialog">
-    <form method="dialog">
-      <div class="dialog-head">
-        <h2>会計・売り上げ</h2>
-        <button value="cancel" aria-label="閉じる">×</button>
-      </div>
-      <div class="accounting-summary">
-        <p>会計機能は次回の機能追加で本実装します。</p>
-        <p>現在はクイックメニューの完成デザイン確認用です。</p>
-      </div>
-    </form>
-  </dialog>
-
-</body>
-</html>
+<div id="overlay" class="overlay" hidden></div>
+<aside id="drawer" class="drawer" aria-hidden="true">
+  <div class="drawer-head"><img src="assets/logo.png" alt="NO KIDDING"><button id="closeMenu">×</button></div>
+  <button data-page="home">⌂ ホーム</button><button data-page="schedule">▣ 確定スケジュール</button><button data-page="polls">✓ スタジオ日程調整</button><button data-page="merch">▰ 物販・在庫</button><button data-page="accounting">¥ 会計・売り上げ</button>
+</aside>
+<header class="hero">
+  <button id="menuBtn" class="square" aria-label="メニュー"><span></span><span></span><span></span></button>
+  <div class="logo-wrap"><img src="assets/logo.png" alt="NO KIDDING"><strong>バンドマネージャー</strong></div>
+  <button id="quickAdd" class="square plus" aria-label="追加">＋</button>
+</header>
+<div class="pink-line"></div>
+<main>
+<section id="home" class="page active">
+  <div class="section-head"><h2>スケジュール</h2><button data-page="schedule">すべて見る ›</button></div>
+  <div id="homeSchedules" class="schedule-stack"></div>
+  <button id="addScheduleHome" class="wide-add"><span class="calendar-mini">17</span>スケジュールを追加する</button>
+  <div class="section-head quick-head"><h2>クイックメニュー</h2><button>すべて見る ›</button></div>
+  <div class="quick-grid">
+    <button class="quick cyan" data-page="schedule"><div class="grunge"></div><div class="calendar-icon"><i></i><b>17</b></div><strong>確定スケジュール</strong></button>
+    <button class="quick pink" data-page="polls"><div class="grunge"></div><div class="check-icon">✓</div><strong>スタジオ日程調整</strong></button>
+    <button class="quick yellow" data-page="merch"><div class="grunge"></div><div class="shirt-icon">T<span>＋</span></div><strong>物販・在庫</strong></button>
+    <button class="quick lime" data-page="accounting"><div class="grunge"></div><div class="yen-icon">¥</div><strong>会計・売り上げ</strong></button>
+  </div>
+</section>
+<section id="schedule" class="page"><div class="page-title"><button data-page="home">‹</button><h2>確定スケジュール</h2><button id="addSchedule">＋</button></div><div id="scheduleList"></div></section>
+<section id="polls" class="page"><div class="page-title"><button data-page="home">‹</button><h2>スタジオ日程調整</h2><button id="addPoll">＋</button></div><div id="pollList" class="simple-list"></div></section>
+<section id="merch" class="page"><div class="page-title"><button data-page="home">‹</button><h2>物販・在庫</h2><button id="addMerch">＋</button></div><div class="summary"><div><small>商品数</small><b id="itemCount">0</b></div><div><small>総在庫</small><b id="stockTotal">0</b></div><div><small>在庫金額</small><b id="stockValue">¥0</b></div></div><div id="merchList" class="simple-list"></div></section>
+<section id="accounting" class="page"><div class="page-title"><button data-page="home">‹</button><h2>会計・売り上げ</h2><button id="addSale">＋</button></div><div class="summary"><div><small>売上</small><b id="salesTotal">¥0</b></div><div><small>支出</small><b id="expenseTotal">¥0</b></div><div><small>残高</small><b id="balanceTotal">¥0</b></div></div><div id="accountList" class="simple-list"></div></section>
+</main>
+<dialog id="scheduleDialog"><form id="scheduleForm"><h3>スケジュールを追加</h3><label>分類<select id="sType"><option value="studio">スタジオ</option><option value="live">ライブ</option><option value="meeting">ミーティング</option></select></label><label>タイトル<input id="sTitle" required></label><label>日付<input id="sDate" type="date" required></label><label>時間<input id="sTime" type="time"></label><label>場所<input id="sPlace"></label><div class="actions"><button type="button" data-close>キャンセル</button><button class="save">保存</button></div></form></dialog>
+<dialog id="merchDialog"><form id="merchForm"><h3>商品を追加</h3><label>商品名<input id="mName" required></label><label>種類・サイズ<input id="mVariant"></label><label>在庫数<input id="mStock" type="number" min="0" required></label><label>販売価格<input id="mPrice" type="number" min="0" required></label><div class="actions"><button type="button" data-close>キャンセル</button><button class="save">保存</button></div></form></dialog>
+<script src="app.js?v=300"></script>
+</body></html>
