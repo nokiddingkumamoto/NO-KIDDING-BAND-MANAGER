@@ -5,28 +5,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#050505">
   <meta http-equiv="Cache-Control" content="no-cache,no-store,must-revalidate">
-  <title>NO KIDDING BAND MANAGER V2.2.1 CACHE RESET</title>
-
-  <script>
-  (async function(){
-    try {
-      if ("serviceWorker" in navigator) {
-        const regs = await navigator.serviceWorker.getRegistrations();
-        await Promise.all(regs.map(reg => reg.unregister()));
-      }
-      if ("caches" in window) {
-        const keys = await caches.keys();
-        await Promise.all(keys.map(key => caches.delete(key)));
-      }
-      console.log("NO KIDDING cache reset 221-20260716");
-    } catch (error) {
-      console.error("Cache reset failed", error);
-    }
-  })();
-  </script>
-
+  <title>NO KIDDING BAND MANAGER V2.3.0</title>
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="stylesheet" href="styles.css?v=221-20260716">
+  <link rel="stylesheet" href="styles.css?v=230">
 </head>
 <body>
   <div class="menu-overlay" id="menuOverlay" hidden></div>
@@ -42,7 +23,7 @@
       <button data-menu-page="studioPolls"><span>✓</span>スタジオ日程調整</button>
       <button data-menu-page="merch"><span>＋</span>物販・在庫</button>
     </nav>
-    <footer>NO KIDDING BAND MANAGER <b>V2.2.1 CACHE RESET</b></footer>
+    <footer>NO KIDDING BAND MANAGER <b>V2.3.0</b></footer>
   </aside>
 
   <header class="topbar">
@@ -54,7 +35,6 @@
     <button type="button" class="top-icon" id="quickAddBtn" aria-label="追加">＋</button>
   </header>
 
-  <div class="cache-reset-version">V2.2.1 CACHE RESET</div>
   <main>
     <section class="page active" id="home">
       <div class="section-title">
@@ -73,32 +53,36 @@
         <h2>クイックメニュー</h2>
       </div>
 
-      <div class="quick-grid quick-grid-final">
-        <button data-page="schedule" class="quick-card-final quick-cyan">
-          <span class="paint-layer paint-a"></span><span class="paint-layer paint-b"></span>
-          <svg class="quick-icon-final" viewBox="0 0 120 120" aria-hidden="true">
-            <rect x="20" y="26" width="80" height="76" rx="12"/>
-            <path d="M20 47h80M39 16v25M81 16v25"/>
+      
+      <div class="quick-grid-v230">
+        <button data-page="schedule" class="quick-tile-v230 cyan">
+          <span class="splat splat-1"></span><span class="splat splat-2"></span>
+          <svg viewBox="0 0 120 120" aria-hidden="true">
+            <rect x="19" y="27" width="82" height="75" rx="11"/>
+            <path d="M19 48h82M39 16v26M81 16v26"/>
             <text x="60" y="87">17</text>
           </svg>
-          <span class="quick-label-final">確定スケジュール</span>
+          <strong>確定スケジュール</strong>
         </button>
-        <button data-page="studioPolls" class="quick-card-final quick-pink">
-          <span class="paint-layer paint-a"></span><span class="paint-layer paint-b"></span>
-          <svg class="quick-icon-final quick-check-final" viewBox="0 0 120 120" aria-hidden="true">
-            <path d="M18 64l27 27 58-70"/>
+
+        <button data-page="studioPolls" class="quick-tile-v230 pink">
+          <span class="splat splat-1"></span><span class="splat splat-2"></span>
+          <svg viewBox="0 0 120 120" aria-hidden="true">
+            <path d="M17 63l28 29 59-72"/>
           </svg>
-          <span class="quick-label-final">スタジオ日程調整</span>
+          <strong>スタジオ日程調整</strong>
         </button>
-        <button data-page="merch" class="quick-card-final quick-yellow quick-merch">
-          <span class="paint-layer paint-a"></span><span class="paint-layer paint-b"></span>
-          <svg class="quick-icon-final quick-shirt-final" viewBox="0 0 120 120" aria-hidden="true">
-            <path class="shirt-body" d="M38 18c5 10 39 10 44 0l26 16-13 28-14-8v48H39V54l-14 8-13-28z"/>
-            <path class="shirt-plus" d="M50 67h20M60 57v20"/>
+
+        <button data-page="merch" class="quick-tile-v230 yellow">
+          <span class="splat splat-1"></span><span class="splat splat-2"></span>
+          <svg viewBox="0 0 120 120" aria-hidden="true">
+            <path class="shirt" d="M37 18c6 11 40 11 46 0l26 16-13 28-14-8v49H38V54l-14 8-13-28z"/>
+            <path class="plus" d="M49 69h22M60 58v22"/>
           </svg>
-          <span class="quick-label-final">物販・在庫</span>
+          <strong>物販・在庫</strong>
         </button>
       </div>
+
     </section>
 
     <section class="page" id="schedule">
@@ -254,6 +238,6 @@
     </form>
   </dialog>
 
-  <script src="app.js?v=221-20260716"></script>
+  <script src="app.js?v=230"></script>
 </body>
 </html>

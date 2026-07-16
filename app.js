@@ -349,4 +349,6 @@ window.changeStock=(id,amount)=>{const x=state.merch.find(x=>x.id===id);x.stock=
 function renderAll(){renderHome();renderSchedules();renderPolls();renderMerch()}
 renderAll();
 
-// V2.2.1 CACHE RESET: Service Worker registration temporarily disabled.
+if("serviceWorker" in navigator){
+  window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js?v=230").catch(console.error));
+}

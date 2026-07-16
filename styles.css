@@ -269,17 +269,23 @@ body.menu-open{overflow:hidden}
   .quick-label-final{font-size:13px!important}
 }
 
-.cache-reset-version{
-  position:fixed;
-  right:6px;
-  bottom:6px;
-  z-index:9999;
-  padding:3px 7px;
-  border:1px solid #ff1970;
-  border-radius:5px;
-  background:rgba(0,0,0,.88);
-  color:#ff1970;
-  font-size:10px;
-  font-weight:900;
-  pointer-events:none;
-}
+
+/* ===== V2.3.0 QUICK MENU FINAL ===== */
+.quick-grid-v230{display:grid!important;grid-template-columns:1fr 1fr!important;gap:14px!important}
+.quick-tile-v230{position:relative!important;overflow:hidden!important;isolation:isolate;aspect-ratio:1/1!important;min-height:0!important;padding:18px 10px!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:20px!important;background:#020202!important;border-radius:8px!important;color:#fff!important}
+.quick-tile-v230::before{content:"";position:absolute;inset:-15%;z-index:-3;opacity:.28;background:radial-gradient(circle at 3% 10%,currentColor 0 7px,transparent 8px),radial-gradient(circle at 12% 22%,currentColor 0 3px,transparent 4px),radial-gradient(circle at 88% 14%,currentColor 0 5px,transparent 6px),radial-gradient(circle at 94% 83%,currentColor 0 9px,transparent 10px),radial-gradient(circle at 18% 89%,currentColor 0 5px,transparent 6px),radial-gradient(ellipse at 6% 55%,currentColor 0 9%,transparent 10%),radial-gradient(ellipse at 93% 46%,currentColor 0 8%,transparent 9%)}
+.quick-tile-v230::after{content:"";position:absolute;inset:0;z-index:-4;opacity:.16;background:repeating-linear-gradient(150deg,transparent 0 31px,currentColor 32px 34px,transparent 35px 65px)}
+.quick-tile-v230.cyan{color:#00d7f2!important;border:3px solid #00d7f2!important;box-shadow:0 0 17px rgba(0,215,242,.36),inset 0 0 26px rgba(0,215,242,.12)!important}
+.quick-tile-v230.pink{color:#ff2077!important;border:3px solid #ff2077!important;box-shadow:0 0 17px rgba(255,32,119,.38),inset 0 0 26px rgba(255,32,119,.13)!important}
+.quick-tile-v230.yellow{color:#ffd400!important;border:3px solid #ffd400!important;box-shadow:0 0 17px rgba(255,212,0,.34),inset 0 0 26px rgba(255,212,0,.12)!important}
+.quick-tile-v230 svg{width:112px!important;height:112px!important;overflow:visible;filter:drop-shadow(0 0 5px currentColor) drop-shadow(0 0 12px currentColor)!important}
+.quick-tile-v230 svg rect,.quick-tile-v230 svg path{fill:none;stroke:currentColor;stroke-width:8;stroke-linecap:round;stroke-linejoin:round}
+.quick-tile-v230 svg text{fill:currentColor;font-family:"Arial Black",Impact,sans-serif;font-size:38px;font-weight:1000;text-anchor:middle}
+.quick-tile-v230 .shirt{fill:currentColor;stroke:none}.quick-tile-v230 .plus{stroke:#050505;stroke-width:9}
+.quick-tile-v230 strong{color:#fff!important;font-size:18px!important;line-height:1.25!important;text-align:center!important;text-shadow:0 2px 0 #000,0 0 7px #000}
+.quick-tile-v230:nth-child(3){grid-column:1/2!important}
+.quick-tile-v230:active{transform:scale(.975)}
+.splat{position:absolute;z-index:-2;background:currentColor;opacity:.18;filter:blur(.5px)}
+.splat-1{width:135px;height:32px;left:-28px;top:25px;transform:rotate(-10deg);clip-path:polygon(0 20%,78% 0,100% 28%,82% 48%,100% 68%,62% 100%,18% 77%)}
+.splat-2{width:125px;height:38px;right:-30px;bottom:22px;transform:rotate(13deg);clip-path:polygon(0 24%,72% 0,100% 27%,87% 48%,100% 73%,60% 100%,13% 80%)}
+@media(max-width:430px){.quick-grid-v230{gap:10px!important}.quick-tile-v230{padding:14px 7px!important;gap:14px!important}.quick-tile-v230 svg{width:82px!important;height:82px!important}.quick-tile-v230 strong{font-size:13px!important}}
