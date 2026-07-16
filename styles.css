@@ -182,3 +182,89 @@ body.menu-open{overflow:hidden}
 .quick-card-final:active{transform:scale(.975);filter:brightness(1.16)}
 @media(max-width:700px){.quick-grid-final{gap:8px!important}.quick-card-final{min-height:205px;padding:16px 7px 15px;gap:17px;border-width:3px!important}.quick-icon-final{width:92px;height:92px}.quick-label-final{font-size:14px}}
 @media(max-width:430px){.quick-card-final{min-height:190px}.quick-icon-final{width:84px;height:84px}.quick-label-final{font-size:13px}}
+
+
+/* =========================================================
+   V2.2 — requested two-column quick menu design
+   ========================================================= */
+.quick-grid-final{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:12px!important;
+  align-items:stretch!important;
+}
+.quick-card-final{
+  aspect-ratio:1.28 / 1!important;
+  min-height:0!important;
+  padding:18px 12px 16px!important;
+  gap:13px!important;
+  border-radius:7px!important;
+  background:#030303!important;
+  box-shadow:none!important;
+}
+.quick-card-final::before{
+  inset:0!important;
+  opacity:.13!important;
+  background:
+    linear-gradient(135deg,transparent 0 42%,currentColor 43% 45%,transparent 46% 100%),
+    linear-gradient(25deg,transparent 0 68%,currentColor 69% 71%,transparent 72% 100%)!important;
+  transform:none!important;
+}
+.quick-card-final::after{
+  inset:0!important;
+  opacity:.52!important;
+  background:
+    radial-gradient(circle at 2% 5%,currentColor 0 7px,transparent 8px),
+    radial-gradient(circle at 7% 13%,currentColor 0 3px,transparent 4px),
+    radial-gradient(circle at 13% 4%,currentColor 0 5px,transparent 6px),
+    radial-gradient(circle at 97% 8%,currentColor 0 8px,transparent 9px),
+    radial-gradient(circle at 91% 16%,currentColor 0 3px,transparent 4px),
+    radial-gradient(circle at 4% 91%,currentColor 0 9px,transparent 10px),
+    radial-gradient(circle at 12% 96%,currentColor 0 4px,transparent 5px),
+    radial-gradient(circle at 96% 92%,currentColor 0 10px,transparent 11px),
+    radial-gradient(circle at 88% 97%,currentColor 0 4px,transparent 5px),
+    linear-gradient(145deg,currentColor 0 10%,transparent 11% 89%,currentColor 90% 100%)!important;
+  filter:none!important;
+  clip-path:polygon(0 0,100% 0,100% 100%,0 100%)!important;
+}
+.paint-layer{display:none!important}
+.quick-cyan{
+  border:2px solid var(--cyan)!important;
+  box-shadow:inset 0 0 18px rgba(0,200,232,.08)!important;
+}
+.quick-pink{
+  border:2px solid var(--pink)!important;
+  box-shadow:inset 0 0 18px rgba(255,25,112,.08)!important;
+}
+.quick-yellow{
+  border:2px solid var(--yellow)!important;
+  box-shadow:inset 0 0 18px rgba(255,210,10,.08)!important;
+}
+.quick-icon-final{
+  width:100px!important;
+  height:100px!important;
+  filter:drop-shadow(0 0 3px currentColor) drop-shadow(0 0 7px currentColor)!important;
+}
+.quick-icon-final rect,.quick-icon-final path{stroke-width:9!important}
+.quick-check-final path{stroke-width:17!important}
+.quick-shirt-final .shirt-plus{stroke-width:9!important}
+.quick-label-final{
+  font-size:18px!important;
+  line-height:1.15!important;
+  white-space:nowrap!important;
+  text-shadow:0 2px 0 #000!important;
+}
+.quick-merch{
+  grid-column:1!important;
+}
+@media(max-width:700px){
+  .quick-grid-final{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}
+  .quick-card-final{aspect-ratio:1.22 / 1!important;padding:14px 7px 13px!important;gap:10px!important}
+  .quick-icon-final{width:82px!important;height:82px!important}
+  .quick-label-final{font-size:14px!important;white-space:normal!important}
+}
+@media(max-width:390px){
+  .quick-card-final{aspect-ratio:1.12 / 1!important}
+  .quick-icon-final{width:72px!important;height:72px!important}
+  .quick-label-final{font-size:13px!important}
+}

@@ -350,5 +350,5 @@ function renderAll(){renderHome();renderSchedules();renderPolls();renderMerch()}
 renderAll();
 
 if("serviceWorker" in navigator){
-  window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js?v=210").catch(console.error));
+  window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js?v=220").catch(console.error));
 }
