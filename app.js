@@ -15,8 +15,20 @@ $$('[data-page]').forEach(b=>b.onclick=()=>page(b.dataset.page));
 function openDrawer(){$('#drawer').classList.add('open');$('#drawer').setAttribute('aria-hidden','false');$('#overlay').hidden=false}function closeDrawer(){$('#drawer').classList.remove('open');$('#drawer').setAttribute('aria-hidden','true');$('#overlay').hidden=true}
 $('#menuBtn').onclick=openDrawer;$('#closeMenu').onclick=closeDrawer;$('#overlay').onclick=closeDrawer;
 function openSchedule(){const now=new Date();$('#sDate').value=now.toISOString().slice(0,10);$('#scheduleDialog').showModal()}
-$('#quickAdd').onclick=openSchedule;$('#addScheduleHome').onclick=openSchedule;$('#addSchedule').onclick=openSchedule;
+function openMerch(){ $('#merchDialog').showModal() }
+function openStock(){
+  if(!merch.length){alert('先に商品を追加してください。');openMerch();return}
+  $('#stockItem').innerHTML=merch.map(x=>`<option value="${x.id}">${x.name}${x.variant?' '+x.variant:''}（現在 ${x.stock}）</option>`).join('');
+  $('#stockChange').value='';
+  $('#stockDialog').showModal();
+}
+$('#quickAdd').onclick=()=>$('#quickAddDialog').showModal();
+$('#quickScheduleAction').onclick=()=>{$('#quickAddDialog').close();openSchedule()};
+$('#quickProductAction').onclick=()=>{$('#quickAddDialog').close();openMerch()};
+$('#quickStockAction').onclick=()=>{$('#quickAddDialog').close();openStock()};
+$('#addSchedule').onclick=openSchedule;
 $('#scheduleForm').onsubmit=e=>{e.preventDefault();schedules.push({id:Date.now(),type:$('#sType').value,title:$('#sTitle').value,date:$('#sDate').value,time:$('#sTime').value,place:$('#sPlace').value});save();render();$('#scheduleDialog').close();e.target.reset()};
-$('#addMerch').onclick=()=>$('#merchDialog').showModal();$('#merchForm').onsubmit=e=>{e.preventDefault();merch.push({id:Date.now(),name:$('#mName').value,variant:$('#mVariant').value,stock:$('#mStock').value,price:$('#mPrice').value});save();render();$('#merchDialog').close();e.target.reset()};
+$('#addMerch').onclick=openMerch;$('#merchForm').onsubmit=e=>{e.preventDefault();merch.push({id:Date.now(),name:$('#mName').value,variant:$('#mVariant').value,stock:$('#mStock').value,price:$('#mPrice').value});save();render();$('#merchDialog').close();e.target.reset()};
+$('#stockForm').onsubmit=e=>{e.preventDefault();const item=merch.find(x=>String(x.id)===$('#stockItem').value);if(!item)return;const next=Number(item.stock)+Number($('#stockChange').value);item.stock=Math.max(0,next);save();render();$('#stockDialog').close()};
 $$('[data-close]').forEach(b=>b.onclick=()=>b.closest('dialog').close());
 if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});render();
