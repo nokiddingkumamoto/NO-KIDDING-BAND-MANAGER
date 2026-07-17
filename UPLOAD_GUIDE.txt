@@ -1,6 +1,10 @@
-NO KIDDING BAND MANAGER V3.0.3
+NO KIDDING BAND MANAGER V4.0.1
 
-1. ZIPをスマホで解凍します。
-2. 中の全ファイルとassetsフォルダをGitHubリポジトリのルートへ上書きアップロードします。
-3. GitHub Pagesへの反映を1〜2分待ちます。
-4. 右上の＋から「スケジュール追加」「商品追加」「在庫数変更」を選べます。
+1. Extract this ZIP on your smartphone.
+2. Upload all extracted files and folders to the root of the GitHub repository.
+3. Overwrite files with the same names.
+4. Do not upload the ZIP itself.
+5. Wait about 1-2 minutes, then reload GitHub Pages.
+
+GitHub Pages URL:
+https://nokiddingkumamoto.github.io/NO-KIDDING-BAND-MANAGER/

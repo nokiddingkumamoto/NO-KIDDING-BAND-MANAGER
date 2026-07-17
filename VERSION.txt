@@ -1,2 +1,7 @@
-NO KIDDING BAND MANAGER V3.0.3
-Quick Add Menu Edition
+NO KIDDING BAND MANAGER V4.0.1
+
+STEP 1
+- Top page kept as current design
+- Quick add menu works
+- Confirmed schedule add/edit/delete implemented
+- Data saved on the device with localStorage
