@@ -157,3 +157,118 @@
     font-size:21px;
   }
 }
+
+/* 候補日追加ダイアログ：PC・スマホ共通 */
+.candidate-dialog {
+  position:fixed;
+  inset:0;
+  z-index:80;
+  display:grid;
+  place-items:center;
+  padding:18px;
+  background:rgba(0,0,0,.86);
+  backdrop-filter:blur(5px);
+}
+.candidate-dialog[hidden] {
+  display:none;
+}
+.candidate-card {
+  position:relative;
+  width:min(100%,480px);
+  border:2px solid var(--pink);
+  border-radius:16px;
+  padding:28px;
+  background:
+    radial-gradient(circle at 100% 0,rgba(255,0,109,.18),transparent 36%),
+    radial-gradient(circle at 0 100%,rgba(0,201,244,.12),transparent 34%),
+    #070707;
+  box-shadow:0 0 25px rgba(255,0,109,.35);
+  color:#fff;
+}
+.candidate-close {
+  position:absolute;
+  top:12px;
+  right:12px;
+  width:38px;
+  height:38px;
+  border:1px solid var(--pink);
+  border-radius:9px;
+  background:#050505;
+  color:#fff;
+  font-size:27px;
+  line-height:1;
+  cursor:pointer;
+}
+.candidate-kicker {
+  margin:0 50px 4px 0;
+  color:var(--cyan);
+  font-size:13px;
+  font-weight:900;
+  letter-spacing:.11em;
+}
+.candidate-card h2 {
+  margin:0 0 24px;
+  font-size:30px;
+}
+.candidate-card label {
+  display:block;
+  margin-bottom:8px;
+  font-weight:800;
+}
+.candidate-card input {
+  width:100%;
+  height:54px;
+  border:1px solid #777;
+  border-radius:9px;
+  padding:0 14px;
+  background:#020202;
+  color:#fff;
+  color-scheme:dark;
+  font:inherit;
+  font-size:18px;
+}
+.candidate-actions {
+  display:grid;
+  grid-template-columns:1fr 1.35fr;
+  gap:10px;
+  margin-top:22px;
+}
+.candidate-actions button {
+  min-height:50px;
+  border-radius:9px;
+  font-size:16px;
+  font-weight:900;
+  cursor:pointer;
+}
+.candidate-cancel {
+  border:1px solid #777;
+  background:#080808;
+  color:#fff;
+}
+.candidate-add {
+  border:1px solid var(--pink);
+  background:var(--pink);
+  color:#050505;
+}
+
+@media (max-width:600px) {
+  .candidate-dialog {
+    padding:14px;
+  }
+  .candidate-card {
+    padding:22px 18px 18px;
+    border-radius:13px;
+  }
+  .candidate-card h2 {
+    margin-bottom:18px;
+    font-size:24px;
+  }
+  .candidate-card input {
+    height:48px;
+    font-size:16px;
+  }
+  .candidate-actions button {
+    min-height:46px;
+    font-size:14px;
+  }
+}
