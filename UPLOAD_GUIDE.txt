@@ -1,18 +1,7 @@
-NO KIDDING BAND MANAGER V4.1.0
+NO KIDDING BAND MANAGER V5.0.0
 
-GitHubのリポジトリ直下へ、ZIPを解凍した中身を上書きアップロードしてください。
-ZIPファイル自体はアップロード不要です。
-
-更新対象:
-- index.html
-- styles.css
-- app.js
-- sw.js
-- manifest.webmanifest
-- assets フォルダ
-- VERSION.txt
-
-公開後に古い画面が残る場合:
-1. ページを再読み込み
-2. タブを閉じて開き直す
-3. それでも残る場合はブラウザのキャッシュを削除
+1. このZIPを解凍してください。
+2. ZIPそのものではなく、解凍した中身をGitHubリポジトリのルートへ上書きアップロードしてください。
+3. index.html / styles.css / app.js / sw.js / manifest.webmanifest / assets フォルダを同じ階層に置きます。
+4. GitHub Pages反映後、Ctrl+F5で強制再読み込みしてください。
+5. 古い表示が残る場合は、ブラウザのサイトデータまたはインストール済みPWAを一度削除して開き直してください。
