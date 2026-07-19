@@ -96,11 +96,13 @@ body { font-family:"Noto Sans JP",Arial,sans-serif; overflow-x:hidden; }
 .editor-choice {
   justify-self:center; width:58px; height:58px; padding:0;
   border:2px solid transparent; border-radius:50%;
-  background:transparent; font-size:42px; line-height:48px; cursor:pointer;
+  display:grid; place-items:center;
+  background:transparent; font-family:Arial,sans-serif;
+  font-weight:400; line-height:1; cursor:pointer;
 }
-.editor-choice.yes { color:var(--cyan); }
-.editor-choice.maybe { color:var(--yellow); }
-.editor-choice.no { color:var(--pink); }
+.editor-choice.yes { color:var(--cyan); font-size:62px; }
+.editor-choice.maybe { color:var(--yellow); font-size:42px; }
+.editor-choice.no { color:var(--pink); font-size:56px; }
 .editor-choice.selected.yes { border-color:var(--cyan); background:rgba(0,201,244,.22); box-shadow:0 0 12px rgba(0,201,244,.55); }
 .editor-choice.selected.maybe { border-color:var(--yellow); background:rgba(255,227,0,.18); box-shadow:0 0 12px rgba(255,227,0,.5); }
 .editor-choice.selected.no { border-color:var(--pink); background:rgba(255,0,109,.2); box-shadow:0 0 12px rgba(255,0,109,.55); }
@@ -124,7 +126,10 @@ body.editor-open { overflow:hidden; }
   .editor-back,.editor-close { width:44px; height:44px; font-size:34px; }
   .editor-header img { max-height:48px; }
   .editor-date-row { grid-template-columns:minmax(112px,1fr) repeat(3,58px); min-height:68px; padding-left:14px; }
-  .editor-choice { width:48px; height:48px; font-size:34px; line-height:38px; }
+  .editor-choice { width:48px; height:48px; }
+  .editor-choice.yes { font-size:54px; }
+  .editor-choice.maybe { font-size:36px; }
+  .editor-choice.no { font-size:48px; }
   .editor-legend { font-size:12px; }
   .toast { font-size:12px; max-width:92vw; }
 }
