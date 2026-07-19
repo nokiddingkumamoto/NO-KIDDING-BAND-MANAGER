@@ -1,0 +1,78 @@
+/* V7.7.1 PC・スマホ共通レイアウト補正 */
+
+/* 元画像の固定月タイトルを完全に覆い、動的タイトルだけを表示 */
+.month-banner-label {
+  left:17% !important;
+  top:14.7% !important;
+  width:66% !important;
+  height:7.3% !important;
+  z-index:4;
+  background:#020202 !important;
+  color:#fff;
+  font-size:clamp(25px,4.6vw,47px) !important;
+  line-height:1;
+}
+
+/* 月選択タブはメンバー選択タブと同じサイズ */
+.summary-month-label {
+  display:none !important;
+}
+.summary-month-select {
+  left:3.5% !important;
+  top:25.15% !important;
+  width:93% !important;
+  height:4.2% !important;
+  z-index:6;
+  border:1px solid var(--cyan) !important;
+  border-radius:9px !important;
+  padding:0 3% !important;
+  background:#030303 !important;
+  color:#fff !important;
+  font-size:clamp(16px,3vw,31px) !important;
+  font-weight:800 !important;
+}
+.member-select {
+  top:30.05% !important;
+  height:4.2% !important;
+}
+.member-select-wrap-arrow {
+  top:31.4% !important;
+}
+.member-chips {
+  top:34.85% !important;
+  height:3.15% !important;
+}
+
+/* 集計欄を名前タブの下に確実に配置 */
+.answer-grid {
+  top:41.85% !important;
+}
+
+@media (max-width:600px) {
+  .month-banner-label {
+    left:17% !important;
+    top:14.65% !important;
+    width:66% !important;
+    height:7.35% !important;
+    font-size:24px !important;
+  }
+  .summary-month-select {
+    left:3.5% !important;
+    top:25.15% !important;
+    width:93% !important;
+    height:4.2% !important;
+    padding:0 3% !important;
+    font-size:16px !important;
+  }
+  .member-select {
+    top:30.05% !important;
+    height:4.2% !important;
+  }
+  .member-select-wrap-arrow {
+    top:31.35% !important;
+  }
+  .member-chips {
+    top:34.85% !important;
+    height:3.15% !important;
+  }
+}
