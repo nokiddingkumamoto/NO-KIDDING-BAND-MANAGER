@@ -1,44 +1,58 @@
-<!doctype html>
-<html lang="ja">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#050505">
-  <meta name="description" content="NO KIDDING BAND MANAGER">
-  <title>NO KIDDING BAND MANAGER</title>
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="pixel.css?v=7.3.3">
-</head>
-<body>
-  <main class="visual-page" id="top">
-    <img src="assets/top-page.png" alt="NO KIDDING BAND MANAGER トップページ">
-    <button class="hotspot menu-button" type="button" aria-label="メニューを開く" aria-expanded="false"></button>
-    <button class="hotspot add-button" type="button" aria-label="追加メニューを開く" aria-expanded="false"></button>
-    <button class="hotspot schedule-card schedule-one" type="button" aria-label="7月20日 スタジオ練習"></button>
-    <button class="hotspot schedule-card schedule-two" type="button" aria-label="9月22日 九州スカフェス"></button>
-    <button class="hotspot schedule-card schedule-three" type="button" aria-label="10月11日 福岡CBライブ"></button>
-    <button class="hotspot quick-card quick-schedule" type="button" data-target="schedule" aria-label="確定スケジュール"></button>
-    <button class="hotspot quick-card quick-studio" type="button" data-target="studio" aria-label="スタジオ日程調整"></button>
-    <button class="hotspot quick-card quick-merch" type="button" data-target="merch" aria-label="物販・在庫"></button>
-  </main>
+(() => {
+  "use strict";
+  const menu = document.querySelector(".menu-button");
+  const sheet = document.querySelector(".side-sheet");
+  const backdrop = document.querySelector(".sheet-backdrop");
+  const close = document.querySelector(".sheet-close");
+  const add = document.querySelector(".add-button");
+  const popover = document.querySelector(".add-popover");
+  const toast = document.querySelector(".toast");
 
-  <div class="sheet-backdrop" hidden></div>
-  <nav class="side-sheet" aria-label="メニュー" aria-hidden="true">
-    <button class="sheet-close" type="button" aria-label="閉じる">×</button>
-    <img src="assets/logo.png" alt="">
-    <a href="#top">ホーム</a>
-    <a href="#schedule">確定スケジュール</a>
-    <a href="#studio">スタジオ日程調整</a>
-    <a href="#merch">物販・在庫</a>
-  </nav>
-  <div class="add-popover" hidden>
-    <p>QUICK ADD</p>
-    <button type="button">＋ スケジュール</button>
-    <button type="button">＋ 商品</button>
-    <button type="button">＋ 在庫数</button>
-  </div>
-  <div class="toast" role="status" aria-live="polite"></div>
-  <script src="app.js?v=7.3.3"></script>
-</body>
-</html>
+  const setMenu = open => {
+    sheet.classList.toggle("open", open);
+    sheet.setAttribute("aria-hidden", String(!open));
+    menu.setAttribute("aria-expanded", String(open));
+    backdrop.hidden = !open;
+  };
+  menu.addEventListener("click", () => setMenu(!sheet.classList.contains("open")));
+  close.addEventListener("click", () => setMenu(false));
+  backdrop.addEventListener("click", () => setMenu(false));
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape") {
+      setMenu(false);
+      popover.hidden = true;
+      add.setAttribute("aria-expanded", "false");
+    }
+  });
+  add.addEventListener("click", event => {
+    event.stopPropagation();
+    popover.hidden = !popover.hidden;
+    add.setAttribute("aria-expanded", String(!popover.hidden));
+  });
+  document.addEventListener("click", event => {
+    if (!popover.contains(event.target) && event.target !== add) {
+      popover.hidden = true;
+      add.setAttribute("aria-expanded", "false");
+    }
+  });
+  const notify = message => {
+    toast.textContent = message;
+    toast.classList.add("show");
+    window.setTimeout(() => toast.classList.remove("show"), 1800);
+  };
+  document.querySelectorAll(".quick-card").forEach(card => {
+    card.addEventListener("click", () => notify(`${card.innerText.replace(/\n/g, " ")} は次の開発段階で接続します`));
+  });
+  document.querySelectorAll(".schedule-card").forEach(card => {
+    card.addEventListener("click", () => notify("スケジュール詳細は次の開発段階で接続します"));
+  });
+  popover.querySelectorAll("button").forEach(button => {
+    button.addEventListener("click", () => {
+      notify(`${button.textContent.trim()} は次の開発段階で接続します`);
+      popover.hidden = true;
+    });
+  });
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(() => {}));
+  }
+})();
