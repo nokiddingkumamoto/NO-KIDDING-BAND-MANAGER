@@ -1,9 +1,18 @@
-NO KIDDING BAND MANAGER V4.0.3 upload guide
+NO KIDDING BAND MANAGER V4.1.0
 
-1. Extract this ZIP on your phone.
-2. Upload all extracted files and the assets folder to the root of the GitHub repository.
-3. Overwrite index.html, styles.css, app.js, sw.js, VERSION.txt and UPLOAD_GUIDE.txt.
-4. Wait about 1-2 minutes, then reopen the GitHub Pages URL.
-5. If the old design remains, close the browser tab completely and open it again.
+GitHubのリポジトリ直下へ、ZIPを解凍した中身を上書きアップロードしてください。
+ZIPファイル自体はアップロード不要です。
 
-Do not upload the ZIP itself.
+更新対象:
+- index.html
+- styles.css
+- app.js
+- sw.js
+- manifest.webmanifest
+- assets フォルダ
+- VERSION.txt
+
+公開後に古い画面が残る場合:
+1. ページを再読み込み
+2. タブを閉じて開き直す
+3. それでも残る場合はブラウザのキャッシュを削除

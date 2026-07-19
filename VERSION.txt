@@ -1,6 +1,2 @@
-NO KIDDING BAND MANAGER V4.0.3
-Final design baseline restoration
-- target reference layout restored
-- three quick menus retained
-- large schedule-add button remains removed
-- schedule add/edit/delete retained
+NO KIDDING BAND MANAGER V4.1.0
+Home design baseline completed.
