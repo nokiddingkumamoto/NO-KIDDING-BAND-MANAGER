@@ -24,7 +24,7 @@
   const editorDates = document.querySelector(".editor-dates");
   const editorMember = document.querySelector(".editor-member");
   const candidateDialog = document.querySelector(".candidate-dialog");
-  const candidateInput = document.querySelector("#candidate-date");
+  const candidateInput = document.querySelector("#candidate-month");
   const toast = document.querySelector(".toast");
 
   let currentMember = localStorage.getItem(MEMBER_KEY);
@@ -84,6 +84,11 @@
     editor.setAttribute("aria-hidden", "true");
     document.body.classList.remove("editor-open");
   };
+  const returnToSummary = () => {
+    localStorage.setItem(ANSWERS_KEY, JSON.stringify(answers));
+    renderSummary();
+    closeEditor();
+  };
   const selectMember = member => {
     if (!MEMBERS.includes(member)) return;
     currentMember = member;
@@ -93,7 +98,8 @@
   };
 
   const openCandidateDialog = () => {
-    candidateInput.value = "";
+    const base = candidateDates[0]?.iso || new Date().toISOString().slice(0,10);
+    candidateInput.value = base.slice(0,7);
     candidateDialog.hidden = false;
     candidateDialog.setAttribute("aria-hidden", "false");
     window.setTimeout(() => candidateInput.focus(), 0);
@@ -104,25 +110,28 @@
   };
   const addCandidate = () => {
     if (!candidateInput.value) {
-      notify("日付を選択してください");
+      notify("表示する月を選択してください");
       return;
     }
-    if (candidateDates.some(item => item.iso === candidateInput.value)) {
-      notify("その日付はすでに登録されています");
-      return;
+    const [year,month] = candidateInput.value.split("-").map(Number);
+    const lastDay = new Date(year,month,0).getDate();
+    let added = 0;
+    for (let day = 1; day <= lastDay; day += 1) {
+      const iso = `${year}-${String(month).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
+      if (candidateDates.some(item => item.iso === iso)) continue;
+      const date = new Date(year,month - 1,day);
+      const key = `${month}/${day}`;
+      candidateDates.push({
+        key,
+        iso,
+        label:`${key}（${WEEKDAYS[date.getDay()]}）`
+      });
+      added += 1;
     }
-    const [year,month,day] = candidateInput.value.split("-").map(Number);
-    const date = new Date(year,month - 1,day);
-    const key = `${month}/${day}`;
-    candidateDates.push({
-      key,
-      iso:candidateInput.value,
-      label:`${key}（${WEEKDAYS[date.getDay()]}）`
-    });
     candidateDates.sort((a,b) => a.iso.localeCompare(b.iso));
     localStorage.setItem(DATES_KEY, JSON.stringify(candidateDates));
     closeCandidateDialog();
-    notify(`${key}を候補日に追加しました`);
+    notify(added ? `${month}月の日付を表示しました` : `${month}月はすでに表示されています`);
     if (!editor.hidden) renderEditor();
   };
 
@@ -136,7 +145,7 @@
     answers[currentMember][row.dataset.date] = choice.dataset.answer;
     renderEditor();
   });
-  document.querySelector(".editor-back").addEventListener("click", closeEditor);
+  document.querySelector(".editor-back").addEventListener("click", returnToSummary);
   document.querySelector(".editor-close").addEventListener("click", closeEditor);
   document.querySelector(".editor-save").addEventListener("click", () => {
     localStorage.setItem(ANSWERS_KEY, JSON.stringify(answers));
