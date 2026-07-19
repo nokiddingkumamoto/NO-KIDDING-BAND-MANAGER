@@ -1,9 +1,9 @@
-const CACHE = "no-kidding-band-manager-v7.3.0";
+const CACHE = "no-kidding-band-manager-v7.3.2";
 const ASSETS = [
   "./",
   "./index.html",
-  "./pixel.css?v=7.3.0",
-  "./app.js?v=7.3.0",
+  "./pixel.css?v=7.3.2",
+  "./app.js?v=7.3.2",
   "./manifest.webmanifest",
   "./assets/logo.png",
   "./assets/top-page.png",

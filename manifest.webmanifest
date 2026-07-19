@@ -8,7 +8,7 @@
   <title>NO KIDDING BAND MANAGER</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="pixel.css?v=7.3.0">
+  <link rel="stylesheet" href="pixel.css?v=7.3.2">
 </head>
 <body>
   <main class="visual-page" id="top">
@@ -39,6 +39,6 @@
     <button type="button">＋ 在庫数</button>
   </div>
   <div class="toast" role="status" aria-live="polite"></div>
-  <script src="app.js?v=7.3.0"></script>
+  <script src="app.js?v=7.3.2"></script>
 </body>
 </html>
