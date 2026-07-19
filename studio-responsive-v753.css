@@ -212,20 +212,33 @@
     border-radius:8px;
   }
   .summary-date {
-    font-size:17px;
+    font-size:14px;
   }
   .summary-count {
-    gap:3px;
-    font-size:15px;
+    gap:2px;
+    font-size:13px;
   }
   .summary-count .mark {
-    font-size:25px;
+    font-size:20px;
   }
   .summary-count.maybe .mark {
-    font-size:21px;
+    font-size:17px;
   }
   .summary-count.no .mark {
-    font-size:23px;
+    font-size:19px;
+  }
+  .summary-row {
+    min-height:48px;
+  }
+  .month-banner-label {
+    font-size:25px;
+  }
+  .summary-month-label {
+    font-size:10px;
+  }
+  .summary-month-select {
+    font-size:12px;
+    padding:0 4px;
   }
 }
 

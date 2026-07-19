@@ -15,9 +15,12 @@
   const ANSWERS_KEY = "no-kidding-studio-answers-v1";
   const MEMBER_KEY = "no-kidding-current-member";
   const DATES_KEY = "no-kidding-studio-candidate-dates-v1";
+  const MONTH_KEY = "no-kidding-studio-selected-month-v1";
   const WEEKDAYS = ["日","月","火","水","木","金","土"];
 
   const select = document.querySelector(".member-select");
+  const monthSelect = document.querySelector(".summary-month-select");
+  const monthBanner = document.querySelector(".month-banner-label");
   const chips = [...document.querySelectorAll(".member-chips button")];
   const answerGrid = document.querySelector(".answer-grid");
   const editor = document.querySelector(".answer-editor");
@@ -40,14 +43,34 @@
   let answers = readJson(ANSWERS_KEY, {});
   let candidateDates = readJson(DATES_KEY, DEFAULT_DATES);
   if (!Array.isArray(candidateDates) || !candidateDates.length) candidateDates = [...DEFAULT_DATES];
+  let selectedMonth = localStorage.getItem(MONTH_KEY) || candidateDates[0].iso.slice(0,7);
 
   const notify = message => {
     toast.textContent = message;
     toast.classList.add("show");
     window.setTimeout(() => toast.classList.remove("show"), 1800);
   };
+  const monthDates = () => candidateDates.filter(item => item.iso.startsWith(selectedMonth));
+  const ensureMonthDates = monthValue => {
+    const [year,month] = monthValue.split("-").map(Number);
+    const lastDay = new Date(year,month,0).getDate();
+    let added = 0;
+    for (let day = 1; day <= lastDay; day += 1) {
+      const iso = `${year}-${String(month).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
+      if (candidateDates.some(item => item.iso === iso)) continue;
+      const date = new Date(year,month - 1,day);
+      const key = `${month}/${day}`;
+      candidateDates.push({ key, iso, label:`${key}（${WEEKDAYS[date.getDay()]}）` });
+      added += 1;
+    }
+    candidateDates.sort((a,b) => a.iso.localeCompare(b.iso));
+    localStorage.setItem(DATES_KEY, JSON.stringify(candidateDates));
+    return added;
+  };
 
   const renderSummary = () => {
+    monthSelect.value = selectedMonth;
+    monthBanner.textContent = `${Number(selectedMonth.slice(5,7))}月スタジオ予定`;
     select.value = currentMember;
     chips.forEach(chip => {
       const active = chip.dataset.member === currentMember;
@@ -55,7 +78,7 @@
       chip.setAttribute("aria-pressed", String(active));
     });
     answerGrid.classList.add("dynamic-summary");
-    answerGrid.innerHTML = candidateDates.map(item => {
+    answerGrid.innerHTML = monthDates().map(item => {
       const counts = { yes:0, maybe:0, no:0 };
       MEMBERS.forEach(member => {
         const value = answers[member]?.[item.key];
@@ -72,7 +95,7 @@
 
   const renderEditor = () => {
     editorMember.textContent = currentMember;
-    editorDates.innerHTML = candidateDates.map(item => {
+    editorDates.innerHTML = monthDates().map(item => {
       const value = answers[currentMember]?.[item.key] || "";
       return `<div class="editor-date-row" data-date="${item.key}">
         <span class="editor-date-label">${item.label}</span>
@@ -128,23 +151,10 @@
       notify("表示する月を選択してください");
       return;
     }
-    const [year,month] = candidateInput.value.split("-").map(Number);
-    const lastDay = new Date(year,month,0).getDate();
-    let added = 0;
-    for (let day = 1; day <= lastDay; day += 1) {
-      const iso = `${year}-${String(month).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
-      if (candidateDates.some(item => item.iso === iso)) continue;
-      const date = new Date(year,month - 1,day);
-      const key = `${month}/${day}`;
-      candidateDates.push({
-        key,
-        iso,
-        label:`${key}（${WEEKDAYS[date.getDay()]}）`
-      });
-      added += 1;
-    }
-    candidateDates.sort((a,b) => a.iso.localeCompare(b.iso));
-    localStorage.setItem(DATES_KEY, JSON.stringify(candidateDates));
+    selectedMonth = candidateInput.value;
+    localStorage.setItem(MONTH_KEY,selectedMonth);
+    const month = Number(selectedMonth.slice(5,7));
+    const added = ensureMonthDates(selectedMonth);
     closeCandidateDialog();
     notify(added ? `${month}月の日付を表示しました` : `${month}月はすでに表示されています`);
     if (!editor.hidden) renderEditor();
@@ -152,6 +162,13 @@
   };
 
   select.addEventListener("change", () => selectMember(select.value));
+  monthSelect.addEventListener("change", () => {
+    if (!monthSelect.value) return;
+    selectedMonth = monthSelect.value;
+    localStorage.setItem(MONTH_KEY,selectedMonth);
+    ensureMonthDates(selectedMonth);
+    renderSummary();
+  });
   chips.forEach(chip => chip.addEventListener("click", () => selectMember(chip.dataset.member)));
   editorDates.addEventListener("click", event => {
     const choice = event.target.closest(".editor-choice");
