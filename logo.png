@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="104" fill="#050505"/>
+  <path d="M53 116h85l58 88v-88h87v280h-87l-58-92v92H53zm244 0h91c47 0 75 29 75 72 0 26-12 47-35 59 28 12 42 35 42 67 0 50-32 82-87 82h-86zm83 109c15 0 23-10 23-27s-8-25-23-25h-5v52zm4 112c17 0 26-10 26-30 0-18-9-28-26-28h-9v58z" fill="#fff"/>
+  <path d="M34 63h444" stroke="#00e9f2" stroke-width="12"/>
+  <path d="M34 449h444" stroke="#ff1493" stroke-width="12"/>
+  <text x="256" y="478" fill="#f7e316" font-family="Arial Black,Arial" font-size="31" text-anchor="middle">BAND MANAGER</text>
+</svg>
