@@ -3,96 +3,86 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#050505">
+  <meta name="theme-color" content="#000000">
+  <meta name="description" content="NO KIDDING スタジオ日程調整">
   <title>スタジオ日程調整 | NO KIDDING</title>
   <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="studio.css?v=7.6.2">
-  <link rel="stylesheet" href="studio-responsive-v753.css?v=7.6.3">
-  <link rel="stylesheet" href="studio-layout-v771.css">
-  <link rel="stylesheet" href="studio-clean-v772.css">
+  <link rel="stylesheet" href="studio.css?v=8.0.0">
 </head>
 <body>
-  <main class="studio-screen">
-    <img src="studio-page.png" alt="スタジオ日程調整">
+  <main class="studio-app">
+    <header class="page-header">
+      <a class="header-button" href="index.html" aria-label="トップページへ戻る">‹</a>
+      <h1>スタジオ日程調整</h1>
+      <button class="header-button add-candidate" type="button" aria-label="候補月を追加">＋</button>
+    </header>
 
-    <a class="tap back" href="index.html" aria-label="トップページへ戻る"></a>
-    <button class="tap add-top" type="button" aria-label="候補日を追加"></button>
+    <section class="summary-view" aria-labelledby="summary-title">
+      <h2 id="summary-title"><span class="month-number">7</span>月スタジオ予定</h2>
 
-    <div class="month-banner-label" aria-live="polite">7月スタジオ予定</div>
-    <label class="summary-month-label" for="summary-month">表示する月</label>
-    <input class="summary-month-select" id="summary-month" type="month" aria-label="集計する月">
+      <div class="selectors">
+        <label class="sr-only" for="summary-month">表示する月</label>
+        <input id="summary-month" class="select-control" type="month" aria-label="表示する月">
 
-    <div class="member-select-backdrop" aria-hidden="true"></div>
-    <select class="member-select" aria-label="回答するメンバー">
-      <option>YAMA</option>
-      <option>殿</option>
-      <option>うっちー</option>
-      <option>RYUTO</option>
-      <option>じゅん</option>
-      <option>マスター</option>
-    </select>
-    <span class="member-select-wrap-arrow" aria-hidden="true"></span>
+        <label class="section-label" for="member-select">回答するメンバー</label>
+        <select id="member-select" class="select-control" aria-label="回答するメンバー"></select>
+      </div>
 
-    <div class="member-chips" aria-label="メンバー選択">
-      <button data-member="YAMA">YAMA</button>
-      <button data-member="殿">殿</button>
-      <button data-member="うっちー">うっちー</button>
-      <button data-member="RYUTO">RYUTO</button>
-      <button data-member="じゅん">じゅん</button>
-      <button data-member="マスター">マスター</button>
-    </div>
+      <div class="member-tabs" aria-label="メンバー選択"></div>
 
-    <div class="answer-grid" aria-label="候補日への回答">
-      <div class="answer-row" data-date="7/1"><button data-answer="yes" aria-label="7月1日 参加できる"></button><button data-answer="maybe" aria-label="7月1日 未定"></button><button data-answer="no" aria-label="7月1日 参加できない"></button></div>
-      <div class="answer-row" data-date="7/2"><button data-answer="yes" aria-label="7月2日 参加できる"></button><button data-answer="maybe" aria-label="7月2日 未定"></button><button data-answer="no" aria-label="7月2日 参加できない"></button></div>
-      <div class="answer-row" data-date="7/3"><button data-answer="yes" aria-label="7月3日 参加できる"></button><button data-answer="maybe" aria-label="7月3日 未定"></button><button data-answer="no" aria-label="7月3日 参加できない"></button></div>
-      <div class="answer-row" data-date="7/4"><button data-answer="yes" aria-label="7月4日 参加できる"></button><button data-answer="maybe" aria-label="7月4日 未定"></button><button data-answer="no" aria-label="7月4日 参加できない"></button></div>
-      <div class="answer-row" data-date="7/5"><button data-answer="yes" aria-label="7月5日 参加できる"></button><button data-answer="maybe" aria-label="7月5日 未定"></button><button data-answer="no" aria-label="7月5日 参加できない"></button></div>
-      <div class="answer-row" data-date="7/6"><button data-answer="yes" aria-label="7月6日 参加できる"></button><button data-answer="maybe" aria-label="7月6日 未定"></button><button data-answer="no" aria-label="7月6日 参加できない"></button></div>
-      <div class="answer-row" data-date="7/7"><button data-answer="yes" aria-label="7月7日 参加できる"></button><button data-answer="maybe" aria-label="7月7日 未定"></button><button data-answer="no" aria-label="7月7日 参加できない"></button></div>
-      <div class="answer-row" data-date="7/8"><button data-answer="yes" aria-label="7月8日 参加できる"></button><button data-answer="maybe" aria-label="7月8日 未定"></button><button data-answer="no" aria-label="7月8日 参加できない"></button></div>
-    </div>
+      <div class="summary-heading">
+        <strong>回答 6人</strong>
+        <div class="legend" aria-label="回答記号">
+          <span class="yes"><b>○</b>参加できる</span>
+          <span class="maybe"><b>△</b>未定</span>
+          <span class="no"><b>×</b>参加できない</span>
+        </div>
+      </div>
 
-    <button class="tap save" type="button" aria-label="回答を保存する"></button>
-    <button class="tap add-bottom" type="button" aria-label="候補日を追加"></button>
+      <div class="summary-list" aria-live="polite"></div>
+
+      <button class="primary-button save-summary" type="button">回答を保存する</button>
+      <button class="secondary-button add-candidate" type="button">＋ 候補日を追加</button>
+    </section>
   </main>
 
-  <section class="answer-editor" hidden aria-hidden="true" aria-label="メンバーの日程回答">
-    <div class="editor-panel">
-      <header class="editor-header">
-        <button class="editor-back" type="button" aria-label="集計画面へ戻る">‹</button>
-        <div>
-          <img src="logo.png" alt="">
+  <section class="answer-view" hidden aria-hidden="true">
+    <div class="answer-panel">
+      <header class="answer-header">
+        <button class="header-button answer-back" type="button" aria-label="集計画面へ戻る">‹</button>
+        <div class="answer-heading">
           <h2>日程回答</h2>
-          <p class="editor-member">YAMA</p>
+          <p class="answer-member"></p>
         </div>
-        <button class="editor-close" type="button" aria-label="閉じる">×</button>
+        <button class="header-button answer-close" type="button" aria-label="集計画面へ戻る">×</button>
       </header>
-      <div class="editor-legend" aria-hidden="true">
-        <span class="yes">○ 参加できる</span>
-        <span class="maybe">△ 未定</span>
-        <span class="no">× 参加できない</span>
+
+      <div class="answer-legend legend" aria-label="回答記号">
+        <span class="yes"><b>○</b>参加できる</span>
+        <span class="maybe"><b>△</b>未定</span>
+        <span class="no"><b>×</b>参加できない</span>
       </div>
-      <div class="editor-dates"></div>
-      <button class="editor-save" type="button">回答を保存する</button>
+
+      <div class="answer-list"></div>
+      <button class="primary-button save-answer" type="button">回答を保存する</button>
     </div>
   </section>
 
-  <section class="candidate-dialog" hidden aria-hidden="true" aria-label="候補日を追加">
+  <section class="candidate-dialog" hidden aria-hidden="true" aria-labelledby="candidate-title">
     <div class="candidate-card">
-      <button class="candidate-close" type="button" aria-label="閉じる">×</button>
-      <p class="candidate-kicker">NEW STUDIO DATE</p>
-      <h2>候補日を追加</h2>
-      <label for="candidate-month">表示する月</label>
+      <button class="dialog-close" type="button" aria-label="閉じる">×</button>
+      <p>NEW STUDIO MONTH</p>
+      <h2 id="candidate-title">候補月を追加</h2>
+      <label for="candidate-month">追加する月</label>
       <input id="candidate-month" type="month">
-      <div class="candidate-actions">
-        <button class="candidate-cancel" type="button">キャンセル</button>
-        <button class="candidate-add" type="button">この月を表示する</button>
+      <div class="dialog-actions">
+        <button class="cancel-candidate" type="button">キャンセル</button>
+        <button class="confirm-candidate" type="button">この月を追加</button>
       </div>
     </div>
   </section>
 
   <div class="toast" role="status" aria-live="polite"></div>
-  <script src="studio-refresh-v772.js"></script>
+  <script src="studio.js?v=8.0.0"></script>
 </body>
 </html>

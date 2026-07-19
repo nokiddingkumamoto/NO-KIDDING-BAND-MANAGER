@@ -1,97 +1,196 @@
 (() => {
   "use strict";
-  const MEMBERS = ["YAMA", "殿", "うっちー", "RYUTO", "じゅん", "マスター"];
-  const STORAGE_KEY = "no-kidding-studio-answers-v1";
-  const select = document.querySelector(".member-select");
-  const chips = [...document.querySelectorAll(".member-chips button")];
-  const rows = [...document.querySelectorAll(".answer-row")];
-  const toast = document.querySelector(".toast");
-  const editor = document.querySelector(".answer-editor");
-  const editorDates = document.querySelector(".editor-dates");
-  const editorMember = document.querySelector(".editor-member");
-  const DATE_LABELS = [
-    ["7/1", "7/1（水）"], ["7/2", "7/2（木）"],
-    ["7/3", "7/3（金）"], ["7/4", "7/4（土）"],
-    ["7/5", "7/5（日）"], ["7/6", "7/6（月）"],
-    ["7/7", "7/7（火）"], ["7/8", "7/8（水）"]
-  ];
-  let currentMember = localStorage.getItem("no-kidding-current-member") || MEMBERS[0];
-  let answers = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
 
+  const MEMBERS = ["YAMA", "殿", "うっちー", "RYUTO", "じゅん", "マスター"];
+  const WEEKDAYS = ["日","月","火","水","木","金","土"];
+  const ANSWERS_KEY = "no-kidding-studio-answers-v2";
+  const DATES_KEY = "no-kidding-studio-candidate-dates-v2";
+  const MEMBER_KEY = "no-kidding-current-member-v2";
+  const MONTH_KEY = "no-kidding-studio-selected-month-v2";
+
+  const defaultDates = Array.from({ length:8 }, (_,index) => {
+    const day = index + 1;
+    const date = new Date(2026, 6, day);
+    return {
+      key:`2026-07-${String(day).padStart(2,"0")}`,
+      month:"2026-07",
+      label:`7/${day}（${WEEKDAYS[date.getDay()]}）`
+    };
+  });
+
+  const $ = selector => document.querySelector(selector);
+  const $$ = selector => [...document.querySelectorAll(selector)];
+  const read = (key,fallback) => {
+    try { return JSON.parse(localStorage.getItem(key)) ?? fallback; }
+    catch { return fallback; }
+  };
+
+  const monthInput = $("#summary-month");
+  const monthNumber = $(".month-number");
+  const memberSelect = $("#member-select");
+  const memberTabs = $(".member-tabs");
+  const summaryList = $(".summary-list");
+  const answerView = $(".answer-view");
+  const answerMember = $(".answer-member");
+  const answerList = $(".answer-list");
+  const dialog = $(".candidate-dialog");
+  const candidateMonth = $("#candidate-month");
+  const toast = $(".toast");
+
+  let answers = read(ANSWERS_KEY,{});
+  let dates = read(DATES_KEY,defaultDates);
+  if (!Array.isArray(dates) || !dates.length) dates = [...defaultDates];
+  let currentMember = localStorage.getItem(MEMBER_KEY) || MEMBERS[0];
+  if (!MEMBERS.includes(currentMember)) currentMember = MEMBERS[0];
+  let selectedMonth = localStorage.getItem(MONTH_KEY) || "2026-07";
+
+  const saveState = () => {
+    localStorage.setItem(ANSWERS_KEY,JSON.stringify(answers));
+    localStorage.setItem(DATES_KEY,JSON.stringify(dates));
+    localStorage.setItem(MEMBER_KEY,currentMember);
+    localStorage.setItem(MONTH_KEY,selectedMonth);
+  };
   const notify = message => {
     toast.textContent = message;
     toast.classList.add("show");
-    window.setTimeout(() => toast.classList.remove("show"), 1800);
+    setTimeout(() => toast.classList.remove("show"),1700);
   };
-  const render = () => {
-    select.value = currentMember;
-    chips.forEach(chip => chip.classList.toggle("active", chip.dataset.member === currentMember));
-    rows.forEach(row => {
-      const value = answers[currentMember]?.[row.dataset.date] || "";
-      row.querySelectorAll("button").forEach(button => button.classList.toggle("selected", button.dataset.answer === value));
-    });
+  const monthDates = () => dates
+    .filter(item => item.month === selectedMonth)
+    .sort((a,b) => a.key.localeCompare(b.key));
+
+  const addMonth = monthValue => {
+    const [year,month] = monthValue.split("-").map(Number);
+    const last = new Date(year,month,0).getDate();
+    for (let day=1; day<=last; day+=1) {
+      const key = `${year}-${String(month).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
+      if (dates.some(item => item.key === key)) continue;
+      const date = new Date(year,month-1,day);
+      dates.push({ key, month:monthValue, label:`${month}/${day}（${WEEKDAYS[date.getDay()]}）` });
+    }
   };
-  const renderEditor = () => {
-    editorMember.textContent = currentMember;
-    editorDates.innerHTML = DATE_LABELS.map(([date,label]) => {
-      const value = answers[currentMember]?.[date] || "";
-      return `<div class="editor-date-row" data-date="${date}">
-        <span class="editor-date-label">${label}</span>
-        <button type="button" class="editor-choice yes${value === "yes" ? " selected" : ""}" data-answer="yes" aria-label="${label} 参加できる">○</button>
-        <button type="button" class="editor-choice maybe${value === "maybe" ? " selected" : ""}" data-answer="maybe" aria-label="${label} 未定">△</button>
-        <button type="button" class="editor-choice no${value === "no" ? " selected" : ""}" data-answer="no" aria-label="${label} 参加できない">×</button>
+
+  const renderMembers = () => {
+    memberSelect.innerHTML = MEMBERS.map(name => `<option value="${name}">${name}</option>`).join("");
+    memberSelect.value = currentMember;
+    memberTabs.innerHTML = MEMBERS.map(name =>
+      `<button type="button" data-member="${name}" class="${name === currentMember ? "active" : ""}" aria-pressed="${name === currentMember}">${name}</button>`
+    ).join("");
+  };
+
+  const renderSummary = () => {
+    monthInput.value = selectedMonth;
+    monthNumber.textContent = String(Number(selectedMonth.slice(5)));
+    renderMembers();
+    summaryList.innerHTML = monthDates().map(item => {
+      const counts = { yes:0, maybe:0, no:0 };
+      MEMBERS.forEach(member => {
+        const value = answers[member]?.[item.key];
+        if (value in counts) counts[value] += 1;
+      });
+      return `<div class="summary-row">
+        <span class="summary-date">${item.label}</span>
+        <span class="summary-count yes"><b>○</b>${counts.yes}</span>
+        <span class="summary-count maybe"><b>△</b>${counts.maybe}</span>
+        <span class="summary-count no"><b>×</b>${counts.no}</span>
+      </div>`;
+    }).join("") || `<p>この月の候補日はまだありません。</p>`;
+  };
+
+  const renderAnswer = () => {
+    answerMember.textContent = currentMember;
+    answerList.innerHTML = monthDates().map(item => {
+      const value = answers[currentMember]?.[item.key] || "";
+      return `<div class="answer-row" data-date="${item.key}">
+        <span class="answer-date">${item.label}</span>
+        <button class="choice yes ${value === "yes" ? "selected" : ""}" data-answer="yes" type="button" aria-label="${item.label} 参加できる">○</button>
+        <button class="choice maybe ${value === "maybe" ? "selected" : ""}" data-answer="maybe" type="button" aria-label="${item.label} 未定">△</button>
+        <button class="choice no ${value === "no" ? "selected" : ""}" data-answer="no" type="button" aria-label="${item.label} 参加できない">×</button>
       </div>`;
     }).join("");
   };
-  const openEditor = () => {
-    renderEditor();
-    editor.hidden = false;
-    editor.setAttribute("aria-hidden", "false");
-    document.body.classList.add("editor-open");
-    editor.scrollTop = 0;
-  };
-  const closeEditor = () => {
-    editor.hidden = true;
-    editor.setAttribute("aria-hidden", "true");
-    document.body.classList.remove("editor-open");
-  };
-  const setMember = (member, shouldOpen = true) => {
+
+  const openAnswer = member => {
     currentMember = member;
-    localStorage.setItem("no-kidding-current-member", member);
-    render();
-    if (shouldOpen) openEditor();
+    saveState();
+    renderSummary();
+    renderAnswer();
+    answerView.hidden = false;
+    answerView.setAttribute("aria-hidden","false");
+    document.body.classList.add("answer-open");
+    answerView.scrollTop = 0;
+    if (location.hash !== "#answer") history.pushState({ answer:true },"","#answer");
   };
-  select.addEventListener("change", () => setMember(select.value));
-  chips.forEach(chip => chip.addEventListener("click", () => setMember(chip.dataset.member)));
-  editorDates.addEventListener("click", event => {
-    const button = event.target.closest(".editor-choice");
-    if (!button) return;
-    const row = button.closest(".editor-date-row");
+  const closeAnswer = ({ useHistory=true } = {}) => {
+    saveState();
+    renderSummary();
+    answerView.hidden = true;
+    answerView.setAttribute("aria-hidden","true");
+    document.body.classList.remove("answer-open");
+    if (useHistory && location.hash === "#answer") history.back();
+  };
+  const openDialog = () => {
+    candidateMonth.value = selectedMonth;
+    dialog.hidden = false;
+    dialog.setAttribute("aria-hidden","false");
+  };
+  const closeDialog = () => {
+    dialog.hidden = true;
+    dialog.setAttribute("aria-hidden","true");
+  };
+
+  memberSelect.addEventListener("change",() => openAnswer(memberSelect.value));
+  memberTabs.addEventListener("click",event => {
+    const button = event.target.closest("[data-member]");
+    if (button) openAnswer(button.dataset.member);
+  });
+  monthInput.addEventListener("change",() => {
+    if (!monthInput.value) return;
+    selectedMonth = monthInput.value;
+    addMonth(selectedMonth);
+    saveState();
+    renderSummary();
+  });
+  answerList.addEventListener("click",event => {
+    const choice = event.target.closest(".choice");
+    if (!choice) return;
+    const row = choice.closest(".answer-row");
     answers[currentMember] ||= {};
-    answers[currentMember][row.dataset.date] = button.dataset.answer;
-    renderEditor();
+    answers[currentMember][row.dataset.date] = choice.dataset.answer;
+    renderAnswer();
   });
-  document.querySelector(".editor-back").addEventListener("click", closeEditor);
-  document.querySelector(".editor-close").addEventListener("click", closeEditor);
-  document.querySelector(".editor-save").addEventListener("click", () => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(answers));
-    render();
-    closeEditor();
-    notify(`${currentMember}さんの回答を保存しました`);
+  $(".answer-back").addEventListener("click",() => closeAnswer());
+  $(".answer-close").addEventListener("click",() => closeAnswer());
+  $(".save-answer").addEventListener("click",() => {
+    closeAnswer();
+    notify(`${currentMember}の回答を保存しました`);
   });
-  rows.forEach(row => row.querySelectorAll("button").forEach(button => {
-    button.addEventListener("click", () => {
-      answers[currentMember] ||= {};
-      answers[currentMember][row.dataset.date] = button.dataset.answer;
-      render();
-    });
-  }));
-  document.querySelector(".save").addEventListener("click", () => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(answers));
-    notify(`${currentMember}さんの回答を保存しました`);
+  $(".save-summary").addEventListener("click",() => {
+    saveState();
+    notify("回答を保存しました");
   });
-  const addCandidate = () => notify("候補日の追加機能は次の更新で接続します");
-  document.querySelector(".add-top").addEventListener("click", addCandidate);
-  document.querySelector(".add-bottom").addEventListener("click", addCandidate);
-  render();
+  $$(".add-candidate").forEach(button => button.addEventListener("click",openDialog));
+  $(".dialog-close").addEventListener("click",closeDialog);
+  $(".cancel-candidate").addEventListener("click",closeDialog);
+  $(".confirm-candidate").addEventListener("click",() => {
+    if (!candidateMonth.value) return;
+    selectedMonth = candidateMonth.value;
+    addMonth(selectedMonth);
+    saveState();
+    closeDialog();
+    renderSummary();
+    notify(`${Number(selectedMonth.slice(5))}月の候補日を追加しました`);
+  });
+  dialog.addEventListener("click",event => { if (event.target === dialog) closeDialog(); });
+  window.addEventListener("popstate",() => {
+    if (!answerView.hidden) closeAnswer({ useHistory:false });
+  });
+  document.addEventListener("keydown",event => {
+    if (event.key !== "Escape") return;
+    if (!dialog.hidden) closeDialog();
+    else if (!answerView.hidden) closeAnswer();
+  });
+
+  if (location.hash === "#answer") history.replaceState({},"",location.pathname + location.search);
+  renderSummary();
 })();

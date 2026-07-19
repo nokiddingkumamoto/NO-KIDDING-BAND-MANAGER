@@ -1,4 +1,4 @@
-const CACHE = "no-kidding-band-manager-v7.3.4";
+const CACHE = "no-kidding-band-manager-v8.0.0";
 const ASSETS = [
   "./",
   "./index.html",
@@ -8,6 +8,9 @@ const ASSETS = [
   "./logo.png",
   "./top-page.png",
   "./icon.svg"
+  ,"./studio.html"
+  ,"./studio.css?v=8.0.0"
+  ,"./studio.js?v=8.0.0"
 ];
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting()));
