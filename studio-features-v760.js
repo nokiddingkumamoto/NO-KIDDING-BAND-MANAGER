@@ -19,7 +19,7 @@
 
   const select = document.querySelector(".member-select");
   const chips = [...document.querySelectorAll(".member-chips button")];
-  const summaryRows = [...document.querySelectorAll(".answer-row")];
+  const answerGrid = document.querySelector(".answer-grid");
   const editor = document.querySelector(".answer-editor");
   const editorDates = document.querySelector(".editor-dates");
   const editorMember = document.querySelector(".editor-member");
@@ -54,9 +54,20 @@
       chip.classList.toggle("active", active);
       chip.setAttribute("aria-pressed", String(active));
     });
-    summaryRows.forEach(row => {
-      row.querySelectorAll("button").forEach(button => button.classList.remove("selected"));
-    });
+    answerGrid.classList.add("dynamic-summary");
+    answerGrid.innerHTML = candidateDates.map(item => {
+      const counts = { yes:0, maybe:0, no:0 };
+      MEMBERS.forEach(member => {
+        const value = answers[member]?.[item.key];
+        if (value && Object.hasOwn(counts,value)) counts[value] += 1;
+      });
+      return `<div class="summary-row" data-date="${item.key}">
+        <span class="summary-date">${item.label}</span>
+        <span class="summary-count yes"><b class="mark">○</b>${counts.yes}</span>
+        <span class="summary-count maybe"><b class="mark">△</b>${counts.maybe}</span>
+        <span class="summary-count no"><b class="mark">×</b>${counts.no}</span>
+      </div>`;
+    }).join("");
   };
 
   const renderEditor = () => {
@@ -78,6 +89,9 @@
     editor.setAttribute("aria-hidden", "false");
     document.body.classList.add("editor-open");
     editor.scrollTop = 0;
+    if (location.hash !== "#answer") {
+      history.pushState({ view:"answer" },"","#answer");
+    }
   };
   const closeEditor = () => {
     editor.hidden = true;
@@ -87,7 +101,8 @@
   const returnToSummary = () => {
     localStorage.setItem(ANSWERS_KEY, JSON.stringify(answers));
     renderSummary();
-    closeEditor();
+    if (location.hash === "#answer") history.back();
+    else closeEditor();
   };
   const selectMember = member => {
     if (!MEMBERS.includes(member)) return;
@@ -133,6 +148,7 @@
     closeCandidateDialog();
     notify(added ? `${month}月の日付を表示しました` : `${month}月はすでに表示されています`);
     if (!editor.hidden) renderEditor();
+    renderSummary();
   };
 
   select.addEventListener("change", () => selectMember(select.value));
@@ -146,10 +162,12 @@
     renderEditor();
   });
   document.querySelector(".editor-back").addEventListener("click", returnToSummary);
-  document.querySelector(".editor-close").addEventListener("click", closeEditor);
+  document.querySelector(".editor-close").addEventListener("click", returnToSummary);
   document.querySelector(".editor-save").addEventListener("click", () => {
     localStorage.setItem(ANSWERS_KEY, JSON.stringify(answers));
-    closeEditor();
+    renderSummary();
+    if (location.hash === "#answer") history.back();
+    else closeEditor();
     notify(`${currentMember}さんの回答を保存しました`);
   });
   document.querySelector(".save").addEventListener("click", () => {
@@ -168,6 +186,13 @@
     if (event.key === "Escape") {
       if (!candidateDialog.hidden) closeCandidateDialog();
       else if (!editor.hidden) closeEditor();
+    }
+  });
+  window.addEventListener("popstate", () => {
+    if (!editor.hidden) {
+      localStorage.setItem(ANSWERS_KEY, JSON.stringify(answers));
+      renderSummary();
+      closeEditor();
     }
   });
 

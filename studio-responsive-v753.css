@@ -9,6 +9,51 @@
   border:0 !important;
 }
 
+/* 動的な日程集計一覧 */
+.answer-grid.dynamic-summary {
+  display:block;
+  overflow-y:auto;
+  padding:0 2px 8px;
+  background:#000;
+  line-height:normal;
+  scrollbar-color:var(--pink) #111;
+  scrollbar-width:thin;
+}
+.summary-row {
+  display:grid;
+  grid-template-columns:minmax(150px,1fr) repeat(3,minmax(92px,120px));
+  align-items:center;
+  min-height:70px;
+  margin-bottom:8px;
+  padding:5px 16px 5px 22px;
+  border:1px solid #5e5e5e;
+  border-radius:11px;
+  background:linear-gradient(100deg,#0b0d0e,#020202);
+  color:#fff;
+}
+.summary-date {
+  font-size:25px;
+  font-weight:900;
+  white-space:nowrap;
+}
+.summary-count {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  font-size:22px;
+  font-weight:800;
+  white-space:nowrap;
+}
+.summary-count .mark {
+  font-family:Arial,sans-serif;
+  font-size:34px;
+  line-height:1;
+}
+.summary-count.yes .mark { color:var(--cyan); }
+.summary-count.maybe .mark { color:var(--yellow); font-size:29px; }
+.summary-count.no .mark { color:var(--pink); font-size:32px; }
+
 /* PC */
 .editor-panel {
   width:min(100%,680px);
@@ -155,6 +200,32 @@
   .editor-save {
     min-height:50px;
     font-size:21px;
+  }
+  .answer-grid.dynamic-summary {
+    padding:0 1px 6px;
+  }
+  .summary-row {
+    grid-template-columns:minmax(102px,1fr) repeat(3,minmax(54px,68px));
+    min-height:54px;
+    margin-bottom:6px;
+    padding:3px 7px 3px 11px;
+    border-radius:8px;
+  }
+  .summary-date {
+    font-size:17px;
+  }
+  .summary-count {
+    gap:3px;
+    font-size:15px;
+  }
+  .summary-count .mark {
+    font-size:25px;
+  }
+  .summary-count.maybe .mark {
+    font-size:21px;
+  }
+  .summary-count.no .mark {
+    font-size:23px;
   }
 }
 
