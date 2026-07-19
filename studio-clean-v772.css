@@ -1,0 +1,57 @@
+/* V7.7.2 固定画像の月帯と残像を完全に消す */
+
+.month-banner-label {
+  left:3.5% !important;
+  top:12.25% !important;
+  width:93% !important;
+  height:11.55% !important;
+  z-index:5 !important;
+  border:0 !important;
+  border-radius:0 !important;
+  background:#000 !important;
+  box-shadow:none !important;
+  color:#fff !important;
+  font-size:clamp(28px,5vw,52px) !important;
+  font-weight:1000 !important;
+  text-align:center;
+}
+
+.summary-month-select {
+  z-index:8 !important;
+}
+
+.member-select-backdrop {
+  position:absolute;
+  left:3.5%;
+  top:29.25%;
+  width:93%;
+  height:5.1%;
+  z-index:6;
+  background:#000;
+}
+
+.member-select,
+.member-select-wrap-arrow {
+  z-index:9 !important;
+}
+
+.member-chips {
+  z-index:9 !important;
+  background:#000;
+}
+
+@media (max-width:600px) {
+  .month-banner-label {
+    left:3.5% !important;
+    top:12.25% !important;
+    width:93% !important;
+    height:11.55% !important;
+    font-size:27px !important;
+  }
+  .member-select-backdrop {
+    left:3.5%;
+    top:29.25%;
+    width:93%;
+    height:5.1%;
+  }
+}
