@@ -1,7 +1,0 @@
-NO KIDDING BAND MANAGER V5.0.0
-
-1. このZIPを解凍してください。
-2. ZIPそのものではなく、解凍した中身をGitHubリポジトリのルートへ上書きアップロードしてください。
-3. index.html / styles.css / app.js / sw.js / manifest.webmanifest / assets フォルダを同じ階層に置きます。
-4. GitHub Pages反映後、Ctrl+F5で強制再読み込みしてください。
-5. 古い表示が残る場合は、ブラウザのサイトデータまたはインストール済みPWAを一度削除して開き直してください。
