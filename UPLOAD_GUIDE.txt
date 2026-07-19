@@ -1,0 +1,6 @@
+1. このZIPを解凍します。
+2. 解凍後の中身をすべて選択します。
+3. GitHubのNO-KIDDING-BAND-MANAGERリポジトリで Add file → Upload files を押します。
+4. ファイルとassetsフォルダをアップロードします。
+5. Commit changesを押します。
+6. 1〜2分待ち、公開URLをCtrl+F5で再読み込みします。
