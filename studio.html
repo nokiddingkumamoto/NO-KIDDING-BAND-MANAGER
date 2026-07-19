@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#050505">
   <title>スタジオ日程調整 | NO KIDDING</title>
   <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="studio.css?v=7.4.8-mobile">
+  <link rel="stylesheet" href="studio.css?v=7.5.0">
 </head>
 <body>
   <main class="studio-screen">
@@ -48,7 +48,29 @@
     <button class="tap save" type="button" aria-label="回答を保存する"></button>
     <button class="tap add-bottom" type="button" aria-label="候補日を追加"></button>
   </main>
+
+  <section class="answer-editor" hidden aria-hidden="true" aria-label="メンバーの日程回答">
+    <div class="editor-panel">
+      <header class="editor-header">
+        <button class="editor-back" type="button" aria-label="集計画面へ戻る">‹</button>
+        <div>
+          <img src="logo.png" alt="">
+          <h2>日程回答</h2>
+          <p class="editor-member">YAMA</p>
+        </div>
+        <button class="editor-close" type="button" aria-label="閉じる">×</button>
+      </header>
+      <div class="editor-legend" aria-hidden="true">
+        <span class="yes">○ 参加できる</span>
+        <span class="maybe">△ 未定</span>
+        <span class="no">× 参加できない</span>
+      </div>
+      <div class="editor-dates"></div>
+      <button class="editor-save" type="button">回答を保存する</button>
+    </div>
+  </section>
+
   <div class="toast" role="status" aria-live="polite"></div>
-  <script src="studio.js?v=7.4.8-mobile"></script>
+  <script src="studio.js?v=7.5.0"></script>
 </body>
 </html>

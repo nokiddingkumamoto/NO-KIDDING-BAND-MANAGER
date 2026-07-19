@@ -53,6 +53,64 @@ body { font-family:"Noto Sans JP",Arial,sans-serif; overflow-x:hidden; }
 .add-bottom { left:3.5%; top:92.2%; width:93%; height:5.7%; }
 .toast { position:fixed; left:50%; bottom:25px; z-index:30; transform:translate(-50%,20px); opacity:0; color:#080808; background:#fff; padding:11px 20px; font-weight:800; transition:.2s; white-space:nowrap; }
 .toast.show { opacity:1; transform:translate(-50%,0); }
+
+.answer-editor {
+  position:fixed; inset:0; z-index:50; overflow:auto;
+  background:
+    radial-gradient(circle at 12% 15%,rgba(0,201,244,.09),transparent 28%),
+    radial-gradient(circle at 88% 70%,rgba(255,0,109,.1),transparent 30%),
+    #000;
+}
+.answer-editor[hidden] { display:none; }
+.editor-panel { width:min(100%,760px); min-height:100%; margin:auto; padding:18px 18px 34px; }
+.editor-header {
+  position:sticky; top:0; z-index:2;
+  display:grid; grid-template-columns:64px 1fr 64px; align-items:center;
+  padding:8px 0 14px; border-bottom:2px solid var(--pink);
+  background:rgba(0,0,0,.96);
+}
+.editor-header > div { text-align:center; }
+.editor-header img { width:min(250px,55vw); max-height:70px; object-fit:contain; }
+.editor-header h2 { margin:2px 0 0; color:#fff; font-size:clamp(25px,5vw,42px); line-height:1.1; }
+.editor-member { margin:5px 0 0; color:var(--cyan); font-weight:900; font-size:clamp(15px,3vw,22px); line-height:1.2; }
+.editor-back,.editor-close {
+  border:1px solid var(--pink); border-radius:12px; background:#050505; color:#fff;
+  width:54px; height:54px; font-size:42px; line-height:1; cursor:pointer;
+  box-shadow:0 0 12px rgba(255,0,109,.35);
+}
+.editor-legend {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:8px;
+  padding:18px 5px 10px; color:#fff; text-align:center; font-weight:800;
+}
+.editor-legend .yes { color:var(--cyan); }
+.editor-legend .maybe { color:var(--yellow); }
+.editor-legend .no { color:var(--pink); }
+.editor-dates { display:grid; gap:10px; padding:5px 0 18px; }
+.editor-date-row {
+  display:grid; grid-template-columns:minmax(135px,1fr) repeat(3,76px);
+  align-items:center; min-height:82px; padding:7px 10px 7px 20px;
+  border:1px solid #666; border-radius:13px;
+  background:linear-gradient(105deg,#090b0c,#020202);
+}
+.editor-date-label { color:#fff; font-size:clamp(22px,4vw,32px); font-weight:900; }
+.editor-choice {
+  justify-self:center; width:58px; height:58px; padding:0;
+  border:2px solid transparent; border-radius:50%;
+  background:transparent; font-size:42px; line-height:48px; cursor:pointer;
+}
+.editor-choice.yes { color:var(--cyan); }
+.editor-choice.maybe { color:var(--yellow); }
+.editor-choice.no { color:var(--pink); }
+.editor-choice.selected.yes { border-color:var(--cyan); background:rgba(0,201,244,.22); box-shadow:0 0 12px rgba(0,201,244,.55); }
+.editor-choice.selected.maybe { border-color:var(--yellow); background:rgba(255,227,0,.18); box-shadow:0 0 12px rgba(255,227,0,.5); }
+.editor-choice.selected.no { border-color:var(--pink); background:rgba(255,0,109,.2); box-shadow:0 0 12px rgba(255,0,109,.55); }
+.editor-save {
+  width:100%; min-height:76px; border:2px solid var(--pink); border-radius:12px;
+  background:linear-gradient(110deg,#ff006d,#ff2e72); color:#050505;
+  font-size:clamp(24px,5vw,38px); font-weight:1000; cursor:pointer;
+}
+body.editor-open { overflow:hidden; }
+
 @media(max-width:600px) {
   .member-chips button.active { box-shadow:inset 0 0 0 1px var(--cyan); }
   .answer-row button[data-answer="yes"] { left:43.8%; width:11.5%; }
@@ -61,5 +119,12 @@ body { font-family:"Noto Sans JP",Arial,sans-serif; overflow-x:hidden; }
   .answer-row button.selected[data-answer="yes"] { box-shadow:inset 0 0 0 2px var(--cyan); }
   .answer-row button.selected[data-answer="maybe"] { box-shadow:inset 0 0 0 2px var(--yellow); }
   .answer-row button.selected[data-answer="no"] { box-shadow:inset 0 0 0 2px var(--pink); }
+  .editor-panel { padding:10px 10px 24px; }
+  .editor-header { grid-template-columns:50px 1fr 50px; }
+  .editor-back,.editor-close { width:44px; height:44px; font-size:34px; }
+  .editor-header img { max-height:48px; }
+  .editor-date-row { grid-template-columns:minmax(112px,1fr) repeat(3,58px); min-height:68px; padding-left:14px; }
+  .editor-choice { width:48px; height:48px; font-size:34px; line-height:38px; }
+  .editor-legend { font-size:12px; }
   .toast { font-size:12px; max-width:92vw; }
 }
