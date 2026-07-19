@@ -20,6 +20,7 @@ GitHubに置く形
 /
 ├─ index.html
 ├─ styles.css
+├─ pixel.css
 ├─ app.js
 ├─ manifest.webmanifest
 ├─ sw.js
@@ -28,4 +29,5 @@ GitHubに置く形
 ├─ VERSION.txt
 └─ assets/
    ├─ logo.png
+   ├─ top-page.png
    └─ icon.svg

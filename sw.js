@@ -1,11 +1,12 @@
-const CACHE = "no-kidding-band-manager-v7.1.0";
+const CACHE = "no-kidding-band-manager-v7.2.0";
 const ASSETS = [
   "./",
   "./index.html",
-  "./styles.css?v=7.1.0",
-  "./app.js?v=7.1.0",
+  "./pixel.css?v=7.2.0",
+  "./app.js?v=7.2.0",
   "./manifest.webmanifest",
   "./assets/logo.png",
+  "./assets/top-page.png",
   "./assets/icon.svg"
 ];
 self.addEventListener("install", event => {

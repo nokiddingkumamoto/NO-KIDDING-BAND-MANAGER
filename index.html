@@ -8,102 +8,19 @@
   <title>NO KIDDING BAND MANAGER</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=7.1.0">
+  <link rel="stylesheet" href="pixel.css?v=7.2.0">
 </head>
 <body>
-  <div class="noise" aria-hidden="true"></div>
-  <main class="app-shell">
-    <header class="hero">
-      <button class="round-button menu-button" type="button" aria-label="メニューを開く" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-      <img class="brand-logo" src="assets/logo.png" alt="NO KIDDING from West Coast Japan">
-      <button class="round-button add-button" type="button" aria-label="追加メニューを開く" aria-expanded="false">＋</button>
-      <p class="app-name">バンドマネージャー</p>
-    </header>
-
-    <section class="countdowns" aria-label="次の予定まで">
-      <article class="countdown cyan">
-        <div class="count-copy">
-          <p>NEXT STUDIO</p>
-          <b>次のスタジオまで</b>
-          <strong><span>3</span>日</strong>
-        </div>
-        <span class="drum-art" aria-hidden="true">
-          <i class="drum big"></i><i class="drum left"></i><i class="drum right"></i>
-          <i class="cymbal one"></i><i class="cymbal two"></i>
-        </span>
-      </article>
-      <article class="countdown pink">
-        <div class="count-copy">
-          <p>NEXT LIVE</p>
-          <b>次のライブまで</b>
-          <strong><span>62</span>日</strong>
-        </div>
-        <span class="crowd-art" aria-hidden="true">\o/ \o/ \o/ \o/</span>
-      </article>
-    </section>
-
-    <section class="schedule-section">
-      <div class="section-title">
-        <span>スケジュール</span>
-      </div>
-      <div class="schedule-list">
-        <button class="schedule-card studio" type="button">
-          <span class="date"><strong>7/20</strong><small>（月）</small></span>
-          <span class="schedule-copy">
-            <span class="type">STUDIO</span>
-            <strong>スタジオ練習</strong>
-            <small><i class="clock">◷</i> 20:00　 <i class="pin">●</i> 熊本市内スタジオ</small>
-          </span>
-          <span class="arrow">›</span>
-        </button>
-        <button class="schedule-card live" type="button">
-          <span class="date"><strong>9/22</strong><small>（火）</small></span>
-          <span class="schedule-copy">
-            <span class="type">LIVE</span>
-            <strong>九州スカフェス</strong>
-            <small><i class="clock">◷</i> 時間未定　 <i class="pin">●</i> 場所未定</small>
-          </span>
-          <span class="arrow">›</span>
-        </button>
-        <button class="schedule-card event" type="button">
-          <span class="date"><strong>10/11</strong><small>（日）</small></span>
-          <span class="schedule-copy">
-            <span class="type">LIVE</span>
-            <strong>福岡CBライブ</strong>
-            <small><i class="clock">◷</i> OPEN 18:00 / START 19:00　 <i class="pin">●</i> 福岡CB</small>
-          </span>
-          <span class="arrow">›</span>
-        </button>
-      </div>
-    </section>
-
-    <section class="quick-section">
-      <div class="section-title">
-        <span>クイックメニュー</span>
-      </div>
-      <div class="quick-grid">
-        <button class="quick-card q-cyan" type="button" data-target="schedule">
-          <span class="splatter" aria-hidden="true"></span>
-          <span class="quick-icon calendar" aria-hidden="true"><i>17</i></span>
-          <strong>確定スケジュール</strong>
-          <span class="mini-arrow">›</span>
-        </button>
-        <button class="quick-card q-pink" type="button" data-target="studio">
-          <span class="splatter" aria-hidden="true"></span>
-          <span class="quick-icon check" aria-hidden="true">✓</span>
-          <strong>スタジオ日程調整</strong>
-          <span class="mini-arrow">›</span>
-        </button>
-        <button class="quick-card q-yellow" type="button" data-target="merch">
-          <span class="splatter" aria-hidden="true"></span>
-          <span class="quick-icon shirt" aria-hidden="true">ϟ</span>
-          <strong>物販・在庫</strong>
-          <span class="mini-arrow">›</span>
-        </button>
-      </div>
-    </section>
+  <main class="visual-page" id="top">
+    <img src="assets/top-page.png" alt="NO KIDDING BAND MANAGER トップページ">
+    <button class="hotspot menu-button" type="button" aria-label="メニューを開く" aria-expanded="false"></button>
+    <button class="hotspot add-button" type="button" aria-label="追加メニューを開く" aria-expanded="false"></button>
+    <button class="hotspot schedule-card schedule-one" type="button" aria-label="7月20日 スタジオ練習"></button>
+    <button class="hotspot schedule-card schedule-two" type="button" aria-label="9月22日 九州スカフェス"></button>
+    <button class="hotspot schedule-card schedule-three" type="button" aria-label="10月11日 福岡CBライブ"></button>
+    <button class="hotspot quick-card quick-schedule" type="button" data-target="schedule" aria-label="確定スケジュール"></button>
+    <button class="hotspot quick-card quick-studio" type="button" data-target="studio" aria-label="スタジオ日程調整"></button>
+    <button class="hotspot quick-card quick-merch" type="button" data-target="merch" aria-label="物販・在庫"></button>
   </main>
 
   <div class="sheet-backdrop" hidden></div>
@@ -122,6 +39,6 @@
     <button type="button">＋ 在庫数</button>
   </div>
   <div class="toast" role="status" aria-live="polite"></div>
-  <script src="app.js?v=7.1.0"></script>
+  <script src="app.js?v=7.2.0"></script>
 </body>
 </html>
