@@ -4,7 +4,7 @@ const $$ = (selector) => [...document.querySelectorAll(selector)];
 const defaults = [
   { id: 1, type: 'studio', date: '2026-07-20', time: '20:00', title: 'スタジオ練習', place: '熊本市内スタジオ' },
   { id: 2, type: 'live', date: '2026-09-22', time: '', title: '九州スカフェス', place: '場所未定' },
-  { id: 3, type: 'live', date: '2026-10-11', time: 'OPEN 18:00 / START 19:00', title: '福岡CBライブ', place: '福岡CB' }
+  { id: 3, type: 'live', accent: '#ffd21a', date: '2026-10-11', time: 'OPEN 18:00 / START 19:00', title: '福岡CBライブ', place: '福岡CB' }
 ];
 
 let schedules = JSON.parse(localStorage.getItem('nkbSchedules') || 'null') || defaults;
@@ -33,7 +33,7 @@ function jpDate(dateString) {
 
 function card(schedule) {
   const date = jpDate(schedule.date);
-  const accent = colors[schedule.type] || '#ffd018';
+  const accent = schedule.accent || colors[schedule.type] || '#ffd018';
   return `
     <button class="schedule-card schedule-open" data-schedule-id="${schedule.id}" style="--accent:${accent}" type="button">
       <div class="date-box"><b>${date.md}</b><span>${date.w}</span></div>
