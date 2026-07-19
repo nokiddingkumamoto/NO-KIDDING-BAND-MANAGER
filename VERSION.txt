@@ -1,2 +1,2 @@
-NO KIDDING BAND MANAGER V5.0.0
-Visual rebuild based on fixed reference image.
+NO KIDDING BAND MANAGER V5.1.0
+REFERENCE IMAGE MATCH
