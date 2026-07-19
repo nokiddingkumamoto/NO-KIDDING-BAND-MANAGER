@@ -1,8 +1,20 @@
-NO KIDDING BAND MANAGER V6.0.0 COMPLETE
+NO KIDDING BAND MANAGER V7.1.0
+================================
 
-GitHub Pages用フルパッケージです。
-ZIPを解凍し、中のファイルとassetsフォルダをGitHubリポジトリのルートへアップロードしてください。
-ZIPファイル自体はアップロードしません。
+ユーザー確定デザインを基準にした、GitHub Pages用トップページ再現版です。
 
-公開URL:
-https://nokiddingkumamoto.github.io/NO-KIDDING-BAND-MANAGER/
+収録内容
+- 黒背景、グランジ／飛沫／ネオン表現
+- 提供された正式なNO KIDDINGロゴ
+- 左メニュー、右＋ボタン
+- NEXT STUDIO / NEXT LIVE
+- スケジュール3件
+- 3列固定のクイックメニュー
+  1. 確定スケジュール
+  2. スタジオ日程調整
+  3. 物販・在庫
+- PC／スマートフォン対応
+- GitHub Pages／PWA対応
+
+V7.1.0はコンパクト版トップページのデザイン確定版です。
+各メニューの本機能は、次の開発段階で追加します。

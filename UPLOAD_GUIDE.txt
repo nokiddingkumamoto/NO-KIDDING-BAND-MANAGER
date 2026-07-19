@@ -1,6 +1,31 @@
-1. このZIPを解凍します。
-2. 解凍後の中身をすべて選択します。
-3. GitHubのNO-KIDDING-BAND-MANAGERリポジトリで Add file → Upload files を押します。
-4. ファイルとassetsフォルダをアップロードします。
-5. Commit changesを押します。
-6. 1〜2分待ち、公開URLをCtrl+F5で再読み込みします。
+GitHub Pagesへのアップロード方法
+================================
+
+1. ZIPを解凍します。
+2. NO_KIDDING_BAND_MANAGER_V7_0_0フォルダを開きます。
+3. 中にあるファイルとassetsフォルダをすべて選びます。
+4. GitHubのNO-KIDDING-BAND-MANAGERリポジトリ直下へアップロードします。
+5. ZIPファイル自体や、外側のフォルダはアップロードしません。
+6. Commit changesを押します。
+7. 1～3分後、次のURLを開きます。
+
+https://nokiddingkumamoto.github.io/NO-KIDDING-BAND-MANAGER/
+
+古い画面が表示される場合
+- Windows: Ctrl + F5
+- スマートフォン: タブを閉じて開き直す
+- それでも変わらない場合は数分待って再読み込み
+
+GitHubに置く形
+/
+├─ index.html
+├─ styles.css
+├─ app.js
+├─ manifest.webmanifest
+├─ sw.js
+├─ README.txt
+├─ UPLOAD_GUIDE.txt
+├─ VERSION.txt
+└─ assets/
+   ├─ logo.png
+   └─ icon.svg

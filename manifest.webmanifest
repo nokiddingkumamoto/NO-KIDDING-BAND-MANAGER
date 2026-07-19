@@ -1,10 +1,19 @@
 {
-  "name":"NO KIDDING BAND MANAGER",
-  "short_name":"NO KIDDING",
-  "start_url":"./",
-  "scope":"./",
-  "display":"standalone",
-  "background_color":"#000000",
-  "theme_color":"#000000",
-  "icons":[{"src":"assets/icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+  "name": "NO KIDDING BAND MANAGER",
+  "short_name": "NK MANAGER",
+  "description": "NO KIDDINGのバンド管理アプリ",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#050505",
+  "theme_color": "#050505",
+  "lang": "ja",
+  "icons": [
+    {
+      "src": "assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
 }

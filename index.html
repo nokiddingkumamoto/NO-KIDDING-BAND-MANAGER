@@ -3,158 +3,125 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#000000">
+  <meta name="theme-color" content="#050505">
   <meta name="description" content="NO KIDDING BAND MANAGER">
   <title>NO KIDDING BAND MANAGER</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=600">
+  <link rel="stylesheet" href="styles.css?v=7.1.0">
 </head>
 <body>
-  <div id="overlay" class="overlay" hidden></div>
+  <div class="noise" aria-hidden="true"></div>
+  <main class="app-shell">
+    <header class="hero">
+      <button class="round-button menu-button" type="button" aria-label="メニューを開く" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <img class="brand-logo" src="assets/logo.png" alt="NO KIDDING from West Coast Japan">
+      <button class="round-button add-button" type="button" aria-label="追加メニューを開く" aria-expanded="false">＋</button>
+      <p class="app-name">バンドマネージャー</p>
+    </header>
 
-  <aside id="drawer" class="drawer" aria-hidden="true">
-    <div class="drawer-head">
-      <img src="assets/logo.png" alt="NO KIDDING">
-      <button id="closeMenu" class="drawer-close" aria-label="閉じる">×</button>
-    </div>
-    <button data-page="home">ホーム</button>
-    <button data-page="schedule">確定スケジュール</button>
-    <button data-page="polls">スタジオ日程調整</button>
-    <button data-page="merch">物販・在庫</button>
-  </aside>
+    <section class="countdowns" aria-label="次の予定まで">
+      <article class="countdown cyan">
+        <div class="count-copy">
+          <p>NEXT STUDIO</p>
+          <b>次のスタジオまで</b>
+          <strong><span>3</span>日</strong>
+        </div>
+        <span class="drum-art" aria-hidden="true">
+          <i class="drum big"></i><i class="drum left"></i><i class="drum right"></i>
+          <i class="cymbal one"></i><i class="cymbal two"></i>
+        </span>
+      </article>
+      <article class="countdown pink">
+        <div class="count-copy">
+          <p>NEXT LIVE</p>
+          <b>次のライブまで</b>
+          <strong><span>62</span>日</strong>
+        </div>
+        <span class="crowd-art" aria-hidden="true">\o/ \o/ \o/ \o/</span>
+      </article>
+    </section>
 
-  <header class="hero">
-    <button id="menuBtn" class="square-button menu-button" aria-label="メニュー">
-      <span></span><span></span><span></span>
-    </button>
-    <div class="brand">
-      <img src="assets/logo.png" alt="NO KIDDING from West Coast Japan">
-      <div class="brand-subtitle">バンドマネージャー</div>
-    </div>
-    <button id="quickAdd" class="square-button plus-button" aria-label="追加">＋</button>
-  </header>
-  <div class="neon-divider"></div>
-
-  <main>
-    <section id="home" class="page active">
-      <section class="next-grid" aria-label="次の予定">
-        <article class="next-card cyan-card">
-          <div class="next-copy">
-            <h2>NEXT STUDIO</h2>
-            <p>次のスタジオまで</p>
-            <strong id="nextStudioDays">3<span>日</span></strong>
-          </div>
-          <div class="drum-art" aria-hidden="true">
-            <span class="drum d1"></span><span class="drum d2"></span><span class="drum d3"></span><span class="drum d4"></span>
-            <span class="stand s1"></span><span class="stand s2"></span><span class="stand s3"></span>
-          </div>
-        </article>
-        <article class="next-card pink-card">
-          <div class="next-copy">
-            <h2>NEXT LIVE</h2>
-            <p>次のライブまで</p>
-            <strong id="nextLiveDays">62<span>日</span></strong>
-          </div>
-          <div class="crowd-art" aria-hidden="true">
-            <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-          </div>
-        </article>
-      </section>
-
-      <div class="section-head schedule-head">
-        <h2>スケジュール</h2>
-        <button data-page="schedule">すべて見る ›</button>
+    <section class="schedule-section">
+      <div class="section-title">
+        <span>スケジュール</span>
       </div>
-      <div id="homeSchedules" class="schedule-stack"></div>
-
-      <div class="section-head quick-head">
-        <h2>クイックメニュー</h2>
+      <div class="schedule-list">
+        <button class="schedule-card studio" type="button">
+          <span class="date"><strong>7/20</strong><small>（月）</small></span>
+          <span class="schedule-copy">
+            <span class="type">STUDIO</span>
+            <strong>スタジオ練習</strong>
+            <small><i class="clock">◷</i> 20:00　 <i class="pin">●</i> 熊本市内スタジオ</small>
+          </span>
+          <span class="arrow">›</span>
+        </button>
+        <button class="schedule-card live" type="button">
+          <span class="date"><strong>9/22</strong><small>（火）</small></span>
+          <span class="schedule-copy">
+            <span class="type">LIVE</span>
+            <strong>九州スカフェス</strong>
+            <small><i class="clock">◷</i> 時間未定　 <i class="pin">●</i> 場所未定</small>
+          </span>
+          <span class="arrow">›</span>
+        </button>
+        <button class="schedule-card event" type="button">
+          <span class="date"><strong>10/11</strong><small>（日）</small></span>
+          <span class="schedule-copy">
+            <span class="type">LIVE</span>
+            <strong>福岡CBライブ</strong>
+            <small><i class="clock">◷</i> OPEN 18:00 / START 19:00　 <i class="pin">●</i> 福岡CB</small>
+          </span>
+          <span class="arrow">›</span>
+        </button>
       </div>
-      <div class="quick-grid" aria-label="クイックメニュー">
-        <button class="quick-card quick-cyan" data-page="schedule">
+    </section>
+
+    <section class="quick-section">
+      <div class="section-title">
+        <span>クイックメニュー</span>
+      </div>
+      <div class="quick-grid">
+        <button class="quick-card q-cyan" type="button" data-target="schedule">
           <span class="splatter" aria-hidden="true"></span>
-          <span class="calendar-icon" aria-hidden="true"><b>17</b></span>
+          <span class="quick-icon calendar" aria-hidden="true"><i>17</i></span>
           <strong>確定スケジュール</strong>
-          <span class="round-arrow" aria-hidden="true">›</span>
+          <span class="mini-arrow">›</span>
         </button>
-        <button class="quick-card quick-pink" data-page="polls">
+        <button class="quick-card q-pink" type="button" data-target="studio">
           <span class="splatter" aria-hidden="true"></span>
-          <span class="check-icon" aria-hidden="true">✓</span>
+          <span class="quick-icon check" aria-hidden="true">✓</span>
           <strong>スタジオ日程調整</strong>
-          <span class="round-arrow" aria-hidden="true">›</span>
+          <span class="mini-arrow">›</span>
         </button>
-        <button class="quick-card quick-yellow" data-page="merch">
+        <button class="quick-card q-yellow" type="button" data-target="merch">
           <span class="splatter" aria-hidden="true"></span>
-          <span class="shirt-icon" aria-hidden="true"><i>ϟ</i></span>
+          <span class="quick-icon shirt" aria-hidden="true">ϟ</span>
           <strong>物販・在庫</strong>
-          <span class="round-arrow" aria-hidden="true">›</span>
+          <span class="mini-arrow">›</span>
         </button>
       </div>
-    </section>
-
-    <section id="schedule" class="page">
-      <div class="page-title"><button data-page="home">‹</button><h2>確定スケジュール</h2><button id="addSchedule">＋</button></div>
-      <div id="scheduleList" class="schedule-stack"></div>
-    </section>
-
-    <section id="polls" class="page">
-      <div class="page-title"><button data-page="home">‹</button><h2>スタジオ日程調整</h2><button id="addPoll">＋</button></div>
-      <div class="empty-panel"><b>スタジオ日程調整</b><p>次の段階で○・△・×回答機能を追加します。</p></div>
-    </section>
-
-    <section id="merch" class="page">
-      <div class="page-title"><button data-page="home">‹</button><h2>物販・在庫</h2><button id="addMerch">＋</button></div>
-      <div class="summary">
-        <div><small>商品数</small><b id="itemCount">0</b></div>
-        <div><small>総在庫</small><b id="stockTotal">0</b></div>
-        <div><small>在庫金額</small><b id="stockValue">¥0</b></div>
-      </div>
-      <div id="merchList" class="simple-list"></div>
     </section>
   </main>
 
-  <dialog id="quickAddDialog" class="dialog quick-add-dialog">
-    <div class="dialog-card">
-      <div class="dialog-title"><h3>追加する項目</h3><button type="button" data-close>×</button></div>
-      <button id="quickScheduleAction" class="action-button cyan-action">スケジュールを追加</button>
-      <button id="quickProductAction" class="action-button yellow-action">商品を追加</button>
-      <button id="quickStockAction" class="action-button pink-action">在庫数を変更</button>
-    </div>
-  </dialog>
-
-  <dialog id="scheduleDialog" class="dialog">
-    <form id="scheduleForm" class="dialog-card">
-      <div class="dialog-title"><h3 id="scheduleDialogTitle">スケジュールを追加</h3><button type="button" data-close>×</button></div>
-      <label>分類<select id="sType"><option value="studio">スタジオ</option><option value="live">ライブ</option></select></label>
-      <label>タイトル<input id="sTitle" required></label>
-      <label>日付<input id="sDate" type="date" required></label>
-      <label>時間<input id="sTime" placeholder="例：20:00"></label>
-      <label>場所<input id="sPlace"></label>
-      <div class="dialog-actions"><button id="deleteSchedule" type="button" class="danger" hidden>削除</button><span></span><button type="button" data-close>キャンセル</button><button class="save">保存</button></div>
-    </form>
-  </dialog>
-
-  <dialog id="merchDialog" class="dialog">
-    <form id="merchForm" class="dialog-card">
-      <div class="dialog-title"><h3>商品を追加</h3><button type="button" data-close>×</button></div>
-      <label>商品名<input id="mName" required></label>
-      <label>種類・サイズ<input id="mVariant"></label>
-      <label>在庫数<input id="mStock" type="number" min="0" required></label>
-      <label>販売価格<input id="mPrice" type="number" min="0" required></label>
-      <div class="dialog-actions"><span></span><button type="button" data-close>キャンセル</button><button class="save">保存</button></div>
-    </form>
-  </dialog>
-
-  <dialog id="stockDialog" class="dialog">
-    <form id="stockForm" class="dialog-card">
-      <div class="dialog-title"><h3>在庫数を変更</h3><button type="button" data-close>×</button></div>
-      <label>商品<select id="stockItem" required></select></label>
-      <label>増減数<input id="stockChange" type="number" required placeholder="例：5 または -2"></label>
-      <div class="dialog-actions"><span></span><button type="button" data-close>キャンセル</button><button class="save">反映</button></div>
-    </form>
-  </dialog>
-
-  <script src="app.js?v=600"></script>
+  <div class="sheet-backdrop" hidden></div>
+  <nav class="side-sheet" aria-label="メニュー" aria-hidden="true">
+    <button class="sheet-close" type="button" aria-label="閉じる">×</button>
+    <img src="assets/logo.png" alt="">
+    <a href="#top">ホーム</a>
+    <a href="#schedule">確定スケジュール</a>
+    <a href="#studio">スタジオ日程調整</a>
+    <a href="#merch">物販・在庫</a>
+  </nav>
+  <div class="add-popover" hidden>
+    <p>QUICK ADD</p>
+    <button type="button">＋ スケジュール</button>
+    <button type="button">＋ 商品</button>
+    <button type="button">＋ 在庫数</button>
+  </div>
+  <div class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js?v=7.1.0"></script>
 </body>
 </html>
