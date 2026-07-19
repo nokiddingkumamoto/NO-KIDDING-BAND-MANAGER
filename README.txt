@@ -2,13 +2,7 @@
 * { box-sizing:border-box; }
 html,body { margin:0; min-height:100%; background:#000; }
 body { overflow-x:hidden; font-family:"Noto Sans JP",Arial,sans-serif; }
-.visual-page {
-  position:relative;
-  width:min(100%,1024px,calc(100svh * .6667));
-  margin:0 auto;
-  line-height:0;
-  background:#000;
-}
+.visual-page { position:relative; width:min(100%,1024px); margin:0 auto; line-height:0; background:#000; }
 .visual-page > img { display:block; width:100%; height:auto; user-select:none; -webkit-user-drag:none; }
 .hotspot { position:absolute; display:block; margin:0; padding:0; border:0; background:transparent; cursor:pointer; border-radius:12px; color:transparent; }
 .hotspot:focus-visible { outline:3px solid #fff; outline-offset:-4px; box-shadow:0 0 18px #fff; }
