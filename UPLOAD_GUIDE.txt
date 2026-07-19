@@ -1,25 +1,34 @@
-const CACHE = "no-kidding-band-manager-v7.3.3";
-const ASSETS = [
-  "./",
-  "./index.html",
-  "./pixel.css?v=7.3.3",
-  "./app.js?v=7.3.3",
-  "./manifest.webmanifest",
-  "./assets/logo.png",
-  "./assets/top-page.png",
-  "./assets/icon.svg"
-];
-self.addEventListener("install", event => {
-  event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting()));
-});
-self.addEventListener("activate", event => {
-  event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE).map(key => caches.delete(key)))).then(() => self.clients.claim()));
-});
-self.addEventListener("fetch", event => {
-  if (event.request.method !== "GET") return;
-  event.respondWith(fetch(event.request).then(response => {
-    const copy = response.clone();
-    caches.open(CACHE).then(cache => cache.put(event.request, copy));
-    return response;
-  }).catch(() => caches.match(event.request).then(hit => hit || caches.match("./index.html"))));
-});
+GitHub Pagesへのアップロード方法
+================================
+
+1. ZIPを解凍します。
+   WindowsではZIPを開いた画面上部の「すべて展開」を必ず押してください。
+   ZIPの中から直接GitHubへドラッグしないでください。
+2. NO_KIDDING_BAND_MANAGER_V7_3_4_FLAT_COMPLETEフォルダを開きます。
+3. 中にある12個のファイルをすべて選びます。フォルダはありません。
+4. GitHubのNO-KIDDING-BAND-MANAGERリポジトリ直下へアップロードします。
+5. ZIPファイル自体や、外側のフォルダはアップロードしません。
+6. Commit changesを押します。
+7. 1～3分後、次のURLを開きます。
+
+https://nokiddingkumamoto.github.io/NO-KIDDING-BAND-MANAGER/
+
+古い画面が表示される場合
+- Windows: Ctrl + F5
+- スマートフォン: タブを閉じて開き直す
+- それでも変わらない場合は数分待って再読み込み
+
+GitHubに置く形
+/
+├─ index.html
+├─ styles.css
+├─ pixel.css
+├─ app.js
+├─ manifest.webmanifest
+├─ sw.js
+├─ README.txt
+├─ UPLOAD_GUIDE.txt
+├─ VERSION.txt
+├─ logo.png
+├─ top-page.png
+└─ icon.svg
