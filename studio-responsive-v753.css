@@ -1,0 +1,159 @@
+/* V7.5.3: PC・スマホ共通の回答画面サイズ最終補正 */
+
+/* 集計画面は数字表示専用。選択枠を常に表示しない */
+.answer-grid .answer-row button,
+.answer-grid .answer-row button.selected {
+  pointer-events:none !important;
+  background:transparent !important;
+  box-shadow:none !important;
+  border:0 !important;
+}
+
+/* PC */
+.editor-panel {
+  width:min(100%,680px);
+}
+.editor-header {
+  grid-template-columns:52px 1fr 52px;
+  padding:5px 0 10px;
+}
+.editor-header img {
+  width:min(210px,48vw);
+  max-height:52px;
+}
+.editor-header h2 {
+  font-size:30px;
+}
+.editor-member {
+  font-size:16px;
+}
+.editor-back,
+.editor-close {
+  width:44px;
+  height:44px;
+  font-size:32px;
+}
+.editor-legend {
+  padding:12px 4px 8px;
+  font-size:13px;
+}
+.editor-dates {
+  gap:7px;
+}
+.editor-date-row {
+  grid-template-columns:minmax(125px,1fr) repeat(3,52px);
+  min-height:56px;
+  padding:4px 8px 4px 15px;
+}
+.editor-date-label {
+  font-size:20px;
+}
+.editor-choice,
+.editor-choice.yes,
+.editor-choice.maybe,
+.editor-choice.no {
+  width:38px;
+  height:38px;
+  border-radius:8px;
+  line-height:1;
+}
+.editor-choice.yes {
+  font-size:34px;
+}
+.editor-choice.maybe {
+  font-size:27px;
+}
+.editor-choice.no {
+  font-size:32px;
+}
+.editor-choice.selected.yes {
+  background:rgba(0,201,244,.18);
+  box-shadow:inset 0 0 0 2px var(--cyan);
+}
+.editor-choice.selected.maybe {
+  background:rgba(255,227,0,.15);
+  box-shadow:inset 0 0 0 2px var(--yellow);
+}
+.editor-choice.selected.no {
+  background:rgba(255,0,109,.17);
+  box-shadow:inset 0 0 0 2px var(--pink);
+}
+.editor-save {
+  min-height:58px;
+  font-size:25px;
+}
+
+/* スマホ */
+@media (max-width:600px) {
+  .editor-panel {
+    width:100%;
+    padding:8px 10px 22px;
+  }
+  .editor-header {
+    grid-template-columns:42px 1fr 42px;
+    padding:3px 0 8px;
+  }
+  .editor-header img {
+    width:145px;
+    max-height:38px;
+  }
+  .editor-header h2 {
+    margin-top:1px;
+    font-size:22px;
+  }
+  .editor-member {
+    margin-top:2px;
+    font-size:13px;
+  }
+  .editor-back,
+  .editor-close {
+    width:36px;
+    height:36px;
+    border-radius:8px;
+    font-size:27px;
+  }
+  .editor-legend {
+    padding:9px 2px 6px;
+    gap:3px;
+    font-size:10px;
+  }
+  .editor-dates {
+    gap:6px;
+    padding-bottom:12px;
+  }
+  .editor-date-row {
+    grid-template-columns:minmax(92px,1fr) repeat(3,42px);
+    min-height:48px;
+    padding:3px 5px 3px 11px;
+    border-radius:9px;
+  }
+  .editor-date-label {
+    font-size:16px;
+  }
+  .editor-choice,
+  .editor-choice.yes,
+  .editor-choice.maybe,
+  .editor-choice.no {
+    width:30px;
+    height:30px;
+    border-radius:7px;
+  }
+  .editor-choice.yes {
+    font-size:28px;
+  }
+  .editor-choice.maybe {
+    font-size:22px;
+  }
+  .editor-choice.no {
+    font-size:26px;
+  }
+  .editor-choice.selected.yes,
+  .editor-choice.selected.maybe,
+  .editor-choice.selected.no {
+    box-shadow:inset 0 0 0 1.5px currentColor;
+  }
+  .editor-save {
+    min-height:50px;
+    font-size:21px;
+  }
+}
