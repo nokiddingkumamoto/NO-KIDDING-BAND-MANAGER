@@ -1,10 +1,9 @@
-NO KIDDING BAND MANAGER V4.0.1
+NO KIDDING BAND MANAGER V4.0.3 upload guide
 
-1. Extract this ZIP on your smartphone.
-2. Upload all extracted files and folders to the root of the GitHub repository.
-3. Overwrite files with the same names.
-4. Do not upload the ZIP itself.
-5. Wait about 1-2 minutes, then reload GitHub Pages.
+1. Extract this ZIP on your phone.
+2. Upload all extracted files and the assets folder to the root of the GitHub repository.
+3. Overwrite index.html, styles.css, app.js, sw.js, VERSION.txt and UPLOAD_GUIDE.txt.
+4. Wait about 1-2 minutes, then reopen the GitHub Pages URL.
+5. If the old design remains, close the browser tab completely and open it again.
 
-GitHub Pages URL:
-https://nokiddingkumamoto.github.io/NO-KIDDING-BAND-MANAGER/
+Do not upload the ZIP itself.

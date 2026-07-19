@@ -42,7 +42,7 @@ function card(schedule) {
           <span class="tag">${escapeHtml(typeName[schedule.type] || 'その他')}</span>
           <h3>${escapeHtml(schedule.title)}</h3>
         </div>
-        <div class="event-meta">${escapeHtml(schedule.time || '時間未定')} <span class="pin">●</span> ${escapeHtml(schedule.place || '場所未定')}</div>
+        <div class="event-meta"><span class="event-time">${escapeHtml(schedule.time || '時間未定')}</span><span class="event-place"><span class="pin">●</span>${escapeHtml(schedule.place || '場所未定')}</span></div>
       </div>
       <span class="chev">›</span>
     </button>`;

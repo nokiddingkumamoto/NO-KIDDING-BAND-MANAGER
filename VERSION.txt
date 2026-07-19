@@ -1,7 +1,6 @@
-NO KIDDING BAND MANAGER V4.0.1
-
-STEP 1
-- Top page kept as current design
-- Quick add menu works
-- Confirmed schedule add/edit/delete implemented
-- Data saved on the device with localStorage
+NO KIDDING BAND MANAGER V4.0.3
+Final design baseline restoration
+- target reference layout restored
+- three quick menus retained
+- large schedule-add button remains removed
+- schedule add/edit/delete retained
