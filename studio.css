@@ -46,14 +46,20 @@ body { font-family:"Noto Sans JP",Arial,sans-serif; overflow-x:hidden; }
 .answer-row button[data-answer="yes"] { left:43%; width:11.5%; }
 .answer-row button[data-answer="maybe"] { left:61.5%; width:11.5%; }
 .answer-row button[data-answer="no"] { left:80.5%; width:11.5%; }
-.answer-row button.selected[data-answer="yes"] { background:rgba(0,201,244,.18); box-shadow:inset 0 0 0 3px var(--cyan),0 0 13px rgba(0,201,244,.65); }
-.answer-row button.selected[data-answer="maybe"] { background:rgba(255,227,0,.15); box-shadow:inset 0 0 0 3px var(--yellow),0 0 13px rgba(255,227,0,.55); }
-.answer-row button.selected[data-answer="no"] { background:rgba(255,0,109,.18); box-shadow:inset 0 0 0 3px var(--pink),0 0 13px rgba(255,0,109,.65); }
+.answer-row button.selected[data-answer="yes"] { background:rgba(0,201,244,.18); box-shadow:inset 0 0 0 3px var(--cyan); }
+.answer-row button.selected[data-answer="maybe"] { background:rgba(255,227,0,.15); box-shadow:inset 0 0 0 3px var(--yellow); }
+.answer-row button.selected[data-answer="no"] { background:rgba(255,0,109,.18); box-shadow:inset 0 0 0 3px var(--pink); }
 .save { left:3.5%; top:84.6%; width:93%; height:6.6%; }
 .add-bottom { left:3.5%; top:92.2%; width:93%; height:5.7%; }
 .toast { position:fixed; left:50%; bottom:25px; z-index:30; transform:translate(-50%,20px); opacity:0; color:#080808; background:#fff; padding:11px 20px; font-weight:800; transition:.2s; white-space:nowrap; }
 .toast.show { opacity:1; transform:translate(-50%,0); }
 @media(max-width:600px) {
   .member-chips button.active { box-shadow:inset 0 0 0 1px var(--cyan); }
+  .answer-row button[data-answer="yes"] { left:43%; width:11.5%; }
+  .answer-row button[data-answer="maybe"] { left:61.5%; width:11.5%; }
+  .answer-row button[data-answer="no"] { left:80.5%; width:11.5%; }
+  .answer-row button.selected[data-answer="yes"] { box-shadow:inset 0 0 0 2px var(--cyan); }
+  .answer-row button.selected[data-answer="maybe"] { box-shadow:inset 0 0 0 2px var(--yellow); }
+  .answer-row button.selected[data-answer="no"] { box-shadow:inset 0 0 0 2px var(--pink); }
   .toast { font-size:12px; max-width:92vw; }
 }
