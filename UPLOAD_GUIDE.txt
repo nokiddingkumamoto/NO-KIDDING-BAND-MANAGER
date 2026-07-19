@@ -31,4 +31,8 @@ GitHubに置く形
 ├─ VERSION.txt
 ├─ logo.png
 ├─ top-page.png
-└─ icon.svg
+├─ icon.svg
+├─ studio.html
+├─ studio.css
+├─ studio.js
+└─ studio-page.png

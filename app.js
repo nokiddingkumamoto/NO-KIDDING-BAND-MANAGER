@@ -41,7 +41,13 @@
     window.setTimeout(() => toast.classList.remove("show"), 1800);
   };
   document.querySelectorAll(".quick-card").forEach(card => {
-    card.addEventListener("click", () => notify(`${card.innerText.replace(/\n/g, " ")} は次の開発段階で接続します`));
+    card.addEventListener("click", () => {
+      if (card.dataset.target === "studio") {
+        window.location.href = "studio.html";
+        return;
+      }
+      notify(`${card.getAttribute("aria-label")} は次の開発段階で接続します`);
+    });
   });
   document.querySelectorAll(".schedule-card").forEach(card => {
     card.addEventListener("click", () => notify("スケジュール詳細は次の開発段階で接続します"));
