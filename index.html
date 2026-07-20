@@ -8,19 +8,25 @@
   <title>NO KIDDING BAND MANAGER</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="pixel.css?v=7.3.4">
+  <link rel="stylesheet" href="pixel.css?v=8.3.0">
 </head>
 <body>
   <main class="visual-page" id="top">
-    <img src="top-page.png" alt="NO KIDDING BAND MANAGER トップページ">
-    <button class="hotspot menu-button" type="button" aria-label="メニューを開く" aria-expanded="false"></button>
-    <button class="hotspot add-button" type="button" aria-label="追加メニューを開く" aria-expanded="false"></button>
-    <button class="hotspot schedule-card schedule-one" type="button" aria-label="7月20日 スタジオ練習"></button>
-    <button class="hotspot schedule-card schedule-two" type="button" aria-label="9月22日 九州スカフェス"></button>
-    <button class="hotspot schedule-card schedule-three" type="button" aria-label="10月11日 福岡CBライブ"></button>
-    <button class="hotspot quick-card quick-schedule" type="button" data-target="schedule" aria-label="確定スケジュール"></button>
-    <button class="hotspot quick-card quick-studio" type="button" data-target="studio" aria-label="スタジオ日程調整"></button>
-    <button class="hotspot quick-card quick-merch" type="button" data-target="merch" aria-label="物販・在庫"></button>
+    <section class="visual-top" aria-label="NO KIDDING BAND MANAGER トップ">
+      <button class="hotspot menu-button" type="button" aria-label="メニューを開く" aria-expanded="false"></button>
+      <button class="hotspot add-button" type="button" aria-label="追加メニューを開く" aria-expanded="false"></button>
+    </section>
+
+    <section class="home-schedule-region" aria-labelledby="home-schedule-title">
+      <h1 id="home-schedule-title" class="sr-only">確定スケジュール</h1>
+      <div class="home-schedule-list" aria-live="polite"></div>
+    </section>
+
+    <section class="visual-bottom" aria-label="クイックメニュー">
+      <button class="hotspot quick-card quick-schedule" type="button" data-target="schedule" aria-label="確定スケジュール"></button>
+      <button class="hotspot quick-card quick-studio" type="button" data-target="studio" aria-label="スタジオ日程調整"></button>
+      <button class="hotspot quick-card quick-merch" type="button" data-target="merch" aria-label="物販・在庫"></button>
+    </section>
   </main>
 
   <div class="sheet-backdrop" hidden></div>
@@ -39,6 +45,6 @@
     <button type="button">＋ 在庫数</button>
   </div>
   <div class="toast" role="status" aria-live="polite"></div>
-  <script src="app.js?v=8.2.0"></script>
+  <script src="app.js?v=8.3.0"></script>
 </body>
 </html>
