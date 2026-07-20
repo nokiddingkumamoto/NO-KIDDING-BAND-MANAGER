@@ -8,13 +8,19 @@
   <title>NO KIDDING BAND MANAGER</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="pixel.css?v=8.3.0">
+  <link rel="stylesheet" href="pixel.css?v=8.3.1">
 </head>
 <body>
   <main class="visual-page" id="top">
     <section class="visual-top" aria-label="NO KIDDING BAND MANAGER トップ">
       <button class="hotspot menu-button" type="button" aria-label="メニューを開く" aria-expanded="false"></button>
       <button class="hotspot add-button" type="button" aria-label="追加メニューを開く" aria-expanded="false"></button>
+      <div class="next-countdown next-studio-count" aria-label="次のスタジオまで" aria-live="polite">
+        <strong>--</strong><span>日</span>
+      </div>
+      <div class="next-countdown next-live-count" aria-label="次のライブまで" aria-live="polite">
+        <strong>--</strong><span>日</span>
+      </div>
     </section>
 
     <section class="home-schedule-region" aria-labelledby="home-schedule-title">
@@ -45,6 +51,6 @@
     <button type="button">＋ 在庫数</button>
   </div>
   <div class="toast" role="status" aria-live="polite"></div>
-  <script src="app.js?v=8.3.0"></script>
+  <script src="app.js?v=8.3.1"></script>
 </body>
 </html>

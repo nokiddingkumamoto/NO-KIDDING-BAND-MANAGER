@@ -1,4 +1,4 @@
-const CACHE = "no-kidding-band-manager-v8.3.0";
+const CACHE = "no-kidding-band-manager-v8.3.1";
 const ASSETS = [
   "./",
   "./index.html",

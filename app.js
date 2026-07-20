@@ -8,6 +8,8 @@
   const popover = document.querySelector(".add-popover");
   const toast = document.querySelector(".toast");
   const homeScheduleList = document.querySelector(".home-schedule-list");
+  const nextStudioCount = document.querySelector(".next-studio-count");
+  const nextLiveCount = document.querySelector(".next-live-count");
   const SCHEDULES_KEY = "no-kidding-confirmed-schedules-v1";
   const TYPE_META = {
     studio: { label: "スタジオ" },
@@ -43,6 +45,20 @@
     String(today.getMonth() + 1).padStart(2, "0"),
     String(today.getDate()).padStart(2, "0")
   ].join("-");
+  const renderCountdown = (element, type, schedules) => {
+    const next = schedules.find(item => item.type === type && item.date >= todayKey);
+    if (!next) {
+      element.classList.add("is-empty");
+      element.innerHTML = "<strong>未定</strong>";
+      return;
+    }
+    const [year, month, day] = next.date.split("-").map(Number);
+    const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    const target = new Date(year, month - 1, day);
+    const days = Math.round((target - todayStart) / 86400000);
+    element.classList.remove("is-empty");
+    element.innerHTML = `<strong>${days}</strong><span>日</span>`;
+  };
   const renderHomeSchedules = () => {
     let schedules = read(SCHEDULES_KEY, []);
     if (!Array.isArray(schedules)) schedules = [];
@@ -53,6 +69,8 @@
         const bKey = `${b.date}T${b.startTime || "99:99"}`;
         return aKey.localeCompare(bKey);
       });
+    renderCountdown(nextStudioCount, "studio", schedules);
+    renderCountdown(nextLiveCount, "live", schedules);
     const upcoming = schedules.filter(item => item.date >= todayKey);
     const visible = (upcoming.length ? upcoming : schedules.slice(-4)).slice(0, 4);
     homeScheduleList.innerHTML = visible.map(item => {
