@@ -53,19 +53,19 @@
     renderCountdown(nextStudioCount, "studio");
     renderCountdown(nextLiveCount, "live");
     const upcoming = schedules.filter(item => item.date >= todayKey);
-    const visible = (upcoming.length ? upcoming : schedules.slice(-4)).slice(0, 4);
+    const visible = (upcoming.length ? upcoming : schedules.slice(-6)).slice(0, 6);
     homeScheduleList.innerHTML = visible.map(item => {
       const displayDate = dateLabel(item.date);
-      return `<button class="home-schedule-card ${item.type}" type="button" aria-label="${escapeHtml(item.name)}の確定スケジュールを開く">
+      return `<article class="home-schedule-card ${item.type}" aria-label="${escapeHtml(item.name)}の確定スケジュール">
         <span class="home-date"><strong>${displayDate.date}</strong><small>${displayDate.weekday}</small></span>
         <span class="home-schedule-copy">
           <span class="home-type">${TYPE_META[item.type].label}</span>
           <strong>${escapeHtml(item.name)}</strong>
           <small><span class="home-time-icon" aria-hidden="true"></span><span>${escapeHtml(timeLabel(item))}</span>
           <span class="home-pin-icon" aria-hidden="true"></span><span>${escapeHtml(item.location?.trim() || "場所未定")}</span></small>
-        </span><span class="home-arrow" aria-hidden="true">›</span>
-      </button>`;
-    }).join("") || `<button class="home-schedule-empty" type="button"><strong>確定スケジュールはまだありません</strong><span>予定を登録すると、ここに最大4件表示されます。</span></button>`;
+        </span>
+      </article>`;
+    }).join("") || `<div class="home-schedule-empty"><strong>確定スケジュールはまだありません</strong><span>予定を登録すると、ここに最大6件表示されます。</span></div>`;
   };
 
   const refresh = async () => {
@@ -88,10 +88,6 @@
     const routes = { schedule:"schedule.html", studio:"studio.html", merch:"merch.html" };
     if (routes[card.dataset.target]) window.location.href = routes[card.dataset.target];
   }));
-  homeScheduleList.addEventListener("click", event => {
-    if (event.target.closest(".home-schedule-card,.home-schedule-empty")) window.location.href = "schedule.html";
-  });
-
   NK.start(async () => {
     await refresh();
     window.setInterval(() => { if (document.visibilityState === "visible") refresh().catch(() => {}); }, 10000);

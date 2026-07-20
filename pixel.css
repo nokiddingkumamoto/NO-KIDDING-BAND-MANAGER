@@ -132,7 +132,7 @@ button { font:inherit; }
   color:transparent;
   cursor:pointer;
 }
-.hotspot:focus-visible,.home-schedule-card:focus-visible,.home-schedule-empty:focus-visible {
+.hotspot:focus-visible {
   outline:3px solid #fff;
   outline-offset:-4px;
   box-shadow:0 0 18px #fff;
@@ -157,7 +157,7 @@ button { font:inherit; }
 .home-schedule-card {
   position:relative;
   display:grid;
-  grid-template-columns:190px minmax(0,1fr) 48px;
+  grid-template-columns:190px minmax(0,1fr);
   align-items:center;
   width:100%;
   min-height:0;
@@ -168,17 +168,10 @@ button { font:inherit; }
   background:linear-gradient(100deg,rgba(255,255,255,.04),transparent 48%),#070708;
   color:var(--cyan);
   text-align:left;
-  cursor:pointer;
-  transition:.18s ease;
   box-shadow:inset 0 1px rgba(255,255,255,.04);
 }
 .home-schedule-card.live { color:var(--pink); }
 .home-schedule-card.other { color:var(--yellow); }
-.home-schedule-card:hover {
-  border-color:currentColor;
-  box-shadow:0 0 17px color-mix(in srgb,currentColor 35%,transparent);
-}
-.home-schedule-card:active { transform:scale(.985); }
 .home-date {
   position:relative;
   z-index:1;
@@ -289,13 +282,6 @@ button { font:inherit; }
   border-radius:50%;
   background:#070708;
 }
-.home-arrow {
-  position:relative;
-  z-index:1;
-  color:currentColor;
-  font:300 62px/1 Arial,sans-serif;
-  text-align:center;
-}
 .home-schedule-empty {
   display:grid;
   place-items:center;
@@ -307,7 +293,6 @@ button { font:inherit; }
   background:#070708;
   color:#fff;
   text-align:center;
-  cursor:pointer;
 }
 .home-schedule-empty strong { display:block; margin-bottom:8px; font-size:25px; }
 .home-schedule-empty span { color:#aaa; font-size:17px; }
@@ -325,7 +310,7 @@ button { font:inherit; }
   .hotspot { border-radius:6px; }
   .home-schedule-list { gap:8px; }
   .home-schedule-card {
-    grid-template-columns:78px minmax(0,1fr) 24px;
+    grid-template-columns:78px minmax(0,1fr);
     min-height:0;
     padding-right:6px;
     border-width:1px;
@@ -348,7 +333,6 @@ button { font:inherit; }
   .home-time-icon::after { height:3.5px; }
   .home-pin-icon { width:12px; height:12px; margin:0 5px 0 9px; }
   .home-pin-icon::after { left:4px; top:4px; width:4px; height:4px; }
-  .home-arrow { font-size:35px; }
   .home-schedule-empty { min-height:104px; padding:16px; border-width:1px; border-radius:9px; }
   .home-schedule-empty strong { margin-bottom:5px; font-size:16px; }
   .home-schedule-empty span { font-size:11px; }

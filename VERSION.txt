@@ -1,4 +1,4 @@
-NO KIDDING BAND MANAGER V9.0.7 PUBLIC SHARED
+NO KIDDING BAND MANAGER V9.0.8 PUBLIC SHARED
 
 GitHub + Cloudflare Pages + Cloudflare D1 共有対応版
 Android / iPhone 共通
@@ -13,6 +13,7 @@ Android / iPhone 共通
 - スタジオ日程調整データは直近1年分だけを自動保持
 - 確定スケジュールは予定日の翌日に自動削除（日本時間）
 - 元のロゴ画像とタイトルをトップページ中央へ位置補正
+- トップページの確定スケジュールを最大6件表示し、カードを閲覧専用化
 - 販売記録と在庫変更をCloudflare側で一括処理
 - ログインなし（URLを知る人が閲覧・編集可能）
 - 約8～10秒間隔の自動同期
