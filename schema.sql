@@ -58,6 +58,11 @@ CREATE TABLE IF NOT EXISTS app_migrations (
   applied_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE IF NOT EXISTS app_maintenance (
+  id TEXT PRIMARY KEY,
+  last_run TEXT NOT NULL
+);
+
 INSERT OR IGNORE INTO products (id, name, category, details, price, stock, image) VALUES
 ('logo-white', 'LOGO T-SHIRT (WHITE)', 'tshirt', 'WHITE / BLACK PRINT / XL', 1000, 0, 'merch-images/tshirt-logo-white-front.jpg'),
 ('logo-white-kxcxsxp', 'LOGO T-SHIRT (WHITE)', 'tshirt', 'WHITE / BLACK PRINT / XL', 1000, 0, 'merch-images/tshirt-logo-white-back.jpg'),

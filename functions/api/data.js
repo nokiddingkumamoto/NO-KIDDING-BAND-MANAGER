@@ -35,8 +35,28 @@ const ensureCatalog = async DB => {
   ]);
 };
 
+const cleanupExpiredData = async DB => {
+  await DB.prepare(`CREATE TABLE IF NOT EXISTS app_maintenance (
+    id TEXT PRIMARY KEY,
+    last_run TEXT NOT NULL
+  )`).run();
+  const today = new Date(Date.now() + 9 * 60 * 60 * 1000).toISOString().slice(0, 10);
+  const maintenance = await DB.prepare("SELECT last_run AS lastRun FROM app_maintenance WHERE id = ?")
+    .bind("data-retention-v2").first();
+  if (maintenance?.lastRun === today) return;
+  await DB.batch([
+    DB.prepare("DELETE FROM schedules WHERE date < date('now', '+9 hours')"),
+    DB.prepare("DELETE FROM studio_answers WHERE date < date('now', '+9 hours', '-1 year')"),
+    DB.prepare("DELETE FROM studio_dates WHERE date < date('now', '+9 hours', '-1 year')"),
+    DB.prepare(`INSERT INTO app_maintenance (id, last_run) VALUES (?, ?)
+      ON CONFLICT(id) DO UPDATE SET last_run=excluded.last_run`)
+      .bind("data-retention-v2", today)
+  ]);
+};
+
 const allData = async DB => {
   await ensureCatalog(DB);
+  await cleanupExpiredData(DB);
   const results = await DB.batch([
     DB.prepare("SELECT id, type, name, date, start_time AS startTime, end_time AS endTime, location, notes, updated_at AS updatedAt FROM schedules ORDER BY date, start_time"),
     DB.prepare("SELECT date AS key, month, label FROM studio_dates ORDER BY date"),

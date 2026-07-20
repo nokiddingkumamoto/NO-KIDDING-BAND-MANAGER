@@ -1,4 +1,4 @@
-NO KIDDING BAND MANAGER V9.0.4 PUBLIC SHARED
+NO KIDDING BAND MANAGER V9.0.6 PUBLIC SHARED
 
 GitHub + Cloudflare Pages + Cloudflare D1 共有対応版
 Android / iPhone 共通
@@ -9,6 +9,9 @@ Android / iPhone 共通
 - 物販写真を全体表示し、公式GOODSページ掲載順で配置
 - 物販ページ上部の英字タイトルと集計カードを削除
 - トップページの確定スケジュール枠を文字サイズそのままで縦方向に圧縮
+- トップページの日付・曜日を小さくし、ロゴとタイトルを中央配置
+- スタジオ日程調整データは直近1年分だけを自動保持
+- 確定スケジュールは予定日の翌日に自動削除（日本時間）
 - 販売記録と在庫変更をCloudflare側で一括処理
 - ログインなし（URLを知る人が閲覧・編集可能）
 - 約8～10秒間隔の自動同期
