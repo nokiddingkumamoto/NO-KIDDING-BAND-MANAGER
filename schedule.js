@@ -6,7 +6,6 @@
     live:{ label:"ライブ" },
     other:{ label:"その他" }
   };
-  const MONTH_KEY = "no-kidding-confirmed-schedule-month-v1";
   const $ = selector => document.querySelector(selector);
   const today = new Date();
   const todayKey = [today.getFullYear(), String(today.getMonth() + 1).padStart(2, "0"), String(today.getDate()).padStart(2, "0")].join("-");
@@ -17,15 +16,13 @@
   const dateLabel = value => {
     const [year, month, day] = value.split("-").map(Number);
     const weekday = ["日", "月", "火", "水", "木", "金", "土"][new Date(year, month - 1, day).getDay()];
-    return `${month}/${day}（${weekday}）`;
+    return { date:`${month}/${day}`, weekday:`（${weekday}）` };
   };
   const timeLabel = item => item.startTime && item.endTime ? `${item.startTime}–${item.endTime}`
     : item.startTime || (item.endTime ? `～${item.endTime}` : "時間未定");
 
-  const monthInput = $("#schedule-month");
-  const showAllButton = $(".show-all");
   const scheduleCount = $(".schedule-count");
-  const scheduleList = $(".schedule-list");
+  const scheduleList = $(".home-schedule-list");
   const dialog = $(".schedule-dialog");
   const form = $(".schedule-form");
   const formTitle = $("#form-title");
@@ -39,7 +36,6 @@
   const deleteButton = $(".delete-schedule");
   const toast = $(".toast");
   let schedules = [];
-  let selectedMonth = localStorage.getItem(MONTH_KEY) || todayKey.slice(0, 7);
   let editingId = null;
 
   const notify = message => {
@@ -53,25 +49,24 @@
     render();
   };
   const filtered = () => schedules
-    .filter(item => !selectedMonth || item.date.startsWith(selectedMonth))
+    .filter(item => item && TYPE_META[item.type] && /^\d{4}-\d{2}-\d{2}$/.test(item.date) && item.date >= todayKey)
     .sort((a, b) => `${a.date}T${a.startTime || "99:99"}`.localeCompare(`${b.date}T${b.startTime || "99:99"}`));
 
   const render = () => {
-    monthInput.value = selectedMonth;
-    showAllButton.classList.toggle("active", !selectedMonth);
     const visible = filtered();
     scheduleCount.textContent = `予定 ${visible.length}件`;
     scheduleList.innerHTML = visible.map(item => {
-      const notes = item.notes?.trim();
-      return `<button class="schedule-card ${item.type}" type="button" data-id="${escapeHtml(item.id)}" aria-label="${escapeHtml(item.name)}を編集">
-        <span class="card-date">${dateLabel(item.date)}</span>
-        <span class="type-badge">${TYPE_META[item.type]?.label || "その他"}</span>
-        <span class="card-content"><strong>${escapeHtml(item.name)}</strong>
-          <span class="card-meta"><span>TIME ${escapeHtml(timeLabel(item))}</span><span>PLACE ${escapeHtml(item.location?.trim() || "場所未定")}</span></span>
-          ${notes ? `<span class="card-notes">${escapeHtml(notes)}</span>` : ""}
-        </span><span class="card-arrow" aria-hidden="true">›</span>
+      const displayDate = dateLabel(item.date);
+      return `<button class="home-schedule-card ${item.type}" type="button" data-id="${escapeHtml(item.id)}" aria-label="${escapeHtml(item.name)}を編集">
+        <span class="home-date"><strong>${displayDate.date}</strong><small>${displayDate.weekday}</small></span>
+        <span class="home-schedule-copy">
+          <span class="home-type">${TYPE_META[item.type].label}</span>
+          <strong>${escapeHtml(item.name)}</strong>
+          <small><span class="home-time-icon" aria-hidden="true"></span><span>${escapeHtml(timeLabel(item))}</span>
+          <span class="home-pin-icon" aria-hidden="true"></span><span>${escapeHtml(item.location?.trim() || "場所未定")}</span></small>
+        </span>
       </button>`;
-    }).join("") || `<div class="empty-state"><div><strong>予定はまだありません</strong><p>「予定を追加」から確定したスケジュールを登録できます。</p></div></div>`;
+    }).join("") || `<div class="home-schedule-empty"><div><strong>予定はまだありません</strong><span>「予定を追加」から確定したスケジュールを登録できます。</span></div></div>`;
   };
 
   const openForm = id => {
@@ -80,8 +75,7 @@
     form.reset();
     typeInput.value = item?.type || "studio";
     nameInput.value = item?.name || "";
-    dateInput.value = item?.date || (selectedMonth ? `${selectedMonth}-01` : todayKey);
-    if (selectedMonth === todayKey.slice(0, 7) && !item) dateInput.value = todayKey;
+    dateInput.value = item?.date || todayKey;
     startInput.value = item?.startTime || "";
     endInput.value = item?.endTime || "";
     locationInput.value = item?.location || "";
@@ -104,18 +98,8 @@
 
   document.querySelectorAll(".add-schedule").forEach(button => button.addEventListener("click", () => openForm()));
   scheduleList.addEventListener("click", event => {
-    const card = event.target.closest(".schedule-card");
+    const card = event.target.closest(".home-schedule-card");
     if (card) openForm(card.dataset.id);
-  });
-  monthInput.addEventListener("change", () => {
-    selectedMonth = monthInput.value;
-    localStorage.setItem(MONTH_KEY, selectedMonth);
-    render();
-  });
-  showAllButton.addEventListener("click", () => {
-    selectedMonth = "";
-    localStorage.removeItem(MONTH_KEY);
-    render();
   });
   typeInput.addEventListener("change", () => { dialog.dataset.type = typeInput.value; });
   form.addEventListener("submit", async event => {
@@ -128,8 +112,6 @@
     if (!item.name || !item.date || !TYPE_META[item.type]) return;
     try {
       setData(await NK.save("schedule.save", { item }));
-      selectedMonth = item.date.slice(0, 7);
-      localStorage.setItem(MONTH_KEY, selectedMonth);
       closeForm();
       render();
       notify(wasEditing ? "予定を更新しました" : "予定を共有しました");

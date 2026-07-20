@@ -7,8 +7,9 @@
   <meta name="description" content="NO KIDDING 確定スケジュール">
   <title>確定スケジュール | NO KIDDING</title>
   <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="schedule.css?v=9.0.9">
-  <link rel="stylesheet" href="shared.css?v=9.0.9">
+  <link rel="stylesheet" href="pixel.css?v=9.1.0">
+  <link rel="stylesheet" href="schedule.css?v=9.1.0">
+  <link rel="stylesheet" href="shared.css?v=9.1.0">
 </head>
 <body>
   <main class="schedule-app">
@@ -20,14 +21,6 @@
     <section class="schedule-view" aria-labelledby="schedule-title">
       <h2 id="schedule-title">SCHEDULE</h2>
 
-      <div class="schedule-controls">
-        <label for="schedule-month">表示する月</label>
-        <div class="month-controls">
-          <input id="schedule-month" type="month" aria-label="表示する月">
-          <button class="show-all" type="button">すべて表示</button>
-        </div>
-      </div>
-
       <div class="schedule-summary">
         <strong class="schedule-count">予定 0件</strong>
         <div class="type-legend" aria-label="予定の種類">
@@ -37,7 +30,7 @@
         </div>
       </div>
 
-      <div class="schedule-list" aria-live="polite"></div>
+      <div class="home-schedule-list" aria-live="polite"></div>
 
       <button class="primary-button add-schedule" type="button">＋ 予定を追加</button>
     </section>
@@ -104,7 +97,7 @@
   </section>
 
   <div class="toast" role="status" aria-live="polite"></div>
-  <script src="api.js?v=9.0.9"></script>
-  <script src="schedule.js?v=9.0.9"></script>
+  <script src="api.js?v=9.1.0"></script>
+  <script src="schedule.js?v=9.1.0"></script>
 </body>
 </html>
