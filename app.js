@@ -42,18 +42,28 @@
   };
   document.querySelectorAll(".quick-card").forEach(card => {
     card.addEventListener("click", () => {
-      if (card.dataset.target === "studio") {
-        window.location.href = "studio.html";
+      const routes = {
+        schedule: "schedule.html",
+        studio: "studio.html"
+      };
+      if (routes[card.dataset.target]) {
+        window.location.href = routes[card.dataset.target];
         return;
       }
       notify(`${card.getAttribute("aria-label")} は次の開発段階で接続します`);
     });
   });
   document.querySelectorAll(".schedule-card").forEach(card => {
-    card.addEventListener("click", () => notify("スケジュール詳細は次の開発段階で接続します"));
+    card.addEventListener("click", () => {
+      window.location.href = "schedule.html";
+    });
   });
   popover.querySelectorAll("button").forEach(button => {
     button.addEventListener("click", () => {
+      if (button.dataset.target === "schedule-new") {
+        window.location.href = "schedule.html#new";
+        return;
+      }
       notify(`${button.textContent.trim()} は次の開発段階で接続します`);
       popover.hidden = true;
     });

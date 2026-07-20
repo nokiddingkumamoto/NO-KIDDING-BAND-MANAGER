@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <meta name="description" content="NO KIDDING 確定スケジュール">
+  <title>確定スケジュール | NO KIDDING</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="schedule.css?v=8.2.0">
+</head>
+<body>
+  <main class="schedule-app">
+    <header class="page-header">
+      <a class="header-button" href="index.html" aria-label="トップページへ戻る">‹</a>
+      <h1>確定スケジュール</h1>
+      <button class="header-button add-schedule" type="button" aria-label="予定を追加">＋</button>
+    </header>
+
+    <section class="schedule-view" aria-labelledby="schedule-title">
+      <h2 id="schedule-title">SCHEDULE</h2>
+
+      <div class="schedule-controls">
+        <label for="schedule-month">表示する月</label>
+        <div class="month-controls">
+          <input id="schedule-month" type="month" aria-label="表示する月">
+          <button class="show-all" type="button">すべて表示</button>
+        </div>
+      </div>
+
+      <div class="schedule-summary">
+        <strong class="schedule-count">予定 0件</strong>
+        <div class="type-legend" aria-label="予定の種類">
+          <span class="studio">スタジオ</span>
+          <span class="live">ライブ</span>
+          <span class="other">その他</span>
+        </div>
+      </div>
+
+      <div class="schedule-list" aria-live="polite"></div>
+
+      <button class="primary-button add-schedule" type="button">＋ 予定を追加</button>
+    </section>
+  </main>
+
+  <section class="schedule-dialog" hidden aria-hidden="true" aria-labelledby="form-title">
+    <div class="form-panel">
+      <header class="form-header">
+        <div>
+          <p>CONFIRMED SCHEDULE</p>
+          <h2 id="form-title">予定を追加</h2>
+        </div>
+        <button class="dialog-close" type="button" aria-label="閉じる">×</button>
+      </header>
+
+      <form class="schedule-form">
+        <label class="form-field">
+          <span>種類</span>
+          <select id="schedule-type" name="type" required>
+            <option value="studio">スタジオ</option>
+            <option value="live">ライブ</option>
+            <option value="other">その他</option>
+          </select>
+        </label>
+
+        <label class="form-field">
+          <span>予定名</span>
+          <input id="schedule-name" name="name" type="text" maxlength="60" placeholder="例：スタジオ練習" required>
+        </label>
+
+        <label class="form-field">
+          <span>日付</span>
+          <input id="schedule-date" name="date" type="date" required>
+        </label>
+
+        <div class="time-fields">
+          <label class="form-field">
+            <span>開始時刻</span>
+            <input id="schedule-start" name="startTime" type="time">
+          </label>
+          <label class="form-field">
+            <span>終了時刻</span>
+            <input id="schedule-end" name="endTime" type="time">
+          </label>
+        </div>
+
+        <label class="form-field">
+          <span>場所</span>
+          <input id="schedule-location" name="location" type="text" maxlength="80" placeholder="例：NOAH 渋谷店">
+        </label>
+
+        <label class="form-field">
+          <span>備考</span>
+          <textarea id="schedule-notes" name="notes" rows="4" maxlength="500" placeholder="集合時間、持ち物、連絡事項など"></textarea>
+        </label>
+
+        <div class="form-actions">
+          <button class="delete-schedule" type="button" hidden>削除</button>
+          <button class="cancel-schedule" type="button">キャンセル</button>
+          <button class="save-schedule" type="submit">保存する</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <div class="toast" role="status" aria-live="polite"></div>
+  <script src="schedule.js?v=8.2.0"></script>
+</body>
+</html>
