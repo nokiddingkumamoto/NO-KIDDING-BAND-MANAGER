@@ -59,15 +59,6 @@
     renderAll();
   };
 
-  const renderSummary = () => {
-    const stock = products.reduce((total, item) => total + normalizeNumber(item.stock), 0);
-    const low = products.filter(item => normalizeNumber(item.stock) <= LOW_STOCK).length;
-    const total = sales.reduce((sum, sale) => sum + normalizeNumber(sale.quantity) * normalizeNumber(sale.unitPrice), 0);
-    document.querySelector(".summary-products").textContent = products.length.toLocaleString("ja-JP");
-    document.querySelector(".summary-stock").textContent = stock.toLocaleString("ja-JP");
-    document.querySelector(".summary-low").textContent = low.toLocaleString("ja-JP");
-    document.querySelector(".summary-sales").textContent = yen(total);
-  };
   const renderProducts = () => {
     const query = searchInput.value.trim().toLocaleLowerCase("ja-JP");
     const category = categoryFilter.value;
@@ -115,7 +106,7 @@
       <button class="undo-sale" data-action="undo-sale" type="button">取消</button></article>`).join("")
       || `<div class="empty-state"><div><strong>販売履歴はありません</strong><span>商品を販売すると、ここに記録されます。</span></div></div>`;
   };
-  const renderAll = () => { renderSummary(); renderProducts(); renderSales(); };
+  const renderAll = () => { renderProducts(); renderSales(); };
   const setModal = (dialog, open) => {
     dialog.hidden = !open;
     dialog.setAttribute("aria-hidden", String(!open));

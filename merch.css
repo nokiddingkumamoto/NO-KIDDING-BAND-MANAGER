@@ -70,73 +70,11 @@ button { cursor:pointer; }
 }
 .header-button:active { transform:scale(.96); }
 
-.section-title {
-  margin:28px 0 20px;
-  text-align:center;
-}
-.section-title p {
-  margin:0 0 5px;
-  color:var(--pink);
-  font-size:12px;
-  font-weight:900;
-  letter-spacing:.22em;
-}
-.section-title h2 {
-  margin:0;
-  color:var(--yellow);
-  font:1000 clamp(28px,5vw,48px)/1 Arial,sans-serif;
-  letter-spacing:.12em;
-}
-
-.stock-summary {
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px;
-}
-.stock-summary article {
-  position:relative;
-  min-width:0;
-  min-height:116px;
-  padding:16px;
-  overflow:hidden;
-  border:1px solid #4d4d50;
-  border-radius:12px;
-  background:linear-gradient(135deg,rgba(255,255,255,.05),transparent 65%),#050607;
-}
-.stock-summary article::before {
-  content:"";
-  position:absolute;
-  inset:0 auto 0 0;
-  width:5px;
-  background:var(--cyan);
-}
-.stock-summary article:nth-child(2)::before { background:var(--yellow); }
-.stock-summary article:nth-child(3)::before,
-.stock-summary article:nth-child(4)::before { background:var(--pink); }
-.stock-summary span,.stock-summary small {
-  display:block;
-  color:#aaa;
-  font-size:12px;
-  font-weight:800;
-}
-.stock-summary strong {
-  display:inline-block;
-  margin:8px 5px 3px 0;
-  overflow:hidden;
-  color:#fff;
-  font-size:32px;
-  font-weight:1000;
-  line-height:1;
-  text-overflow:ellipsis;
-  vertical-align:bottom;
-  white-space:nowrap;
-}
-
 .merch-toolbar {
   display:grid;
   grid-template-columns:minmax(0,1fr) 180px 180px;
   gap:10px;
-  margin:24px 0 12px;
+  margin:28px 0 12px;
 }
 .merch-toolbar input,.merch-toolbar select,.add-product {
   width:100%;
@@ -533,17 +471,10 @@ button { cursor:pointer; }
     border-radius:12px;
     font-size:35px;
   }
-  .section-title { margin:20px 0 15px; }
-  .section-title p { font-size:9px; }
-  .section-title h2 { font-size:28px; }
-  .stock-summary { grid-template-columns:1fr 1fr; gap:7px; }
-  .stock-summary article { min-height:88px; padding:12px; border-radius:9px; }
-  .stock-summary strong { margin-top:6px; font-size:25px; }
-  .stock-summary span,.stock-summary small { font-size:10px; }
   .merch-toolbar {
     grid-template-columns:1fr 125px;
     gap:7px;
-    margin-top:17px;
+    margin-top:20px;
   }
   .search-field { grid-column:1/-1; }
   .merch-toolbar input,.merch-toolbar select,.add-product { height:46px; font-size:13px; }
