@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <meta name="description" content="NO KIDDING 物販・在庫管理">
+  <title>物販・在庫 | NO KIDDING</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="merch.css?v=8.4.0">
+</head>
+<body>
+  <main class="merch-app">
+    <header class="page-header">
+      <a class="header-button" href="index.html" aria-label="トップページへ戻る">‹</a>
+      <h1>物販・在庫</h1>
+    </header>
+
+    <section class="merch-view" aria-labelledby="merch-title">
+      <div class="section-title">
+        <p>NO KIDDING BAND MANAGER</p>
+        <h2 id="merch-title">MERCH &amp; STOCK</h2>
+      </div>
+
+      <div class="stock-summary" aria-label="物販集計">
+        <article>
+          <span>商品</span>
+          <strong class="summary-products">0</strong>
+          <small>種類</small>
+        </article>
+        <article>
+          <span>総在庫</span>
+          <strong class="summary-stock">0</strong>
+          <small>点</small>
+        </article>
+        <article>
+          <span>在庫僅少</span>
+          <strong class="summary-low">0</strong>
+          <small>種類</small>
+        </article>
+        <article>
+          <span>売上合計</span>
+          <strong class="summary-sales">¥0</strong>
+          <small>全期間</small>
+        </article>
+      </div>
+
+      <div class="merch-toolbar">
+        <label class="search-field">
+          <span class="sr-only">商品を検索</span>
+          <input class="product-search" type="search" placeholder="商品名を検索">
+        </label>
+        <label class="category-field">
+          <span class="sr-only">カテゴリー</span>
+          <select class="category-filter" aria-label="カテゴリーで絞り込む">
+            <option value="all">すべて</option>
+            <option value="tshirt">Tシャツ</option>
+            <option value="sticker">ステッカー</option>
+            <option value="badge">缶バッジ</option>
+            <option value="cd">CD・音源</option>
+            <option value="other">その他</option>
+          </select>
+        </label>
+        <button class="add-product" type="button">商品を登録</button>
+      </div>
+
+      <div class="product-count" aria-live="polite"></div>
+      <div class="product-list" aria-live="polite"></div>
+
+      <section class="sales-section" aria-labelledby="sales-title">
+        <div class="sales-heading">
+          <div>
+            <p>SALES LOG</p>
+            <h2 id="sales-title">販売履歴</h2>
+          </div>
+          <strong class="sales-count">0件</strong>
+        </div>
+        <div class="sales-list" aria-live="polite"></div>
+      </section>
+    </section>
+  </main>
+
+  <section class="modal product-dialog" hidden aria-hidden="true" aria-labelledby="product-form-title">
+    <div class="modal-panel">
+      <header class="modal-header">
+        <div>
+          <p>MERCH ITEM</p>
+          <h2 id="product-form-title">商品を登録</h2>
+        </div>
+        <button class="modal-close" type="button" aria-label="閉じる">×</button>
+      </header>
+
+      <form class="product-form">
+        <input id="product-id" name="id" type="hidden">
+
+        <label class="form-field">
+          <span>商品名</span>
+          <input id="product-name" name="name" type="text" maxlength="80" required>
+        </label>
+
+        <div class="form-columns">
+          <label class="form-field">
+            <span>カテゴリー</span>
+            <select id="product-category" name="category" required>
+              <option value="tshirt">Tシャツ</option>
+              <option value="sticker">ステッカー</option>
+              <option value="badge">缶バッジ</option>
+              <option value="cd">CD・音源</option>
+              <option value="other">その他</option>
+            </select>
+          </label>
+          <label class="form-field">
+            <span>販売価格</span>
+            <input id="product-price" name="price" type="number" min="0" step="1" inputmode="numeric" required>
+          </label>
+        </div>
+
+        <div class="form-columns">
+          <label class="form-field">
+            <span>現在庫</span>
+            <input id="product-stock" name="stock" type="number" min="0" step="1" inputmode="numeric" required>
+          </label>
+          <label class="form-field">
+            <span>サイズ・カラー</span>
+            <input id="product-details" name="details" type="text" maxlength="100" placeholder="例：BLACK / XL">
+          </label>
+        </div>
+
+        <label class="form-field">
+          <span>商品画像</span>
+          <select id="product-image" name="image"></select>
+        </label>
+
+        <div class="form-actions">
+          <button class="delete-product" type="button" hidden>削除</button>
+          <button class="cancel-product" type="button">キャンセル</button>
+          <button class="save-product" type="submit">保存する</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="modal sale-dialog" hidden aria-hidden="true" aria-labelledby="sale-form-title">
+    <div class="modal-panel sale-panel">
+      <header class="modal-header">
+        <div>
+          <p>RECORD SALE</p>
+          <h2 id="sale-form-title">販売を記録</h2>
+        </div>
+        <button class="modal-close" type="button" aria-label="閉じる">×</button>
+      </header>
+
+      <form class="sale-form">
+        <input id="sale-product-id" name="productId" type="hidden">
+        <div class="sale-product">
+          <img class="sale-product-image" src="" alt="">
+          <div>
+            <strong class="sale-product-name"></strong>
+            <span class="sale-current-stock"></span>
+          </div>
+        </div>
+
+        <div class="form-columns">
+          <label class="form-field">
+            <span>販売数</span>
+            <input id="sale-quantity" name="quantity" type="number" min="1" step="1" inputmode="numeric" required>
+          </label>
+          <label class="form-field">
+            <span>単価</span>
+            <input id="sale-price" name="unitPrice" type="number" min="0" step="1" inputmode="numeric" required>
+          </label>
+        </div>
+
+        <div class="sale-total">
+          <span>販売合計</span>
+          <strong>¥0</strong>
+        </div>
+
+        <div class="form-actions sale-actions">
+          <button class="cancel-sale" type="button">キャンセル</button>
+          <button class="save-sale" type="submit">販売を確定</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <div class="toast" role="status" aria-live="polite"></div>
+  <script src="merch.js?v=8.4.0"></script>
+</body>
+</html>

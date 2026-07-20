@@ -4,8 +4,6 @@
   const sheet = document.querySelector(".side-sheet");
   const backdrop = document.querySelector(".sheet-backdrop");
   const close = document.querySelector(".sheet-close");
-  const add = document.querySelector(".add-button");
-  const popover = document.querySelector(".add-popover");
   const toast = document.querySelector(".toast");
   const homeScheduleList = document.querySelector(".home-schedule-list");
   const nextStudioCount = document.querySelector(".next-studio-count");
@@ -109,22 +107,7 @@
   close.addEventListener("click", () => setMenu(false));
   backdrop.addEventListener("click", () => setMenu(false));
   document.addEventListener("keydown", event => {
-    if (event.key === "Escape") {
-      setMenu(false);
-      popover.hidden = true;
-      add.setAttribute("aria-expanded", "false");
-    }
-  });
-  add.addEventListener("click", event => {
-    event.stopPropagation();
-    popover.hidden = !popover.hidden;
-    add.setAttribute("aria-expanded", String(!popover.hidden));
-  });
-  document.addEventListener("click", event => {
-    if (!popover.contains(event.target) && event.target !== add) {
-      popover.hidden = true;
-      add.setAttribute("aria-expanded", "false");
-    }
+    if (event.key === "Escape") setMenu(false);
   });
   const notify = message => {
     toast.textContent = message;
@@ -135,7 +118,8 @@
     card.addEventListener("click", () => {
       const routes = {
         schedule: "schedule.html",
-        studio: "studio.html"
+        studio: "studio.html",
+        merch: "merch.html"
       };
       if (routes[card.dataset.target]) {
         window.location.href = routes[card.dataset.target];
@@ -148,16 +132,6 @@
     if (event.target.closest(".home-schedule-card,.home-schedule-empty")) {
       window.location.href = "schedule.html";
     }
-  });
-  popover.querySelectorAll("button").forEach(button => {
-    button.addEventListener("click", () => {
-      if (button.dataset.target === "schedule-new") {
-        window.location.href = "schedule.html#new";
-        return;
-      }
-      notify(`${button.textContent.trim()} は次の開発段階で接続します`);
-      popover.hidden = true;
-    });
   });
   window.addEventListener("load", async () => {
     if ("serviceWorker" in navigator) {
