@@ -3,10 +3,17 @@
 
   const LOW_STOCK = 3;
   const CATEGORY_LABELS = { tshirt:"Tシャツ", sticker:"ステッカー", badge:"缶バッジ", cd:"CD・音源", other:"その他" };
+  const PRODUCT_ORDER = [
+    "logo-white", "logo-white-kxcxsxp", "logo-gray", "logo-blue", "logo-purple",
+    "zombie-black-green", "zombie-purple-green", "zombie-black-yellow",
+    "zombie-purple-yellow", "zombie-green-yellow", "sticker-logo",
+    "sticker-character", "sticker-oni", "sticker-sign-large", "sticker-sign-medium"
+  ];
+  const PRODUCT_ORDER_INDEX = new Map(PRODUCT_ORDER.map((id, index) => [id, index]));
   const IMAGE_OPTIONS = [
     ["", "画像なし"],
-    ["merch-images/tshirt-logo-white-front.jpg", "LOGO T-SHIRT WHITE（前）"],
-    ["merch-images/tshirt-logo-white-back.jpg", "LOGO T-SHIRT WHITE（後）"],
+    ["merch-images/tshirt-logo-white-front.jpg", "LOGO T-SHIRT WHITE（EAST COAST）"],
+    ["merch-images/tshirt-logo-white-back.jpg", "LOGO T-SHIRT WHITE（KxCxSxP）"],
     ["merch-images/tshirt-logo-gray.jpg", "LOGO T-SHIRT GRAY"],
     ["merch-images/tshirt-logo-blue.png", "LOGO T-SHIRT BLUE"],
     ["merch-images/tshirt-logo-purple.png", "LOGO T-SHIRT PURPLE"],
@@ -67,7 +74,13 @@
     const visible = products
       .filter(item => category === "all" || item.category === category)
       .filter(item => `${item.name} ${item.details}`.toLocaleLowerCase("ja-JP").includes(query))
-      .sort((a, b) => Object.keys(CATEGORY_LABELS).indexOf(a.category) - Object.keys(CATEGORY_LABELS).indexOf(b.category) || a.name.localeCompare(b.name, "ja"));
+      .sort((a, b) => {
+        const aOrder = PRODUCT_ORDER_INDEX.get(a.id) ?? Number.MAX_SAFE_INTEGER;
+        const bOrder = PRODUCT_ORDER_INDEX.get(b.id) ?? Number.MAX_SAFE_INTEGER;
+        return aOrder - bOrder
+          || Object.keys(CATEGORY_LABELS).indexOf(a.category) - Object.keys(CATEGORY_LABELS).indexOf(b.category)
+          || a.name.localeCompare(b.name, "ja");
+      });
     productCount.textContent = `${visible.length}商品を表示`;
     productList.innerHTML = visible.map(item => {
       const stock = normalizeNumber(item.stock);

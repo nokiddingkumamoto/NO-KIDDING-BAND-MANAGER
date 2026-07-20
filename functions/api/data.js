@@ -2,6 +2,7 @@ const MEMBERS = new Set(["YAMA", "殿", "うっちー", "RYUTO", "じゅん", "�
 const STATUSES = new Set(["yes", "maybe", "no"]);
 const TYPES = new Set(["studio", "live", "other"]);
 const CATEGORIES = new Set(["tshirt", "sticker", "badge", "cd", "other"]);
+const CATALOG_MIGRATION_ID = "catalog-wix-goods-2026-07";
 
 const json = (body, status = 200) => new Response(JSON.stringify(body), {
   status,
@@ -16,7 +17,26 @@ const integer = value => Math.max(0, Math.floor(Number(value) || 0));
 const validDate = value => /^\d{4}-\d{2}-\d{2}$/.test(String(value));
 const validMonth = value => /^\d{4}-\d{2}$/.test(String(value));
 
+const ensureCatalog = async DB => {
+  await DB.prepare(`CREATE TABLE IF NOT EXISTS app_migrations (
+    id TEXT PRIMARY KEY,
+    applied_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+  )`).run();
+  const applied = await DB.prepare("SELECT id FROM app_migrations WHERE id = ?")
+    .bind(CATALOG_MIGRATION_ID).first();
+  if (applied) return;
+  await DB.batch([
+    DB.prepare(`INSERT OR IGNORE INTO products
+      (id, name, category, details, price, stock, image, updated_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)`)
+      .bind("logo-white-kxcxsxp", "LOGO T-SHIRT (WHITE)", "tshirt",
+        "WHITE / BLACK PRINT / XL", 1000, 0, "merch-images/tshirt-logo-white-back.jpg"),
+    DB.prepare("INSERT OR IGNORE INTO app_migrations (id) VALUES (?)").bind(CATALOG_MIGRATION_ID)
+  ]);
+};
+
 const allData = async DB => {
+  await ensureCatalog(DB);
   const results = await DB.batch([
     DB.prepare("SELECT id, type, name, date, start_time AS startTime, end_time AS endTime, location, notes, updated_at AS updatedAt FROM schedules ORDER BY date, start_time"),
     DB.prepare("SELECT date AS key, month, label FROM studio_dates ORDER BY date"),

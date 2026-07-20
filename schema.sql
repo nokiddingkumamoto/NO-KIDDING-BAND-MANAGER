@@ -53,8 +53,14 @@ CREATE TABLE IF NOT EXISTS sales (
 
 CREATE INDEX IF NOT EXISTS sales_sold_at_idx ON sales(sold_at DESC);
 
+CREATE TABLE IF NOT EXISTS app_migrations (
+  id TEXT PRIMARY KEY,
+  applied_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
 INSERT OR IGNORE INTO products (id, name, category, details, price, stock, image) VALUES
 ('logo-white', 'LOGO T-SHIRT (WHITE)', 'tshirt', 'WHITE / BLACK PRINT / XL', 1000, 0, 'merch-images/tshirt-logo-white-front.jpg'),
+('logo-white-kxcxsxp', 'LOGO T-SHIRT (WHITE)', 'tshirt', 'WHITE / BLACK PRINT / XL', 1000, 0, 'merch-images/tshirt-logo-white-back.jpg'),
 ('logo-gray', 'LOGO T-SHIRT (GRAY)', 'tshirt', 'GRAY / BLACK PRINT / XL', 1000, 0, 'merch-images/tshirt-logo-gray.jpg'),
 ('logo-blue', 'LOGO T-SHIRT (BLUE)', 'tshirt', 'BLUE / WHITE PRINT / S', 500, 0, 'merch-images/tshirt-logo-blue.png'),
 ('logo-purple', 'LOGO T-SHIRT (PURPLE)', 'tshirt', 'PURPLE / GREEN PRINT / S', 500, 0, 'merch-images/tshirt-logo-purple.png'),
@@ -68,3 +74,5 @@ INSERT OR IGNORE INTO products (id, name, category, details, price, stock, image
 ('sticker-oni', 'ステッカー（鬼）', 'sticker', '', 100, 0, 'merch-images/sticker-oni.png'),
 ('sticker-sign-large', '看板風 ステッカー大', 'sticker', '大サイズ', 700, 0, 'merch-images/sticker-sign-large.jpg'),
 ('sticker-sign-medium', '看板風 ステッカー中', 'sticker', '中サイズ', 500, 0, 'merch-images/sticker-sign-medium.jpg');
+
+INSERT OR IGNORE INTO app_migrations (id) VALUES ('catalog-wix-goods-2026-07');
