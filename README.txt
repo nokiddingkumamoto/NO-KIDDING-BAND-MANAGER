@@ -1,4 +1,4 @@
-NO KIDDING BAND MANAGER V9.0.0 SHARED
+NO KIDDING BAND MANAGER V9.0.1 PUBLIC SHARED
 ======================================
 
 NO KIDDINGメンバー全員が、AndroidとiPhoneから同じデータを利用する共有版です。
@@ -21,5 +21,6 @@ NO KIDDINGメンバー全員が、AndroidとiPhoneから同じデータを利用
 
 重要
 - GitHubへアップロードするだけでは共有機能は動きません。
-- CLOUDFLARE_SETUP.txtの手順でD1、DB、BAND_PIN、SESSION_SECRETを設定してください。
-- PINやSESSION_SECRETをGitHubのファイルへ直接記載しないでください。
+- CLOUDFLARE_SETUP.htmlをブラウザで開き、D1とDB Bindingを設定してください。
+- TXT版が文字化けする端末では、必ずHTML版を使用してください。
+- ログインはありません。URLを知る人はデータの閲覧と編集ができます。

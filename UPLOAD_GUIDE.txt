@@ -1,8 +1,9 @@
-NO KIDDING BAND MANAGER V9.0.0 SHARED
-アップロード前にCLOUDFLARE_SETUP.txtをお読みください。
+NO KIDDING BAND MANAGER V9.0.1 PUBLIC SHARED
+アップロード前にCLOUDFLARE_SETUP.htmlをブラウザで開いてお読みください。
 
 GitHubへは、このフォルダの中身をすべてアップロードします。
 functions/apiフォルダの階層を変更しないでください。
 ZIPファイル自体はGitHubへアップロードしません。
 
-V9.0.0はCloudflare Pages FunctionsとD1を使用するため、GitHub Pagesだけでは共有機能が動きません。
+V9.0.1はCloudflare Pages FunctionsとD1を使用するため、GitHub Pagesだけでは共有機能が動きません。
+ログインはありません。CloudflareのVariables and secrets設定は不要です。

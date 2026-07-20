@@ -1,4 +1,4 @@
-NO KIDDING BAND MANAGER V9.0.0 SHARED
+NO KIDDING BAND MANAGER V9.0.1 PUBLIC SHARED
 
 GitHub + Cloudflare Pages + Cloudflare D1 共有対応版
 Android / iPhone 共通
@@ -7,6 +7,6 @@ Android / iPhone 共通
 - スタジオ候補日・○△×回答の全メンバー共有
 - 物販商品・在庫・販売履歴・売上の全メンバー共有
 - 販売記録と在庫変更をCloudflare側で一括処理
-- メンバー共通PINによるアクセス保護
+- ログインなし（URLを知る人が閲覧・編集可能）
 - 約8～10秒間隔の自動同期
 - PWA（ホーム画面追加）対応
