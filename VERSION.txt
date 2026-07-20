@@ -1,3 +1,3 @@
-NO KIDDING BAND MANAGER V8.0.1
+NO KIDDING BAND MANAGER V8.1.0
 
-スタジオ日程調整・日程回答 完成デザイン実装版
+回答集計の日付別メンバー回答状況を追加

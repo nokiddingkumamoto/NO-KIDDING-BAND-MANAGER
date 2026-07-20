@@ -7,7 +7,7 @@
   <meta name="description" content="NO KIDDING スタジオ日程調整">
   <title>スタジオ日程調整 | NO KIDDING</title>
   <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="studio.css?v=8.0.1">
+  <link rel="stylesheet" href="studio.css?v=8.1.0">
 </head>
 <body>
   <main class="studio-app">
@@ -68,6 +68,18 @@
     </div>
   </section>
 
+  <section class="status-view" hidden aria-hidden="true" aria-label="回答状況">
+    <div class="status-panel">
+      <header class="status-header">
+        <button class="status-back" type="button" aria-label="集計画面へ戻る">‹</button>
+        <h2>回答状況</h2>
+        <button class="status-close" type="button" aria-label="閉じる">×</button>
+      </header>
+      <h3 class="status-date"></h3>
+      <div class="status-list"></div>
+    </div>
+  </section>
+
   <section class="candidate-dialog" hidden aria-hidden="true" aria-labelledby="candidate-title">
     <div class="candidate-card">
       <button class="dialog-close" type="button" aria-label="閉じる">×</button>
@@ -83,6 +95,6 @@
   </section>
 
   <div class="toast" role="status" aria-live="polite"></div>
-  <script src="studio.js?v=8.0.1"></script>
+  <script src="studio.js?v=8.1.0"></script>
 </body>
 </html>
