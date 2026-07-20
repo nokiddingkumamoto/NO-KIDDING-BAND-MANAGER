@@ -77,6 +77,24 @@ button { font:inherit; }
   background-size:157.2327% auto;
   pointer-events:none;
 }
+.home-brand::before,
+.home-brand::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+}
+.home-brand::before {
+  top:70%;
+  background:#000;
+}
+.home-brand::after {
+  background-image:url("top-page.png");
+  background-repeat:no-repeat;
+  background-position:44.37% top;
+  background-size:157.2327% auto;
+  clip-path:inset(70% 0 0 0);
+}
 .visual-bottom {
   aspect-ratio:1024/384;
   background-position:center bottom;
