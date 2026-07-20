@@ -1,0 +1,12 @@
+body {
+  margin:0;
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  background:#050505;
+  color:#fff;
+  font-family:Arial,"Noto Sans JP",sans-serif;
+}
+main { padding:24px; text-align:center; }
+strong { color:#ff1493; font-size:24px; }
+p { line-height:1.8; }

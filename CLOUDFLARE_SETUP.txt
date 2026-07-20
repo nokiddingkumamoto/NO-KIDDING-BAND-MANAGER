@@ -1,0 +1,75 @@
+NO KIDDING BAND MANAGER V9.0.0
+GitHub・Cloudflare共有設定手順
+================================
+
+この作業はスマートフォンのブラウザから行えます。
+
+【1】GitHubへファイルをアップロード
+1. GitHubの NO-KIDDING-BAND-MANAGER リポジトリを開きます。
+2. ZIPを解凍します。
+3. このフォルダの中身をリポジトリの最上段へアップロードします。
+4. functionsフォルダと、その中のapiフォルダも階層を変えずにアップロードします。
+5. ZIPファイル自体はGitHubへアップロードしません。
+
+【2】Cloudflare PagesをGitHubへ接続
+1. Cloudflareダッシュボードを開きます。
+2. Workers & Pagesを開きます。
+3. Create application → Pages → Connect to Gitを選びます。
+4. GitHubの NO-KIDDING-BAND-MANAGER リポジトリを選びます。
+5. Framework presetはNone、Build commandは空欄、Build output directoryは「/」または「.」にします。
+6. Save and Deployを押します。
+
+すでに同じGitHubリポジトリと接続済みのPagesがある場合は、新規作成せず、そのプロジェクトを使用します。
+
+【3】Cloudflare D1データベースを作成
+1. Cloudflareダッシュボードで Storage & Databases → D1 SQL databaseを開きます。
+2. Create databaseを押します。
+3. Database nameを「no-kidding-band-manager」にして作成します。
+4. 作成したデータベースのConsoleを開きます。
+5. 同梱のschema.sqlを開き、中身をすべてコピーしてConsoleへ貼り付け、Executeを押します。
+
+【4】PagesとD1を接続
+1. Workers & Pages → NO KIDDINGのPagesプロジェクトを開きます。
+2. Settings → Bindingsを開きます。
+3. Add binding → D1 databaseを選びます。
+4. Variable nameは必ず「DB」にします。
+5. D1 databaseは「no-kidding-band-manager」を選択して保存します。
+
+【5】共有PINを設定
+1. PagesプロジェクトのSettings → Variables and Secretsを開きます。
+2. 次の2項目をSecret（暗号化）として登録します。
+
+   BAND_PIN
+   メンバー全員がログイン時に入力する共通PIN
+
+   SESSION_SECRET
+   推測されにくい長い英数字（32文字以上を推奨）
+
+3. PINとSESSION_SECRETはGitHubやグループチャットの公開場所へ掲載しないでください。
+
+【6】再デプロイ
+1. Cloudflare PagesのDeploymentsを開きます。
+2. 最新のデプロイでRetry deploymentを実行します。
+3. 発行された pages.dev のURLを開きます。
+4. PIN入力画面が表示され、ログイン後にトップページが表示されれば完了です。
+
+【7】Androidでホーム画面へ追加
+1. ChromeでアプリのURLを開きます。
+2. 右上の︙を押します。
+3. 「ホーム画面に追加」または「アプリをインストール」を押します。
+
+【8】iPhoneでホーム画面へ追加
+1. SafariでアプリのURLを開きます。
+2. 共有ボタンを押します。
+3. 「ホーム画面に追加」を押します。
+
+【動作確認】
+1. 1台目で予定を1件登録します。
+2. 2台目で同じURLへログインします。
+3. 10秒以内に同じ予定が表示されることを確認します。
+4. 2台目で在庫を変更し、1台目にも反映されることを確認します。
+
+【設定値】
+D1 Binding名：DB
+Secret名：BAND_PIN
+Secret名：SESSION_SECRET
