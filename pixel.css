@@ -126,7 +126,7 @@ button { font:inherit; }
 }
 .home-schedule-list {
   display:grid;
-  gap:14px;
+  gap:8px;
   width:100%;
 }
 .home-schedule-card {
@@ -135,7 +135,7 @@ button { font:inherit; }
   grid-template-columns:190px minmax(0,1fr) 48px;
   align-items:center;
   width:100%;
-  min-height:158px;
+  min-height:0;
   padding:0 19px 0 0;
   overflow:hidden;
   border:2px solid #656568;
@@ -157,10 +157,11 @@ button { font:inherit; }
 .home-date {
   position:relative;
   z-index:1;
-  align-self:center;
+  align-self:stretch;
   display:grid;
   place-content:center;
-  height:77%;
+  height:auto;
+  margin:4px 0;
   border-right:2px solid #555;
   color:#fff;
   text-align:center;
@@ -170,7 +171,7 @@ button { font:inherit; }
   letter-spacing:0;
 }
 .home-date small {
-  margin-top:14px;
+  margin-top:4px;
   color:#fff;
   font-size:26px;
   font-weight:1000;
@@ -182,9 +183,9 @@ button { font:inherit; }
   display:grid;
   grid-template-columns:max-content minmax(0,1fr);
   align-items:center;
-  gap:12px 32px;
+  gap:4px 32px;
   min-width:0;
-  padding:17px 32px;
+  padding:4px 32px;
 }
 .home-type {
   display:block;
@@ -300,18 +301,18 @@ button { font:inherit; }
   .home-schedule-list { gap:8px; }
   .home-schedule-card {
     grid-template-columns:78px minmax(0,1fr) 24px;
-    min-height:104px;
+    min-height:0;
     padding-right:6px;
     border-width:1px;
     border-radius:9px;
   }
-  .home-date { height:75%; padding-left:0; border-right-width:1px; }
+  .home-date { height:auto; margin:3px 0; padding-left:0; border-right-width:1px; }
   .home-date strong { font-size:25px; font-weight:700; }
-  .home-date small { margin-top:7px; font-size:14px; }
+  .home-date small { margin-top:2px; font-size:14px; }
   .home-schedule-copy {
     grid-template-columns:69px minmax(0,1fr);
-    gap:7px 9px;
-    padding:9px 10px;
+    gap:2px 9px;
+    padding:2px 10px;
   }
   .home-type { width:69px; padding:4px; border-width:1px; font-size:9px; }
   .home-schedule-copy > strong { font-size:15px; }
