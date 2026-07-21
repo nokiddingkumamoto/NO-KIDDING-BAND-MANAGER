@@ -1,4 +1,4 @@
-NO KIDDING BAND MANAGER V9.1.1 PUBLIC SHARED
+NO KIDDING BAND MANAGER V9.1.2 PUBLIC SHARED
 
 GitHub + Cloudflare Pages + Cloudflare D1 共有対応版
 Android / iPhone 共通
@@ -17,6 +17,7 @@ Android / iPhone 共通
 - NOKIDDINGロゴと「バンドマネージャー」を個別補正して中央配置
 - 確定スケジュール画面をトップページと同じカード表示にし、月選択なしで全予定を1ページ表示
 - 確定スケジュールの種類に黄緑色の「個人練習」を追加
+- トップページの確定スケジュール表示を最大5件に変更
 - 販売記録と在庫変更をCloudflare側で一括処理
 - ログインなし（URLを知る人が閲覧・編集可能）
 - 約8～10秒間隔の自動同期

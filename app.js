@@ -54,7 +54,7 @@
     renderCountdown(nextStudioCount, "studio");
     renderCountdown(nextLiveCount, "live");
     const upcoming = schedules.filter(item => item.date >= todayKey);
-    const visible = (upcoming.length ? upcoming : schedules.slice(-6)).slice(0, 6);
+    const visible = (upcoming.length ? upcoming : schedules.slice(-5)).slice(0, 5);
     homeScheduleList.innerHTML = visible.map(item => {
       const displayDate = dateLabel(item.date);
       return `<article class="home-schedule-card ${item.type}" aria-label="${escapeHtml(item.name)}の確定スケジュール">
@@ -66,7 +66,7 @@
           <span class="home-pin-icon" aria-hidden="true"></span><span>${escapeHtml(item.location?.trim() || "場所未定")}</span></small>
         </span>
       </article>`;
-    }).join("") || `<div class="home-schedule-empty"><strong>確定スケジュールはまだありません</strong><span>予定を登録すると、ここに最大6件表示されます。</span></div>`;
+    }).join("") || `<div class="home-schedule-empty"><strong>確定スケジュールはまだありません</strong><span>予定を登録すると、ここに最大5件表示されます。</span></div>`;
   };
 
   const refresh = async () => {

@@ -1,4 +1,4 @@
-NO KIDDING BAND MANAGER V9.1.1 PUBLIC SHARED
+NO KIDDING BAND MANAGER V9.1.2 PUBLIC SHARED
 ======================================
 
 NO KIDDINGメンバー全員が、AndroidとiPhoneから同じデータを利用する共有版です。
