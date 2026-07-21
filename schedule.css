@@ -3,6 +3,7 @@
   --cyan:#00c8ee;
   --pink:#ff006d;
   --yellow:#ffe100;
+  --personal:#95d600;
   --panel:#050607;
   --line:#5d5d5d;
   --content:1024px;
@@ -140,7 +141,7 @@ button { cursor:pointer; }
 .schedule-count { font-size:24px; white-space:nowrap; }
 .type-legend {
   display:grid;
-  grid-template-columns:repeat(3,1fr);
+  grid-template-columns:repeat(4,1fr);
   gap:8px;
 }
 .type-legend span {
@@ -153,6 +154,7 @@ button { cursor:pointer; }
   font-weight:900;
 }
 .studio { color:var(--cyan); }
+.personal { color:var(--personal); }
 .live { color:var(--pink); }
 .other { color:var(--yellow); }
 
@@ -327,6 +329,7 @@ button { cursor:pointer; }
   line-height:1.5;
 }
 .schedule-dialog[data-type="studio"] .form-panel { border-color:var(--cyan); box-shadow:0 0 28px rgba(0,200,238,.25); }
+.schedule-dialog[data-type="personal"] .form-panel { border-color:var(--personal); box-shadow:0 0 28px rgba(149,214,0,.28); }
 .schedule-dialog[data-type="live"] .form-panel { border-color:var(--pink); }
 .schedule-dialog[data-type="other"] .form-panel { border-color:var(--yellow); box-shadow:0 0 28px rgba(255,225,0,.2); }
 .time-fields {

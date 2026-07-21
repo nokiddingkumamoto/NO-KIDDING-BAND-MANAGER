@@ -10,6 +10,7 @@
   const nextLiveCount = document.querySelector(".next-live-count");
   const TYPE_META = {
     studio:{ label:"スタジオ" },
+    personal:{ label:"個人練習" },
     live:{ label:"ライブ" },
     other:{ label:"その他" }
   };

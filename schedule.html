@@ -7,9 +7,9 @@
   <meta name="description" content="NO KIDDING 確定スケジュール">
   <title>確定スケジュール | NO KIDDING</title>
   <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="pixel.css?v=9.1.0">
-  <link rel="stylesheet" href="schedule.css?v=9.1.0">
-  <link rel="stylesheet" href="shared.css?v=9.1.0">
+  <link rel="stylesheet" href="pixel.css?v=9.1.1">
+  <link rel="stylesheet" href="schedule.css?v=9.1.1">
+  <link rel="stylesheet" href="shared.css?v=9.1.1">
 </head>
 <body>
   <main class="schedule-app">
@@ -25,6 +25,7 @@
         <strong class="schedule-count">予定 0件</strong>
         <div class="type-legend" aria-label="予定の種類">
           <span class="studio">スタジオ</span>
+          <span class="personal">個人練習</span>
           <span class="live">ライブ</span>
           <span class="other">その他</span>
         </div>
@@ -51,6 +52,7 @@
           <span>種類</span>
           <select id="schedule-type" name="type" required>
             <option value="studio">スタジオ</option>
+            <option value="personal">個人練習</option>
             <option value="live">ライブ</option>
             <option value="other">その他</option>
           </select>
@@ -97,7 +99,7 @@
   </section>
 
   <div class="toast" role="status" aria-live="polite"></div>
-  <script src="api.js?v=9.1.0"></script>
-  <script src="schedule.js?v=9.1.0"></script>
+  <script src="api.js?v=9.1.1"></script>
+  <script src="schedule.js?v=9.1.1"></script>
 </body>
 </html>

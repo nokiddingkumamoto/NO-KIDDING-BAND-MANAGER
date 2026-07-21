@@ -1,8 +1,9 @@
 const MEMBERS = new Set(["YAMA", "殿", "うっちー", "RYUTO", "じゅん", "マスター"]);
 const STATUSES = new Set(["yes", "maybe", "no"]);
-const TYPES = new Set(["studio", "live", "other"]);
+const TYPES = new Set(["studio", "personal", "live", "other"]);
 const CATEGORIES = new Set(["tshirt", "sticker", "badge", "cd", "other"]);
 const CATALOG_MIGRATION_ID = "catalog-wix-goods-2026-07";
+const SCHEDULE_TYPE_MIGRATION_ID = "schedule-personal-type-2026-07";
 
 const json = (body, status = 200) => new Response(JSON.stringify(body), {
   status,
@@ -16,6 +17,42 @@ const text = (value, maximum = 200) => String(value ?? "").trim().slice(0, maxim
 const integer = value => Math.max(0, Math.floor(Number(value) || 0));
 const validDate = value => /^\d{4}-\d{2}-\d{2}$/.test(String(value));
 const validMonth = value => /^\d{4}-\d{2}$/.test(String(value));
+
+const ensureScheduleTypes = async DB => {
+  await DB.prepare(`CREATE TABLE IF NOT EXISTS app_migrations (
+    id TEXT PRIMARY KEY,
+    applied_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+  )`).run();
+  const applied = await DB.prepare("SELECT id FROM app_migrations WHERE id = ?")
+    .bind(SCHEDULE_TYPE_MIGRATION_ID).first();
+  if (applied) return;
+  const table = await DB.prepare("SELECT sql FROM sqlite_master WHERE type = 'table' AND name = 'schedules'").first();
+  if (!table?.sql?.includes("'personal'")) {
+    await DB.batch([
+      DB.prepare("DROP TABLE IF EXISTS schedules_personal_v2"),
+      DB.prepare(`CREATE TABLE schedules_personal_v2 (
+        id TEXT PRIMARY KEY,
+        type TEXT NOT NULL CHECK (type IN ('studio', 'personal', 'live', 'other')),
+        name TEXT NOT NULL,
+        date TEXT NOT NULL,
+        start_time TEXT NOT NULL DEFAULT '',
+        end_time TEXT NOT NULL DEFAULT '',
+        location TEXT NOT NULL DEFAULT '',
+        notes TEXT NOT NULL DEFAULT '',
+        updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+      )`),
+      DB.prepare(`INSERT INTO schedules_personal_v2
+        (id, type, name, date, start_time, end_time, location, notes, updated_at)
+        SELECT id, type, name, date, start_time, end_time, location, notes, updated_at FROM schedules`),
+      DB.prepare("DROP TABLE schedules"),
+      DB.prepare("ALTER TABLE schedules_personal_v2 RENAME TO schedules"),
+      DB.prepare("CREATE INDEX IF NOT EXISTS schedules_date_idx ON schedules(date, start_time)"),
+      DB.prepare("INSERT OR IGNORE INTO app_migrations (id) VALUES (?)").bind(SCHEDULE_TYPE_MIGRATION_ID)
+    ]);
+    return;
+  }
+  await DB.prepare("INSERT OR IGNORE INTO app_migrations (id) VALUES (?)").bind(SCHEDULE_TYPE_MIGRATION_ID).run();
+};
 
 const ensureCatalog = async DB => {
   await DB.prepare(`CREATE TABLE IF NOT EXISTS app_migrations (
@@ -55,6 +92,7 @@ const cleanupExpiredData = async DB => {
 };
 
 const allData = async DB => {
+  await ensureScheduleTypes(DB);
   await ensureCatalog(DB);
   await cleanupExpiredData(DB);
   const results = await DB.batch([
@@ -93,6 +131,7 @@ export const onRequestPost = async context => {
   catch { return json({ error: "送信データを確認してください。" }, 400); }
 
   try {
+    await ensureScheduleTypes(DB);
     switch (body.action) {
       case "schedule.save": {
         const item = body.item || {};

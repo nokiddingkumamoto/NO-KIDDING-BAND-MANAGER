@@ -1,11 +1,11 @@
-const CACHE = "no-kidding-band-manager-v9.1.0-public";
+const CACHE = "no-kidding-band-manager-v9.1.1-public";
 const ASSETS = [
-  "./", "./index.html", "./pixel.css?v=9.1.0", "./shared.css?v=9.1.0",
-  "./api.js?v=9.1.0", "./app.js?v=9.1.0", "./manifest.webmanifest",
+  "./", "./index.html", "./pixel.css?v=9.1.1", "./shared.css?v=9.1.1",
+  "./api.js?v=9.1.1", "./app.js?v=9.1.1", "./manifest.webmanifest",
   "./logo.png", "./top-page.png", "./icon.svg",
-  "./studio.html", "./studio.css?v=9.1.0", "./studio.js?v=9.1.0",
-  "./schedule.html", "./schedule.css?v=9.1.0", "./schedule.js?v=9.1.0",
-  "./merch.html", "./merch.css?v=9.1.0", "./merch.js?v=9.1.0",
+  "./studio.html", "./studio.css?v=9.1.1", "./studio.js?v=9.1.1",
+  "./schedule.html", "./schedule.css?v=9.1.1", "./schedule.js?v=9.1.1",
+  "./merch.html", "./merch.css?v=9.1.1", "./merch.js?v=9.1.1",
   "./merch-images/tshirt-logo-white-front.jpg", "./merch-images/tshirt-logo-white-back.jpg",
   "./merch-images/tshirt-logo-gray.jpg", "./merch-images/tshirt-logo-blue.png",
   "./merch-images/tshirt-logo-purple.png", "./merch-images/tshirt-zombie-black-green.png",

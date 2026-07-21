@@ -2,7 +2,7 @@ PRAGMA foreign_keys = ON;
 
 CREATE TABLE IF NOT EXISTS schedules (
   id TEXT PRIMARY KEY,
-  type TEXT NOT NULL CHECK (type IN ('studio', 'live', 'other')),
+  type TEXT NOT NULL CHECK (type IN ('studio', 'personal', 'live', 'other')),
   name TEXT NOT NULL,
   date TEXT NOT NULL,
   start_time TEXT NOT NULL DEFAULT '',
